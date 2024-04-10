@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome1.css')}}">
+    <title>WELCOME TO KASAYSAYAN</title>
+</head>
+
+<style>
+	.sidebar {
+    height: 83%;
+    width: 0px; /* Adjust the width as needed */
+    position: fixed;
+    z-index: 1;
+    top: 62px; /* Height of the header */
+    left: 0;
+    background-color: rgba(17, 17, 17, 0.5); /* Slightly transparent black color */
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 65px; /* Adjust as needed */
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+	text-shadow: 1px 1px black;
+    display: block;
+    transition: 0.3s;
+	font-family: "Times New Roman", Times, serif;
+}
+
+.sidebar a:hover {
+    color: black;
+	background-color:white;
+	text-shadow: 0px 0px black;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn img {
+    width: 25px;
+    height: 30px;
+}
+
+.openbtn {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 15px;
+    font-size: 20px;
+    margin-right: 20px; /* Increase margin-right to add space between toggle button and logo */
+	background-color: transparent; /* Remove background color */
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+</style>
+
+<body>
+    <div class="header">
+        <button class="openbtn" onclick="openNav()"><img src= "{{ url_for('static', filename='sidenav1.png')}}"></button> <!-- Move the button before the logo and h1 -->
+        
+		<div class="logo">
+            <img src="{{ url_for('static', filename='logo1.png')}}" alt="Logo">
+            <h1>DISCOVERING PHILIPPINE HISTORY</h1>
+        </div>
+
+        <div class="search-bar">
+		 <div class="search-container">
+            <input type="text" placeholder="Search here...">
+            <button class="search-button"><img src="{{ url_for('static', filename='search.png')}}" alt="Search" class="search-img"></button>
+        </div>
+		 </div>
+		
+		 <div class="info">
+            <button><img src="{{ url_for('static', filename='info.png')}}" alt="Info" class="info-img"></button>
+        </div>
+		
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <a href="#">Cultural History of the Philippines</a>
+            <a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life</a>
+			<a href="#">Cultural History of the Philippines</a>
+			<a href="#">Jose Rizal's Life1</a>
+			
+				
+        </div>
+
+    </div>
+
+    <div class="content">
+        {% block kas%}
+        {% endblock %}    
+        </form>    <!-- Your content goes here -->
+    </div>
+
+
+    <script src="{{ url_for('static', filename='homejs.js')}}"></script>
+	
+</body>
+</html>

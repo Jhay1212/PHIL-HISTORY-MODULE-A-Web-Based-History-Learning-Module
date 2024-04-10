@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='login1-css.css')}}">
+<title>PH KASAYSAYAN - Login</title>
+{% endblock %}
+{% block content %} 
+
+    <div class="login-container">
+        <h2>MABUHAY !</h2>
+        
+        <form action="" method="post">
+            {{ forms.hidden_tag( )}}
+            {{ forms.username }}
+            <!-- <input type="text" name="username" placeholder="Username" required> -->
+            <div class="password-input">
+                {{ forms.password(id='password') }}
+                {{ forms.submit }}
+                <img class="eye" src="close.png" onclick="togglePasswordVisibility()">
+            </div>
+        </form>
+        <p>Wala kang Sedula? <a href="{{ url_for('/auth.register')}}">Pumunit dito</a>.</p>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon = document.querySelector(".eye");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.src = "open.png"; // Change to open eye image
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.src = "close.png"; // Change to closed eye image
+            }
+        }
+    </script>
+{% endblock %}

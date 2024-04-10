@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block css %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='signup1-css.css')}}">
+<title>Sign Up - PH KASAYSAYAN</title>
+
+{% endblock %}
+{% block content %}
+
+
+<div class="signup-container">
+    <h2>Create an Account</h2>
+    <form action="" method="post" onsubmit="return validateForm()">
+        {{ forms.hidden_tag() }}
+        <div class="form-group">
+            
+            {{ forms.username.label }}
+            {{ forms.username }}
+            </div>
+            <div class="form-group">
+            
+                {{ forms.email.label }}
+                {{ forms.email }}
+                </div>
+        <div class="form-group">
+            {{ forms.password.label }}
+            {{ forms.password }}
+        </div>    
+        <div class="form-group">
+            {{ forms.confirm_password.label }}
+            {{ forms.confirm_password }}
+        </div>  
+        
+        {{ forms.submit}}
+    <p>Already have an account? <a href="Login1.php">Login here</a>.</p>
+
+            <!-- <input type="text" name="username" placeholder="Username" required> -->
+        </div>
+ 
+    </form>
+</div>
+
+<script>
+    function togglePasswordVisibility(inputId) {
+        var passwordInput = document.getElementById(inputId);
+        var eyeIcon = passwordInput.nextElementSibling; // Get the next sibling, which is the eye icon
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.src = "open.png"; // Change to open eye image
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.src = "close.png"; // Change to closed eye image
+        }
+    }
+
+    function validatePassword() {
+        var password = document.getElementById("password").value;
+        var confirm_password = document.getElementById("confirm_password").value;
+        var passwordMatchLabel = document.getElementById("password-match-label");
+
+        if (password !== confirm_password) {
+            passwordMatchLabel.style.display = "block";
+        } else {
+            passwordMatchLabel.style.display = "none";
+        }
+    }
+
+    function validateForm() {
+        var password = document.getElementById("password").value;
+        var confirm_password = document.getElementById("confirm_password").value;
+
+        if (password !== confirm_password) {
+            document.getElementById("password-match-label").style.display = "block";
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<!-- <div class="container">
+    <form action="" method="post">
+    {{ forms.hidden_tag()}}
+    <legend>Register</legend>
+    {% for form in forms %}
+
+    <label for=""> {{ form.label }}</label><br>
+    {{ form }}
+    {% endfor %}
+    </form>
+</div> -->
+{% endblock  %}

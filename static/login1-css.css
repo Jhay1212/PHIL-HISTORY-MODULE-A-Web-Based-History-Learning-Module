@@ -1,0 +1,82 @@
+* {
+    font-family: "Times New Roman", Times, serif;
+}
+
+body {
+    background: #f2f2f2 url("bg1-login1.jpg") no-repeat fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: rgba(17, 17, 17, 0.5); /* Slightly transparent black color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 45px;
+    width: 370px;
+    text-align: center;
+    position: relative; /* Add position relative to allow absolute positioning of eye icon */
+}
+
+.login-container h2 {
+    margin-bottom: 25px;
+    color: white;
+    font-size: 40px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: calc(100% - 40px); /* Adjust width to accommodate eye icon */
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 18px;
+    color: white;
+    background-color: rgba(17, 17, 17, 0.6); /* Slightly transparent black color */
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input .eye {
+	width: 30px;
+	height:30px;
+    position: absolute;
+    right: 30px; /* Adjust right position */
+    top: 42%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.login-container input[type="submit"] {
+    background-color: rgba(17, 17, 17, 0.6); /* Slightly transparent black color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.login-container input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.login-container p,
+.login-container a {
+    color: white;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
+    color: blue;
+}

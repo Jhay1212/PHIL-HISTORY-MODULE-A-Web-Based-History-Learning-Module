@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+	background: url("bg1-login1.jpg") no-repeat fixed;
+	background-size: cover;
+}
+
+.header {
+	background-color: rgba(17, 17, 17, 0.5);
+    padding: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Style for the Title and Icon */
+.logo {
+	margin-right:600px;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 55px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+	font-family: "Times New Roman", Times, serif;
+	color:white;
+	text-shadow: 1px 1px black;
+    margin: 0;
+    font-size: 20px;
+}
+
+/* Style for the search bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-bar input[type="text"] {
+	font-size:15px;
+	color: black;
+	font-family: "Times New Roman", Times, serif;
+    border-radius: 5px;
+    border: none;
+	padding:10px 105px 10px 10px;
+}
+
+.search-button {
+    position: absolute;
+    right: 3px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+}
+
+.search-img {
+    width: 25px;
+    height: 25px;
+}
+
+.info button {
+    padding: 1px 6px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: transparent; /* Remove background color */
+}
+
+.info-img {
+    width: 28px;
+    height: 28px;
+}
+
+
+
+/* Style for the sidebar scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #eeeee4; /* Color of the scrollbar thumb */
+    border-radius: 0px; /* Roundness of the scrollbar thumb */
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background-color: rgba(17, 17, 17, 0.5); /* Background color of the scrollbar track */
+}
+
+
+/*top left bottom right*/
+
