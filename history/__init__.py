@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_pagedown import PageDown
 from flask_mail import Mail
+from flask_ckeditor import CKEditor
 # App setup and configuration
 
 db = SQLAlchemy()
@@ -12,18 +13,18 @@ bcrpyt = Bcrypt()
 pagedown = PageDown()
 mail_manager = Mail()
 
-
+ckeditor = CKEditor()
 
 def create_app():
 
-    app = Flask('__main__', template_folder='history/templates')
+    app = Flask('__main__')
     app.config['SECRET_KEY'] = '54bfcdc4c1d2711a765a55c7cfdca7dc360da1819d188cfd'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     db.init_app(app)
     app.app_context().push()
     pagedown.init_app(app)
     login_manager.init_app(app)
-
+    ckeditor.init_app(app)
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True

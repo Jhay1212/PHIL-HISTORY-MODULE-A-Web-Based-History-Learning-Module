@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-	background: url("bg1-login1.jpg") no-repeat fixed;
+	background: url("bggg.png") no-repeat fixed;
 	background-size: cover;
 }
 
@@ -101,3 +101,11 @@ body {
 
 /*top left bottom right*/
 
+.content {
+    /* background: #000; */
+    width: 50%;
+    background: beige;
+}
+#form {
+    display: none;
+}

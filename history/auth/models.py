@@ -32,27 +32,9 @@ class User(UserMixin, db.Model):
             return None
         
         return User.query.get(user_id)
+    
     def __str__(self) -> str:
         return str(self.username).title()
     
 
 
-class Lesson(db.Model):
-    id = Column(Integer, primary_key=True)
-    title = Column(String(120), nullable=False, default='Lesson Title')
-    content = Column(String(), nullable=False)
-    mini_notes = db.relationship('MiniNotes', backref='lesson', lazy=True)
-
-    def __str__(self) -> str:
-        return self.title
-    
-class MiniNotes(db.Model):
-    id = Column(Integer, primary_key=True)
-    notes = Column(String(256))
-    lesson_id = Column(Integer, ForeignKey('lesson.id'))
-    user_id = Column(Integer, ForeignKey('user.id'))
-    date_posted = Column(DateTime(), nullable=False, default=datetime.now())
-    date_updated = Column(DateTime(), nullable=False, onupdate=datetime.now)
-
-    def __repr__(self) -> str:
-        return self.notes[:20]

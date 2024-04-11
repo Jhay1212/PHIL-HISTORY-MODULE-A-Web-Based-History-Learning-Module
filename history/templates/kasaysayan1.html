@@ -120,13 +120,23 @@
     </div>
 
     <div class="content">
-        {% block kas%}
-        {% endblock %}    
-        </form>    <!-- Your content goes here -->
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores minus ea ipsa laborum dicta, unde ipsum perferendis. Voluptatum, maxime aliquid quisquam optio repellendus unde aperiam minima in accusamus. Iste deleniti minima, reprehenderit repellat recusandae minus aspernatur animi porro accusamus delectus? Vero sed magnam autem a dicta quibusdam explicabo distinctio error natus nostrum, non fugiat optio obcaecati nisi nulla sunt ea aliquid ipsam doloremque. Vitae, facilis deleniti, dolore quis neque beatae aliquam illum qui consectetur nam deserunt quam minima sit quod aspernatur quisquam. Fuga earum quibusdam ratione nostrum fugiat cumque blanditiis doloribus excepturi dolorum, optio voluptatum est eligendi distinctio enim odio accusamus dolorem totam rerum dignissimos voluptatem officia. Excepturi architecto officia atque quo consequatur dignissimos, ullam quaerat aut asperiores accusantium, non mollitia obcaecati cupiditate molestiae itaque, sit aperiam culpa similique amet. Molestiae quo, dicta rem vero voluptatum corporis. Deserunt praesentium dignissimos quos minus ex magnam adipisci quas rem quia provident, aliquam voluptates magni, eos ducimus velit, officia iste voluptas reiciendis et repellat inventore sit debitis porro. Et deleniti officiis ducimus sed dolorem quod consequatur asperiores aliquam quasi, corrupti ipsam, sit necessitatibus consectetur at laborum magni accusamus tempore in perspiciatis cupiditate. Nisi reprehenderit ullam sed officia quibusdam neque recusandae ex, sit nemo!
     </div>
 
+    <form action="" method="post" id="form">
+        {{ forms.hidden_tag()}}
+        <p>{{ forms.notes.label }}</p>
+        <p>{{ forms.notes }}</p>
+        <p>{{ forms.submit }}</p>
+
+
+        {{ ckeditor.load(pkg_type="basic") }}
+    </form>
+    
+    <button class="btn-show">Show</button>
 
     <script src="{{ url_for('static', filename='homejs.js')}}"></script>
 	
+    {{ ckeditor.load() }}
 </body>
 </html>

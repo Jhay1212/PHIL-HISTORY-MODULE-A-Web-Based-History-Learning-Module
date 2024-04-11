@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% for note in notes %}
+        {{ note|safe}}
+    {% endfor %}
+{% endblock %}

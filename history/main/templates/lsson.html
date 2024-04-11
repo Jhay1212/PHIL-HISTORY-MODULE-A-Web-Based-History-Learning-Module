@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+
+<div class="content" width="50%">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore eos, dolorem, ullam voluptates temporibus doloremque dolorum similique minus mollitia atque itaque omnis beatae perferendis? Dignissimos sunt consequatur magni delectus, quidem asperiores enim iure nihil aliquid quia, quasi doloremque recusandae dolore eligendi temporibus ab. Quisquam aspernatur accusamus libero est vero suscipit numquam distinctio animi rerum dolorem soluta eaque placeat molestias eveniet provident qui, ipsam nemo. Laborum atque voluptatibus tenetur laboriosam in est exercitationem dolore deserunt magni explicabo dicta, quod sint animi assumenda vero, asperiores modi. Beatae totam et molestiae quisquam ab debitis eum, sunt commodi corrupti omnis illo maxime voluptas? Quaerat.</p>
+
+    <form action="" method="post" id="form">
+        {{ forms.hidden_tag()}}
+        <p>{{ forms.title.label }}</p>{{ forms.title }}
+        <p>{{ forms.notes.label }}</p>
+        <p>{{ forms.notes }}</p>
+        
+        <p>{{ forms.submit }}</p>
+        
+        
+    </form>
+    
+    <button class="btn-show">Show</button>
+</div>
+
+{% endblock %}
