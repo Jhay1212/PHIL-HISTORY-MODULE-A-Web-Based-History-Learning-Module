@@ -23,7 +23,8 @@ class RegisterForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError("Email should be unique")
-        
+    
+    
     # def validate_password(self, id):
     #     user = User.query.get(id)
     #     if len(user.password.data) < 8:
@@ -35,6 +36,8 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember', default=True)
     submit = SubmitField('Signin')
 
+    # def validate_password(self, password):
+    #     user = 
 
 class RequestResetForm(FlaskForm):
     email = EmailField('Email', validators=[Length(min=4, max=256), DataRequired()])

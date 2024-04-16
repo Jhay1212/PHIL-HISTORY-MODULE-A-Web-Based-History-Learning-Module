@@ -3,129 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='welcome1.css')}}">
-    <title>WELCOME TO KASAYSAYAN</title>
-{% block css%}
-{% endblock %}
-<style>
-	.sidebar {
-    height: 83%;
-    width: 0px; /* Adjust the width as needed */
-    position: fixed;
-    z-index: 1;
-    top: 62px; /* Height of the header */
-    left: 0;
-    background-color: rgba(17, 17, 17, 0.5); /* Slightly transparent black color */
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 65px; /* Adjust as needed */
-}
-
-.sidebar a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-	text-shadow: 1px 1px black;
-    display: block;
-    transition: 0.3s;
-	font-family: "Times New Roman", Times, serif;
-}
-
-.sidebar a:hover {
-    color: black;
-	background-color:white;
-	text-shadow: 0px 0px black;
-}
-
-.sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-.openbtn img {
-    width: 25px;
-    height: 30px;
-}
-
-.openbtn {
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 15px;
-    font-size: 20px;
-    margin-right: 20px; /* Increase margin-right to add space between toggle button and logo */
-	background-color: transparent; /* Remove background color */
-}
-
-.openbtn:hover {
-    background-color: #444;
-}
-
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
-}
-</style>
-{{ ckeditor.load(pkg_type='standard') }}
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='homej.css')}}">
+    <title>Philippine History Module</title>
+	{{ ckeditor.load(standard)}}
 </head>
 
+{% block css %}
+{% endblock %}
 <body>
-    <div class="header">
-        <button class="openbtn" onclick="openNav()"><img src= "{{ url_for('static', filename='sidenav1.png')}}"></button> <!-- Move the button before the logo and h1 -->
-        
-		<div class="logo">
-            <img src="{{ url_for('static', filename='logo1.png')}}" alt="Logo">
-            <h1>DISCOVERING PHILIPPINE HISTORY</h1>
-        </div>
-
-        <div class="search-bar">
-		 <div class="search-container">
-            <input type="text" placeholder="Search here...">
-            <button class="search-button"><img src="{{ url_for('static', filename='search.png')}}" alt="Search" class="search-img"></button>
-        </div>
-		 </div>
-		
-		 <div class="info">
-            <button><img src="{{ url_for('static', filename='info.png')}}" alt="Info" class="info-img"></button>
-        </div>
-		
-        <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-            <a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-            <a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson') }}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life</a>
-			<a href="{{ url_for('/.lesson')}}">Cultural History of the Philippines</a>
-			<a href="{{ url_for('/.lesson')}}">Jose Rizal's Life1</a>
+<!-- Top Header -->
+			<header id="header">
+			<div class="container">
+			<button id="sidebarToggle"><img src="{{ url_for('static', filename='PICS/sidenav1.1.png')}}" alt="Menu"></button>
 			
-				
-        </div>
+            <div class="logo">
+            <img src="../{{ url_for('static', filename='PICS/logo1.png') }}" alt="Logo">
+            </div>
+			
+            <h1>DISCOVERING PHILIPPINE HISTORY</h1>
+			
+<!-- Search -->
+            <div class="search-bar">
+			
+			<button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
+			<input type="text" placeholder="Search...">
+			<button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
+			
+			</div>
+            </div>
+            </header>
 
+<!-- Table of Contents Sidebar -->
+			<nav id="navSidebar">
+			
+			<ul>
+			<li><label class="label1"> TABLE OF CONTENTS</label></li><hr>
+			
+            <li>
+    <a href="#mainContent">UNIT 1</a>
+    <!-- Toggle dropdown buttons -->
+    <div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
     </div>
-{% block body %}
-{% endblock%} 
-
-<!-- <script src="https://cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script> -->
-    <script src="{{ url_for('static', filename='homejs.js')}}"></script>
+</li>
+			
+			<li>
+			<a href="#TOPIC 1">UNIT 2</a>
+			 <div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
 	
+			<li>
+			<a href="#TOPIC 2">UNIT 3</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+	
+			<li>
+			<a href="#TOPIC 3">UNIT 4</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 4">UNIT 5</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 5">UNIT 6</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 6">UNIT 7</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 7">UNIT 8</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 8">UNIT 9</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 9">UNIT 10</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 10">UNIT 11</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 11">UNIT 12</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 12">UNIT 13</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 13">UNIT 14</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			
+			<li>
+			<a href="#TOPIC 14">UNIT 15</a>
+			<div class="topic-buttons">
+        <button class="dropdown-btn">Subtopic 1</button>
+        <button class="dropdown-btn">Subtopic 2</button>
+        <button class="dropdown-btn">Subtopic 3</button>
+    </div>
+	</li>
+			  
+			</ul>
+			
+			</nav>
+	
+    
+<!-- User Navigation Sidebar -->
+			<aside id="sidebar">
+			<nav>
+			
+			<div class="user-icon">
+			<img src="{{ url_for('static', filename='PICS/haerin.jpg')}}" alt="User Icon" id="userIcon">>
+			</div>
+	
+			<div class="username">
+			<p>username</p>
+			</div>
+    
+			 <div class="user-actions">
+			<label for="editUserIconInput" id="editUserIconLabel">Edit Icon</label>
+            <input type="file" id="editUserIconInput" accept="image/*"></input>
+			</div>
+			
+			<ul>
+			<li><a href="../HOME1/kasaysayan1.php">HOME</a></li>
+			<li><a href="{{ url_for('/.gallery')}}">GALLERY</a></li>
+            <li><a href="{{ url_for('/.quiz')}}">TAKE A QUIZ</a></li>
+            <li><a href="{{ url_for('/auth.logout')}}">LOGOUT</a></li>
+			</ul>
+			
+			<button id="closeSidebar">Close</button>
+			</nav>
+			</aside>
+
+<!-- CONTENTS -->
+            {% block main %}
+            {% endblock %}
+
+    <script src="{{ url_for('static', filename='homejs.js')}}"></script>
 </body>
 </html>

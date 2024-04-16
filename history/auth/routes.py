@@ -36,7 +36,11 @@ def login():
         user = User.query.filter_by(username=forms.username.data).first()
         if user and bcrpyt.check_password_hash(user.password, forms.password.data):
                 login_user(user, remember=forms.remember_me.data)
-                return redirect('home')
+                print('1')
+                return redirect('/')
+        else:
+             print('wrong password')
+        print(dir(current_user))
         print(forms.errors)
     return render_template('Login1.html', forms=forms)
 
@@ -63,3 +67,8 @@ def reset_password(token):
           db.commit()
           return redirect(url_for('login'))
     return render_template('reset_password.html', forms=forms)
+
+
+@acc.route('/logout')
+def logout():
+    return render_template('logout.html')

@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_pagedown import PageDown
 from flask_mail import Mail
 from flask_ckeditor import CKEditor
+from os import environ
 # App setup and configuration
 
 db = SQLAlchemy()
@@ -18,7 +19,7 @@ ckeditor = CKEditor()
 def create_app():
 
     app = Flask('__main__')
-    app.config['SECRET_KEY'] = '54bfcdc4c1d2711a765a55c7cfdca7dc360da1819d188cfd'
+    app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
     db.init_app(app)
     app.app_context().push()
@@ -28,8 +29,8 @@ def create_app():
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = 'rjhay1070@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'ifwx zmrg pqin ysiz '
+    app.config['MAIL_USERNAME'] = environ.get("MAIL_USERNAME")
+    app.config['MAIL_PASSWORD'] = environ.get("MAIL_PASSWORD")
     mail_manager.init_app(app)
 
     from history.auth.routes import acc

@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+	font-family: "Times New Roman", Times, serif;
+	/*border: red 2px solid;*/
+}
+
+body {
+	font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 0;
+    background-image: url("./PICS/bg1-login1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    max-width: 1590px;
+    margin: 0;
+    padding: 0 30px;
+    display: flex;
+   
+    align-items: center;
+}
+
+.container img{
+	margin-left:10px;
+    height:40px;
+	width:40px;
+	background-color:transparent;
+}
+
+header {
+	text-shadow: 2px 2px black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: url("./PICS/bg2-login1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 24px;
+	padding: 0px 200px 5px 2px;
+}
+
+#sidebar {
+    position: fixed;
+    top: 64px;
+    left: -250px;
+    width: 250px;
+    height: 92%;
+    background-color: rgba(17, 17, 17, 0.1);
+	backdrop-filter: blur(10px); /* Apply the blur effect */
+    overflow-y: auto;
+    transition: left 0.3s ease;
+}
+
+#sidebar nav {
+    padding-top: 50px;
+}
+
+#sidebar nav ul {
+    list-style-type: none;
+	margin-top:180px;
+    padding: 10px;
+}
+
+#sidebar nav ul li {
+    padding: 5px 0;
+}
+
+#sidebar nav ul li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease;
+}
+
+#sidebar nav ul li a:hover {
+	cursor: pointer;
+    background-color: #444;
+}
+
+#sidebar #closeSidebar {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#sidebar #closeSidebar:hover {
+    background-color: #555;
+}
+
+main {
+    margin-left: 250px;
+    padding: 20px;
+	margin-top: 40px;
+	
+}
+
+#mainContent {
+    padding-top: 55px;
+	background-image: url("./PICS/content-bg.png");
+    background-repeat: no-repeat;
+	background-size: 98% 110%;
+	background-attachment:fixed;
+	background-position: center bottom -30px; /* Adjusted to lower the background image */
+}
+
+.logo img {
+    height: 60px;
+    width: auto;
+}
+
+.search-img {
+    position: absolute;
+    left: -18px; /* Adjust the position of the button */
+}
+
+.search-img img{
+	height: 30px;
+    width: auto;
+}
+
+.search-bar {
+	margin-left:210px;
+	position: relative; /* Ensure proper positioning of the button */
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px 170px 10px 45px; /* Adjust padding to accommodate the button */
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+}
+
+.search-bar button {
+    padding: 7px 15px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    height: 100%;
+    z-index: 1; /* Ensure the button appears above the input */
+}
+
+.info-btn {
+    margin-left: 5px;
+}
+
+.info-btn img{
+	margin-top:6px;
+    height: 30px;
+    width: auto;
+}
+
+#sidebarToggle {
+	cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.content-item {
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin-right: 250px;
+    border-bottom: 1px solid grey; /* Add a border at the bottom */
+    padding-bottom: 10px; /* Add some padding to separate the border from the content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Add shadow effect */
+}
+
+.content-item img {
+    height: 155px;
+    width: auto;
+    transition: transform 0.3s ease;
+	border-radius:15px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.content-item p {
+    margin-left: 50px;
+	margin-right: 50px;
+    font-size: 18px;
+    color: #333;
+    transition: opacity 0.3s ease;
+}
+
+.content-item p b {
+    font-size: 23px; /* Adjusted font size for the lesson titles */
+}
+
+.content-item:hover img {
+    transform: scale(1.1);
+}
+
+.user-icon {
+ margin-bottom: 70px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.user-icon img {
+    max-width: 80px;
+    height: auto;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.user-actions {
+    text-align: center;
+    margin-bottom: 10px;
+	float: right;
+}
+
+.username {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.username p {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+#navSidebar {
+    position: fixed;
+    top: 8.4%;
+    left: 0;
+    width: 240px;
+    height: 95%;
+    background-color: rgba(17, 17, 17, 0.5);
+    color: #fff;
+    overflow: auto;
+	padding-bottom:95px;
+}
+
+#navSidebar ul {
+    list-style-type: none;
+    padding: 20px;
+    margin: 0;
+}
+
+#navSidebar li {
+	text-align: center; /* Center-align the text */
+    margin-bottom: 10px;
+    margin-top: 10px;
+    position: relative; /* Make the position relative for absolute positioning */
+}
+
+#navSidebar a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#navSidebar a:hover {
+     background-color: rgba(17, 17, 17, 0.5);
+}
+
+#navSidebar::-webkit-scrollbar-track {
+     background-color: rgba(17, 17, 17, 0.6);
+}
+
+#navSidebar::-webkit-scrollbar {
+    width: 8px; /* Adjust scrollbar width */
+     background-color: rgba(17, 17, 17, 0.6);
+}
+
+#navSidebar::-webkit-scrollbar-thumb {
+    background-color: #555;
+}
+
+#editUserIconInput {
+    display: none; /* Hide the input field */
+}
+
+.user-actions #editUserIconLabel {
+    display: inline-block;
+    width: 200px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 25px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer; /* Add cursor pointer */
+}
+
+.user-actions #editUserIconLabel:hover {
+    background-color: #555;
+}
+
+/* CSS to style the dropdown buttons */
+.topic-buttons {
+	display: none;
+    position: absolute;
+    left: 50%; /* Center the dropdown relative to its parent */
+    transform: translateX(-50%); /* Adjust to center the dropdown perfectly */
+    z-index: 1000;
+    backdrop-filter: blur(3px);
+    background-color: rgba(17, 17, 17, 0.6);
+    padding: 5px 0;
+    width: 100%;
+}
+
+.topic-buttons button {
+	display: block;
+	margin-left:25px;
+    padding: 5px 30px 5px 30px;
+    background:transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+	transition: background-color 0.3s ease;
+	font-size:18px;
+}
+
+.topic-buttons button:hover {
+    background-color: #555;
+}
+

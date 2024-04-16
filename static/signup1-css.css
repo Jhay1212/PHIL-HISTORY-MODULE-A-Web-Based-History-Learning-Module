@@ -1,104 +1,103 @@
 * {
- font-family: "Times New Roman", Times, serif;
-}
-
-body {
-    background: #f2f2f2 url("bg1-login1.jpg") no-repeat fixed;
-	background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-	margin:0;
-}
-
-.signup-container {
-    background-color: rgba(17, 17, 17, 0.5); /* Slightly transparent black color */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 300px;
-    text-align: center;
-}
-
-.signup-container h2 {
-    margin-bottom: 20px;
-    color: white;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group input[type="email"] {
-	color: white;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-	background-color: rgba(17, 17, 17, 0.6); /* Slightly transparent black color */
-}
-
-.form-group input[type="submit"] {
-    background-color: rgba(17, 17, 17, 0.6); /* Slightly transparent black color */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-	color: white;
-    transition: background-color 0.3s;
-}
-
-.form-group input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-.password-input {
-    position: relative;
-}
-
-.password-input .eye {
-	width: 30px;
-	height:30px;
-    position: absolute;
-    right: 8px; /* Adjust right position */
-    top: 52%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-.password-input .eye2 {
-	width: 30px;
-	height:30px;
-    position: absolute;
-    right: 8px; /* Adjust right position */
-    top: 52%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-p {
-	color:white;
-}
-
-p a {
-    color: white;
-    text-decoration: none;
-}
-
-p a:hover {
-    text-decoration: underline;
-	color:blue;
-}
-
-#password-match-label{
-	display: none; 
-	color: red;
-	text-shadow: 1px 1px black;
-}
+    font-family: "Times New Roman", Times, serif;
+   }
+   
+   body {
+       background: #f2f2f2 url("./PICS/BGG.jpg") no-repeat fixed;
+       background-size: cover;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       height: 100vh;
+       margin:0;
+   }
+   
+   .signup-container {
+       background-color: rgba(17, 17, 17, 0.5); /* Slightly transparent black color */
+       border-radius: 10px;
+       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+       padding: 40px;
+       width: 300px;
+       text-align: center;
+   }
+   
+   .signup-container h2 {
+       margin-bottom: 20px;
+       color: white;
+   }
+   
+   .form-group {
+       margin-bottom: 20px;
+   }
+   
+   .form-group input[type="text"],
+   .form-group input[type="password"] {
+       color: white;
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       box-sizing: border-box;
+       font-size: 16px;
+       background-color: rgba(17, 17, 17, 0.6); /* Slightly transparent black color */
+   }
+   
+   .form-group input[type="submit"] {
+       background-color: rgba(17, 17, 17, 0.6); /* Slightly transparent black color */
+       color: white;
+       padding: 10px 20px;
+       border: none;
+       border-radius: 5px;
+       cursor: pointer;
+       font-size: 16px;
+       color: white;
+       transition: background-color 0.3s;
+   }
+   
+   .form-group input[type="submit"]:hover {
+       background-color: #45a049;
+   }
+   
+   .password-input {
+       position: relative;
+   }
+   
+   .password-input .eye {
+       width: 30px;
+       height:30px;
+       position: absolute;
+       right: 8px; /* Adjust right position */
+       top: 52%;
+       transform: translateY(-50%);
+       cursor: pointer;
+   }
+   
+   .password-input .eye2 {
+       width: 30px;
+       height:30px;
+       position: absolute;
+       right: 8px; /* Adjust right position */
+       top: 52%;
+       transform: translateY(-50%);
+       cursor: pointer;
+   }
+   
+   p {
+       color:white;
+   }
+   
+   p a {
+       color: white;
+       text-decoration: none;
+   }
+   
+   p a:hover {
+       text-decoration: underline;
+       color:blue;
+   }
+   
+   #password-match-label{
+       display: none; 
+       color: red;
+       text-shadow: 1px 1px black;
+   }

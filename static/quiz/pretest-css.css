@@ -1,0 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+	font-family: "Times New Roman", Times, serif;
+	/*border: red 2px solid;*/
+}
+
+body {
+	font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 0;
+    background-image: url("../PICS/bg1-login1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    max-width: 1590px;
+    margin: 0;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+}
+
+.container img{
+	margin-left:10px;
+    height:40px;
+	width:40px;
+	background-color:transparent;
+}
+
+header {
+	text-shadow: 2px 2px black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: url("../PICS/bg2-login1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 24px;
+	padding: 0px 200px 5px 2px;
+}
+
+#sidebar {
+	text-shadow: 2px 2px black;
+    position: fixed;
+    top: 64px;
+    left: -250px;
+    width: 250px;
+    height: 92%;
+    background-color: rgba(17, 17, 17, 0.1);
+	backdrop-filter: blur(10px);
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    z-index: 999; /* Ensure the sidebar appears above other elements */
+}
+
+
+#sidebar nav {
+    padding-top: 50px;
+}
+
+#sidebar nav ul {
+    list-style-type: none;
+	margin-top:180px;
+    padding: 10px;
+}
+
+#sidebar nav ul li {
+    padding: 5px 0;
+}
+
+#sidebar nav ul li a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 20px;
+    transition: background-color 0.3s ease;
+}
+
+#sidebar nav ul li a:hover {
+	cursor: pointer;
+    background-color: #444;
+}
+
+#sidebar #closeSidebar {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#sidebar #closeSidebar:hover {
+    background-color: #555;
+}
+
+.logo img {
+    height: 60px;
+    width: auto;
+}
+
+.search-img {
+    position: absolute;
+    left: -18px; /* Adjust the position of the button */
+}
+
+.search-img img{
+	height: 25px;
+    width: auto;
+}
+
+.search-bar {
+	margin-left:210px;
+	position: relative; /* Ensure proper positioning of the button */
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input[type="text"] {
+    padding: 10px 170px 10px 45px; /* Adjust padding to accommodate the button */
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+}
+
+.search-bar button {
+    padding: 7px 15px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    height: 100%;
+    z-index: 1; /* Ensure the button appears above the input */
+}
+
+.info-btn {
+    margin-left: 5px;
+}
+
+.info-btn img{
+	margin-top:6px;
+    height: 30px;
+    width: auto;
+}
+
+.user-actions {
+    text-align: center;
+    margin-bottom: 10px;
+	float: right;
+}
+
+#editUserIconInput {
+    display: none; /* Hide the input field */
+}
+
+.user-actions #editUserIconLabel {
+    display: inline-block;
+    width: 200px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 25px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+    cursor: pointer; /* Add cursor pointer */
+}
+
+.user-actions #editUserIconLabel:hover {
+    background-color: #555;
+}
+
+.username p {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+#sidebarToggle {
+	cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.user-icon {
+ margin-bottom: 70px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+.user-icon img {
+    max-width: 80px;
+    height: auto;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.user-actions {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.user-actions a {
+    display: inline-block;
+    width: 200px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.user-actions a:hover {
+    background-color: #555;
+}
+
+.username {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.username p {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.content-section {
+    text-align: center; /* Center align the content section */
+    margin-top: 100px; /* Adjust the top margin as needed */
+}
+
+.content-section h2 {
+    font-size: 60px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the color as needed */
+}
