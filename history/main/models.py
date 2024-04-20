@@ -8,7 +8,8 @@ class Lesson(db.Model):
     title = Column(String(120), nullable=False, default='Lesson Title')
     content = Column(Text(), nullable=False)
     mini_notes = db.relationship('MiniNotes', backref='lesson', lazy=True)
-
+    bookmark = db.relationship('Bookmark', backref='title', lazy=True)
+    
     def __str__(self) -> str:
         return self.title
     
@@ -24,3 +25,8 @@ class MiniNotes(db.Model):
 
     def __repr__(self) -> str:
         return self.notes
+
+class BookMark(db.Model):
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    lesson_id = Column(Integer, ForeignKey('lesson.id'), nullable=False)

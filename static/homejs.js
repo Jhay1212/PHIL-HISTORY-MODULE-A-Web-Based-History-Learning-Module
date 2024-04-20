@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const noteOptionBtn = document.getElementById('noteOptionBtn');
 const noteContainer = document.getElementById('noteContainer');
 const noteTextarea = document.getElementById('noteTextarea');
-const saveNoteBtn = document.getElementById('saveNoteBtn');
+const saveNoteBtn = document.getElementById('submit');
 const cancelNoteBtn = document.getElementById('cancelNoteBtn');
 
 // Show note container when note option button is clicked

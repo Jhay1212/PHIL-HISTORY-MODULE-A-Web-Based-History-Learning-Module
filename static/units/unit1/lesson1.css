@@ -379,7 +379,7 @@ main {
 
 /* Add this CSS code to your existing stylesheet */
 
-.notebtn #noteOptionBtn {
+.notebtn #noteOptionBtn, #bookmark {
     background-color: #333;
     color: #fff;
     border: none;

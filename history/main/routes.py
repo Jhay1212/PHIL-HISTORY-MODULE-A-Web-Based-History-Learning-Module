@@ -42,7 +42,7 @@ def view():
 
 @main.route('/gallery')
 def gallery():
-    return render_template('gallery.html')
+    return render_template('gallery/gallery.html')
 
 
 
@@ -53,11 +53,22 @@ def quiz():
 
 
 @main.route('/chat', methods=['POST', 'GHOST'])
-def chatbot():
-    msg = request.form['msg']
-    print(get_response_chatbot('ano ba ang ginagawa ko ngayon'))
-    return render_template('chat.html')
+
+
+@main.route('/pre-test/lesson/1')
+def pre_test():
+    return render_template('QUIZ1/pretest.html')
+
+
+@main.route('/post-test/lesson/1')
+def post_test():
+    return render_template('QUIZ1/posttest.html')
 
 def get_response_chatbot(txt):
     response = translator.translate(txt)
     return response
+
+def chatbot():
+    msg = request.form['msg']
+    print(get_response_chatbot('ano ba ang ginagawa ko ngayon'))
+    return render_template('chat.html')

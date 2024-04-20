@@ -17,7 +17,8 @@ class User(UserMixin, db.Model):
     email = Column(String(256), unique=True, nullable=False)
     password = Column(String(60), nullable=False)
     notes = db.relationship('MiniNotes', backref='user', lazy=True)
-
+    bookmark = db.relationship('Bookmark', backref='user', lazy=True)
+    
     def get_reset_token(self, expired_sec=18000):
         s = Serializer(current_app.config['SECRET_KEY'], expired_sec)
         return s.dumps({'user_id': self.id}).decode()

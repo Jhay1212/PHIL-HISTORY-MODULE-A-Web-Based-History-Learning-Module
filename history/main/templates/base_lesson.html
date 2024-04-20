@@ -21,7 +21,10 @@
             </div>
 			
             <h1>DISCOVERING PHILIPPINE HISTORY</h1>
+            <!-- <div class="notebtn"><button id="bookmark" margin-right='2rem'>Add to bookmark</button></div> -->
             <div class="notebtn"><button id="noteOptionBtn">Note</button></div>
+            <!-- <div class="notebtn"><button id="noteOptionBtn">Bookmark</button></div> -->
+
 			
 <!-- Search -->
             <div class="search-bar">
@@ -214,5 +217,41 @@
             {% endblock %}
 
     <script src="{{ url_for('static', filename='homejs.js')}}"></script>
+<script>
+	const container = document.getElementById('noteContainer');
+
+let isDragging = false;
+let offsetX, offsetY;
+
+// Function to handle mouse down event
+function onMouseDown(event) {
+    isDragging = true;
+    offsetX = event.clientX - container.getBoundingClientRect().left;
+    offsetY = event.clientY - container.getBoundingClientRect().top;
+}
+
+// Function to handle mouse move event
+function onMouseMove(event) {
+    if (isDragging) {
+        const x = event.clientX - offsetX;
+        const y = event.clientY - offsetY;
+        
+        container.style.left = x + 'px';
+        container.style.top = y + 'px';
+    }
+}
+
+// Function to handle mouse up event
+function onMouseUp() {
+    isDragging = false;
+}
+
+// Add event listeners
+container.addEventListener('mousedown', onMouseDown);
+document.addEventListener('mousemove', onMouseMove);
+document.addEventListener('mouseup', onMouseUp);
+</script>
+</script>
+	
 </body>
 </html>
