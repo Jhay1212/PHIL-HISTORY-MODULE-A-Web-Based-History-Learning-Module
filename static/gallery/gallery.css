@@ -6,6 +6,16 @@
 	
 	/*border: red 2px solid;*/
 }
+@keyframes up {
+    0% {
+        opacity: 0;
+        transform: translateY(20vh);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-10%);
+    }
+}
 
 body {
 	font-family: Arial, sans-serif;
@@ -15,6 +25,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 .container {
     max-width: 1590px;
@@ -248,7 +259,9 @@ header h1 {
 
 .content-section {
     text-align: center; /* Center align the content section */
-    margin-top: 100px; /* Adjust the top margin as needed */
+    margin-top: 50px; /* Adjust the top margin as needed */
+    animation: up 1s ease-in;
+
 }
 
 .content-section h2 {
@@ -318,7 +331,7 @@ header h1 {
 }
 
 .rectangle:hover {
-    transform: scale(1.05); /* Increase the size of the rectangle on hover */
+    transform: scale(1.5); /* Increase the size of the rectangle on hover */
 }
 
 

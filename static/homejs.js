@@ -1,3 +1,7 @@
+
+document.addEventListener("DOMContentLoaded", function() {
+
+
 const sidebarToggle = document.getElementById('sidebarToggle');
 const sidebar = document.getElementById('sidebar');
 const closeSidebar = document.getElementById('closeSidebar');
@@ -200,3 +204,4 @@ saveNoteBtn.addEventListener('click', () => {
     noteContainer.style.display = 'none';
 });
 
+});

@@ -1,0 +1,62 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.game-container {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    transform: translate(-30%, -25%);
+}
+.photo-container {
+    margin: 2rem 0;
+    height: 10%;
+}
+
+.photo-container img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #333;
+}
+.input-container {
+    display: block;
+    margin: .5rem auto;
+    text-align: center;
+}
+.slider-container {
+
+    margin: 1rem 0 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#year-slider {
+    margin-right: 1rem;
+}
+
+#slider-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#submit {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+
+#result {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
