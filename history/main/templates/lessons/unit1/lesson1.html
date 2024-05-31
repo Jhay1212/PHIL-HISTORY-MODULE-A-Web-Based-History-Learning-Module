@@ -6,6 +6,7 @@
 
 <!-- CONTENTS -->	
 			<main id="mainContent">
+				
     <section class="content-section">
 	     <h2 id="unit1">UNIT 1</h2>
 		 <h1 id="sbt1">REPUBLIC ACT NO. 1425</h1>
@@ -32,10 +33,19 @@ Katulad ng RH Bill, hindi naging madali ang pagpasa ng batas na ito dahil sa mal
 
 <!-- Add this div at the bottom of the body, above the script tags -->
 <div id="noteContainer" style="display: none;">
-    {{ forms.notes }}
-    {{ forms.submit }}
+	<form action="" method="post">
+		{{ forms.hidden_tag()}}
+		{{ forms.title }}
+		{{ forms.notes }}
+		{{ forms.submit }}
+	</form>
     <button id="cancelNoteBtn">Cancel</button>
 </div>
 
+<script src="{{ url_for('static', filename='units/unit1/lesson1.js')}}"></script>
 
+<script>
+
+	const nbtn = document.querySelector('#')
+</script>
 {% endblock %}

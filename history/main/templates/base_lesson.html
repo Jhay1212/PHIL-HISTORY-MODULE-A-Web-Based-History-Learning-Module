@@ -7,7 +7,64 @@
     <title>Philippine History Module</title>
 	{{ ckeditor.load(standard)}}
 </head>
+<style>
 
+    .audio-player {
+        background: #ffffff;
+        width: 50%;
+        margin: 0 auto;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    button {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    input[type="range"] {
+        flex-grow: 1;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 5px;
+        background: #ddd;
+        border-radius: 5px;
+        outline: none;
+        transition: background 0.3s ease;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 15px;
+        height: 15px;
+        background: #007bff;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb:hover {
+        background: #0056b3;
+    }
+    </style>
 {% block css %}
 {% endblock %}
 <body>
@@ -216,8 +273,61 @@
             {% block main %}
             {% endblock %}
 
+            <div class="audio-player" >
+                <audio id="audio" >
+                    <source src="./lessons/unit1/swamp.ogg">
+                </audio>
+                <div class="controls">
+                    <button id="play-pause" class="play">Play</button>
+                    <input type="range" id="seek-bar" value="0">
+                    <button id="mute">Mute</button>
+                    <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1">
+                </div>
+            </div>
+            
+            <script>
+                const audio = document.getElementById('audio');
+            const playPauseButton = document.getElementById('play-pause');
+            const seekBar = document.getElementById('seek-bar');
+            const muteButton = document.getElementById('mute');
+            const volumeBar = document.getElementById('volume-bar');
+            
+            playPauseButton.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    playPauseButton.textContent = 'Pause';
+                    playPauseButton.classList.remove('play');
+                    playPauseButton.classList.add('pause');
+                } else {
+                    audio.pause();
+                    playPauseButton.textContent = 'Play';
+                    playPauseButton.classList.remove('pause');
+                    playPauseButton.classList.add('play');
+                }
+            });
+            
+            audio.addEventListener('timeupdate', () => {
+                const value = (audio.currentTime / audio.duration) * 100;
+                seekBar.value = value;
+            });
+            
+            seekBar.addEventListener('input', () => {
+                const time = (seekBar.value / 100) * audio.duration;
+                audio.currentTime = time;
+            });
+            
+            muteButton.addEventListener('click', () => {
+                audio.muted = !audio.muted;
+                muteButton.textContent = audio.muted ? 'Unmute' : 'Mute';
+            });
+            
+            volumeBar.addEventListener('input', () => {
+                audio.volume = volumeBar.value;
+            });
+            </script>
     <script src="{{ url_for('static', filename='homejs.js')}}"></script>
-<script>
+    
+<!-- <script>
 	const container = document.getElementById('noteContainer');
 
 let isDragging = false;
@@ -250,8 +360,8 @@ function onMouseUp() {
 container.addEventListener('mousedown', onMouseDown);
 document.addEventListener('mousemove', onMouseMove);
 document.addEventListener('mouseup', onMouseUp);
-</script>
-</script>
+</script> -->
+<!-- </script> -->
 	
 </body>
 </html>

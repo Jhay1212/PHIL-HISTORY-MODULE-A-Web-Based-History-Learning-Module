@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='game/chrono.css')}}">
+{% endblock %}
+{% block main %}
+<div class="game-container">
+
+<main>
+    <div class="photo-container">
+        <img id="photo" src="" alt="Photo to guess">
+    </div>
+    <div class="input-container">
+        <input type="number" id="guess" placeholder="Enter year">
+        <div class="slider-container">
+            <input type="range" id="year-slider" min="1900" max="2023" value="1960">
+            <span id="slider-value">1960</span>
+        </div>
+        <button id="submit">Submit Guess</button>
+    </div>
+    <div id="result"></div>
+    
+    
+
+</div>
+</main>
+
+<script src="{{ url_for('static', filename='game/chrono.js')}}"></script>
+{% endblock %}

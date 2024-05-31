@@ -21,6 +21,7 @@ def create_app():
     app = Flask('__main__')
     app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
     db.init_app(app)
     app.app_context().push()
     pagedown.init_app(app)
@@ -35,8 +36,13 @@ def create_app():
 
     from history.auth.routes import acc
     from history.main.routes import main
+    from history.chatbot.routes import cbot
     app.register_blueprint(acc)
     app.register_blueprint(main)
+    app.register_blueprint(cbot)
+
 
     return app
 # from . import routers
+from history import admin
+# admin
