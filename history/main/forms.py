@@ -30,3 +30,7 @@ class ChatForm(FlaskForm):
 class PreTestForm(FlaskForm):
     answer = RadioField('Choose an Answer', validators=[DataRequired()], choices=[('Who killed Jose Rizal?', "Joe"), ('something', 'anything here')])
     submit = SubmitField("Finish Test")
+
+class SearchForm(FlaskForm):
+    search = StringField('Search')
+    submit = SubmitField('Search')

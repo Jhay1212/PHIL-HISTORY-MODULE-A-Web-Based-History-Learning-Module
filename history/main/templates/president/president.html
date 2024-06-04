@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block css %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='hero/hero.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='president/president.css')}}">
 {% endblock %}
 
 
@@ -30,7 +30,7 @@
   <div class="main-content">
     
     <div class="summary">
-      <h2 class="title">something here</h2>
+      <h2 class="title">{{ president.name }}</h2>
       <hr>
 
     </div>
@@ -59,15 +59,7 @@
   </main>
   
 
-<!-- <div class="hero-container">
-    <div class="card">
-        <img class='prof' src="{{ url_for('static', filename='open.png')}}" alt="" srcset="">
-        <p class="name">  {{ hero.name }}</p>
-        <p>{{ hero.bio }}</p>
-        <p>CIBTRUBUTION</p>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate vel tempora accusamus eum facere eligendi autem dolor, sequi non molestias animi ullam est, alias neque dignissimos? Veritatis magni, quidem maxime incidunt ab dignissimos vitae ipsa eligendi in odit aspernatur mollitia et voluptatibus sint doloribus reprehenderit dolor blanditiis perferendis odio, nemo facilis harum, sapiente laborum dolores! Totam consequatur tempore voluptas magnam iste enim rerum error nobis doloremque est harum, reiciendis nesciunt tempora. Odit necessitatibus libero soluta ex excepturi quaerat velit autem harum facilis dolorum delectus, quidem itaque magnam sapiente nobis tempora? Molestiae illum odio nisi ea dolore reprehenderit id natus delectus.</p>
-    </div>
-</div> -->
+
 
 <script src="{{ url_for('static', filename='hero/hero.js')}}"></script>
 {% endblock %}

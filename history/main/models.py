@@ -3,6 +3,8 @@ from datetime import datetime
 from history import db
 from flask_ckeditor import CKEditorField
 
+
+# class B
 class Lesson(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String(120), nullable=False, default='Lesson Title')
@@ -45,12 +47,24 @@ class BookMark(db.Model):
     lesson_id = Column(Integer, ForeignKey('lesson.id'), nullable=False)
 
 
-# class Hero(db.Model):
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String(256), nullable=False)
-#     # profile_pic = Column/(LargeBinary(), nullable=False, default='Pic')
-#     bio = Column(String(), nullable=False)
+class Hero(db.Model):
+    # __tablename__ = 'hero'
 
+    id = Column(Integer, primary_key=True)
+    name = Column(String(256), nullable=False)
+    # profile_pic = Column/(LargeBinary(), nullable=False, default='Pic')
+    bio = Column(String(), nullable=False)
+    contribution = Column(Text, nullable=False)
+
+    def __str__(self) -> str:
+        return self.name
+    
+class President(db.Model):
+    id = Column(Integer, primary_key=True)
+    name = Column(String(256), nullable=False)
+    # profile_pic = Column/(LargeBinary(), nullable=False, default='Pic')
+    bio = Column(String(), nullable=False)
+    contribution = Column(Text, nullable=False)
 
 # class PreTestQuiz(db.Model):
 #     id = Column(Integer, primary_key=True)

@@ -28,9 +28,8 @@
     </ul>
   </aside>
   <div class="main-content">
-    
     <div class="summary">
-      <h2 class="title">something here</h2>
+      <h2 class="title">{{ hero }}</h2>
       <hr>
 
     </div>
@@ -38,14 +37,14 @@
     <div class="accomplishment">
       <h2 class="title">accomplishment</h2>
       <hr>
-      <p>description Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae blanditiis voluptate sint delectus, aliquid similique hic placeat, iusto dolor ex eligendi incidunt fugiat nostrum officiis debitis exercitationem. Tempora quos dolorum voluptate fuga saepe omnis facere fugiat quae neque! Accusantium quidem vero ducimus aliquam voluptates aperiam exercitationem ex dignissimos distinctio possimus?</p>
+      {{ hero.contribution }}
     </div>
     <div class="summary">
       <h2 class="title">Biography</h2>
       <hr>
 
     </div>
-    <p>something Lorem ipsum dolor sit amet  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero minus animi hic sapiente. Expedita debitis ut incidunt impedit necessitatibus dolores natus alias labore, iusto sunt. Laudantium a, reiciendis repellat voluptatum sequi dolorem mollitia nisi ea aspernatur minima sit, eligendi ratione? Delectus aliquam esse voluptatum aspernatur quo ipsum amet. Magnam, consectetur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi facere, laborum quas sapiente exercitationem vitae suscipit sequi a corporis ratione libero necessitatibus quisquam obcaecati placeat ipsum fugiat illum? Nam deleniti nostrum soluta iusto blanditiis atque non at similique tempore. Omnis id dolor, debitis, animi eius eaque repellendus sequi, harum non recusandae officia dignissimos deleniti porro excepturi soluta doloribus veniam odit reprehenderit quam placeat nostrum corrupti! Fugit laudantium dolores reprehenderit consequuntur eos voluptatum, velit corporis tenetur veritatis qui quasi harum. At repellat saepe recusandae dignissimos beatae consequatur harum dicta, officia perferendis quae alias, quasi quas, delectus sequi fuga nesciunt illo voluptatibus?consectetur adipisicing elit. Voluptatum architecto minima laboriosam.</p>
+    <p>{{ hero.bio }}</p>
     <div class="accomplishment">
       <h2 class="title">accomplishment</h2>
       <hr>
@@ -59,15 +58,6 @@
   </main>
   
 
-<!-- <div class="hero-container">
-    <div class="card">
-        <img class='prof' src="{{ url_for('static', filename='open.png')}}" alt="" srcset="">
-        <p class="name">  {{ hero.name }}</p>
-        <p>{{ hero.bio }}</p>
-        <p>CIBTRUBUTION</p>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate vel tempora accusamus eum facere eligendi autem dolor, sequi non molestias animi ullam est, alias neque dignissimos? Veritatis magni, quidem maxime incidunt ab dignissimos vitae ipsa eligendi in odit aspernatur mollitia et voluptatibus sint doloribus reprehenderit dolor blanditiis perferendis odio, nemo facilis harum, sapiente laborum dolores! Totam consequatur tempore voluptas magnam iste enim rerum error nobis doloremque est harum, reiciendis nesciunt tempora. Odit necessitatibus libero soluta ex excepturi quaerat velit autem harum facilis dolorum delectus, quidem itaque magnam sapiente nobis tempora? Molestiae illum odio nisi ea dolore reprehenderit id natus delectus.</p>
-    </div>
-</div> -->
 
 <script src="{{ url_for('static', filename='hero/hero.js')}}"></script>
 {% endblock %}

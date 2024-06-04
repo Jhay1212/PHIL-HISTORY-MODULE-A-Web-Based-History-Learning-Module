@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block css%}
+<style>
+    .result-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+</style>
+{% endblock %}
+{% block main%}
+<div class="result-container">
+    <h2>result</h2>
+    <p>{{ forms.search.data }}</p>
+    <h2>query result</h2>
+    <p>{{ result|safe }}</p>
+</div>
+{% endblock %}

@@ -33,7 +33,7 @@ window.addEventListener('scroll', function() {
 
 // Function to set the default user icon when the page is loaded
 function setDefaultUserIcon() {
-    const defaultIcon = "./PICS/haerin.jpg"; // Default user icon path
+    // const defaultIcon = "static/prof.jpg"; // Default user icon path
     const storedIcon = localStorage.getItem('userIcon');
 
     // Check if there's a stored user icon
