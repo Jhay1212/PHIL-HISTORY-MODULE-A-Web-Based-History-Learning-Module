@@ -1,0 +1,111 @@
+:root{
+    --text-blue: #0082c9;
+
+} 
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+/* header {
+    display: flex;
+    height: 35vh;
+    position: sticky;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 7px solid gray;
+} */
+/*
+header h2 {
+    line-height: 2;
+    letter-spacing: 2px;
+    font-family: Tahoma;
+    font-weight: 600;
+}
+header img {
+    width: 10rem;
+    object-fit: cover;
+    margin-top: 50px;
+}
+header ul {
+    display: flex;
+    padding-right: 5px;
+    justify-content: space-evenly;
+    list-style: none;
+}
+header ul li {
+    padding-right: 3rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+)*/
+.content-container {
+    background-size: cover;
+    background-position: center;
+    height: 10%;
+    margin: 100px auto;
+}
+.content-container .img-prof {
+    position: absolute;
+    object-fit: cover;
+    width: 50%;
+    transform: translate(-50%, 50%);
+    top: 50%;
+    left: 50%;
+    border: 5px solid white;
+    display: flex;
+    align-items: center;
+    align-content: stretch;
+}
+.content-container .img-prof img {
+    border: 5px solid khaki;
+    flex-grow: 2;
+}
+.content-container .img-prof .text-container {
+    border: 5px solid cyan;
+    background: #f3f3f3;
+    margin-left: 2rem;
+    border-radius: 20px;
+    padding: 0.5rem;
+}
+main {
+    margin: 0 auto;
+    display: grid;
+    background: chartreuse;
+    grid-template-columns: 20% 80%;
+    width: 70%;
+    margin: 0 auto;
+    gap: 1.5rem;
+    height: 100%;
+}
+main aside {
+    height: 80%;
+    background: grey;
+}
+main aside image#sideprof {
+    background: crimson;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+}
+main .main-content {
+    padding-bottom: 2rem;
+}
+
+main .main-content hr {
+    border: 1px solid var(--text-blue);
+    width: 99%;
+    margin: 1rem 0px;
+    /* margin-bottom: 0 20px; */
+}
+main .main-content .title {
+    color: var(--text-blue);
+    /* text-decoration: underline; */
+    
+    margin-top: 2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 3px;
+}

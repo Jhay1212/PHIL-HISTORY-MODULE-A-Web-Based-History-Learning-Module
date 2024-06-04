@@ -35,13 +35,9 @@ def login():
     if forms.validate_on_submit():
         user = User.query.filter_by(username=forms.username.data).first()
         if user and bcrpyt.check_password_hash(user.password, forms.password.data):
-                login_user(user, remember=forms.remember_me.data)
+                login_user(user, remember=True)
                 print('1')
                 return redirect('/')
-        else:
-             print('wrong password')
-        print(dir(current_user))
-        print(forms.errors)
     return render_template('Login1.html', forms=forms)
 
 

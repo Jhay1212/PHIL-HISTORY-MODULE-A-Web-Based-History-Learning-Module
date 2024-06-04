@@ -25,9 +25,15 @@
 <!-- Search -->
             <div class="search-bar">
 			
-			<button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
-			<input type="text" placeholder="Search...">
-			<button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
+			<form action="{{ url_for('/.search')}}" method="post">
+				{{ forms.hidden_tag() }}
+
+
+				<button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
+				{{ forms.search }}
+				{{ forms.submit }}
+				<button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
+			</form>
 			
 			</div>
             </div>

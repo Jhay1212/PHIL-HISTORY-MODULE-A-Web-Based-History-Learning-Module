@@ -399,13 +399,18 @@ main {
 #noteContainer {
     position: fixed;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 98%;
+    transform: translate(-50%);
+    transition: transform 2s ease;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 999;
+}
+#noteContainer:hover {
+    transform: translate(-50vw, -50%);
+    width: 100%;
 }
 
 #noteTextarea {
@@ -433,3 +438,19 @@ main {
     background-color: #555;
 }
 
+
+@keyframes slideLeft {
+       0% {
+    transform: translateX(0%);
+
+   }
+   100% {
+    transform: translateX(-50%);
+   }
+
+}
+/* .slide-left {
+    animation: slideLeft 2s ease-in-out infinite;
+    animation: backwards;
+
+} */

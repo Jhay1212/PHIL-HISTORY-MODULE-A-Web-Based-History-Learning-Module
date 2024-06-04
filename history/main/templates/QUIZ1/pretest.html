@@ -12,7 +12,12 @@
     <section class="content-section">
 	     <h2>PRE-TEST</h2>
 		 
-		 
+		 <form action="">
+            {{ forms.hidden_tag() }}
+            {{ forms.answer.label }}
+            {{ forms.answer }}
+            {{ forms.submit }}
+         </form>
 	 </section>
 </main>
 {% endblock %}
