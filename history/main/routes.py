@@ -8,10 +8,10 @@ from flask import (render_template,
                    session,
                     g, 
                     get_flashed_messages)
-from .forms import NotesForm, PreTestForm, SearchForm
+from .forms import NotesForm, PreTestForm, SearchForm, CommentForm
 from history.auth.models import User
 from .models import MiniNotes, Comment, Hero, President, Lesson
-from sqlalchemy import select
+from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
 from flask_sqlalchemy.query import Query
 from history import db
@@ -25,7 +25,10 @@ def base():
     # pass the form to all the base template
     form = SearchForm()
     # g.searchform = SearchForm()
-    return {'forms': form}
+    return {
+        'forms': form,
+        'comment_form': CommentForm()
+        }
 
 # @main.before_app_request
 # def before_request():
@@ -42,7 +45,10 @@ def search():
     if forms.validate_on_submit():
         # forms = forms.data
         
-        result = Lesson.query.filter(Lesson.content.like(f'% eminem %'))
+        result = Lesson.query.filter(
+            or_(Lesson.content.like(forms.search.data), 
+                Lesson.title.like(forms.search.data)              
+                                         )).all()
         
         print(Lesson.query.filter(Lesson.content.ilike(forms.search.data)), 'jhay', result)
         return render_template('search/search.html', forms=forms, result=result)
@@ -51,13 +57,14 @@ def search():
 @main.route('/lesson', methods=['POST', 'GET'])
 def lesson():
     forms = NotesForm()
+    comments = Comment.query.all() # where id of comments is equal to the lesson id so that comment for specific lesson will only show
     if forms.validate_on_submit():
         notes = MiniNotes(notes=forms.notes.data)
         db.session.add(notes)
         db.session.commit()
         return redirect(url_for('/.lesson'))
     print(forms.errors)
-    return render_template('lessons/unit1/lesson1.html', forms=forms)
+    return render_template('lessons/unit1/lesson1.html', forms=forms, comments=comments)
 
 @main.route('/home')
 def homepage():

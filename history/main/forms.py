@@ -8,12 +8,20 @@ from flask_ckeditor import CKEditorField
 from wtforms.fields import (StringField, 
                             IntegerField, 
                             SubmitField, 
+                            TextAreaField,
                             BooleanField, 
                             PasswordField, 
                             EmailField,
                             RadioField)
 
 
+
+class BaseForm(FlaskForm):
+    def __init__(self, txt, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.submit = SubmitField(txt)
+
+        
 class NotesForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=1, max=256)])
     notes = CKEditorField("Enter Notes", validators=[DataRequired()])
@@ -34,3 +42,7 @@ class PreTestForm(FlaskForm):
 class SearchForm(FlaskForm):
     search = StringField('Search')
     submit = SubmitField('Search')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Comment')
+    submit = SubmitField('Post')

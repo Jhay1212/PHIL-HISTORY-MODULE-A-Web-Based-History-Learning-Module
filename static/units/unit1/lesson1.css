@@ -269,6 +269,8 @@ main {
 	background-size: 98% 110%;
 	background-attachment:fixed;
 	background-position: center bottom -30px; /* Adjusted to lower the background image */
+    margin-top: 4rem;
+    margin-bottom: 1rem;
 }
 
 #navSidebar {

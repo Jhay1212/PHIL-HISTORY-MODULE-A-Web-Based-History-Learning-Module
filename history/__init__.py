@@ -10,6 +10,7 @@ from flask_pagedown import PageDown
 from flask_ckeditor import CKEditor
 
 from flask_admin import Admin
+from flask_migrate import Migrate
 from flask_admin.contrib.sqla import ModelView
 from os import environ
 # App setup and configuration
@@ -30,6 +31,7 @@ def create_app():
     app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
     app.config['FLASK_ADMIN_FLUID_LAYOUT'] = True
     db.init_app(app)
+    migrate = Migrate(app, db)
     app.app_context().push()
     pagedown.init_app(app)
     login_manager.init_app(app)
@@ -41,11 +43,13 @@ def create_app():
     app.config['MAIL_PASSWORD'] = environ.get("MAIL_PASSWORD")
     mail_manager.init_app(app)
 
-    from history.main.models import BookMark, Lesson, MiniNotes, Hero, President
+    from history.main.models import BookMark, Lesson, MiniNotes, Hero, President, Unit
     from history.auth.models import User
     from history.auth.routes import acc
     from history.main.routes import main
     from history.chatbot.routes import cbot
+    """" Registering blueprint of different modular part"""
+
     app.register_blueprint(acc)
     app.register_blueprint(main)
     app.register_blueprint(cbot)
@@ -58,6 +62,7 @@ def create_app():
             return current_user.is_authenticated
         
     admin.add_view(ModelView(MiniNotes, db.session))
+    admin.add_view(ModelView(Unit, db.session))
     admin.add_view(ModelView(Hero, db.session))
     admin.add_view(ModelView(President, db.session))
     admin.add_view(ModelView(Lesson, db.session))

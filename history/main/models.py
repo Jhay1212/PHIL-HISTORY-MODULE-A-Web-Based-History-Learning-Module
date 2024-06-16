@@ -4,9 +4,14 @@ from history import db
 from flask_ckeditor import CKEditorField
 
 
-# class B
+class Unit(db.Model):
+    id = Column(Integer, primary_key=True)
+    lesson_key = db.relationship("Lesson", backref='unit', lazy=True)
+    unit_title = Column(String(64), nullable=False)
+
 class Lesson(db.Model):
     id = Column(Integer, primary_key=True)
+    unit_id = Column(Integer, ForeignKey('unit.id'), nullable=False)
     title = Column(String(120), nullable=False, default='Lesson Title')
     content = Column(Text(), nullable=False)
     comments = db.relationship('Comment', backref='lesson', lazy=True)

@@ -11,12 +11,19 @@
 
     .audio-player {
         background: #ffffff;
+        /* position: relative;
+        top: 20%;
+        left: 30%; */
+        position: absolute;
+        top: 10vh;
+        left: 30%;
         width: 50%;
         margin: 0 auto;
         border: 1px solid #ddd;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10rem;
     }
     
     .controls {
@@ -64,6 +71,14 @@
     input[type="range"]::-webkit-slider-thumb:hover {
         background: #0056b3;
     }
+
+    .comment-section {
+        margin: 2rem auto;
+        width: 300px;
+        height: 150px;
+        border-radius: 10px;
+        
+    }
     </style>
 {% block css %}
 {% endblock %}
@@ -85,14 +100,30 @@
 			
 <!-- Search -->
             <div class="search-bar">
-			
-			<button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
-			<input type="text" placeholder="Search...">
-			<button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
-			
+                <form action="{{ url_for('/.search')}}" method="post">
+                    {{ forms.hidden_tag() }}
+    
+    
+                    <button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
+                    {{ forms.search }}
+                    {{ forms.submit }}
+                    <button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
+                </form>
 			</div>
             </div>
             </header>
+
+            <div class="audio-player" >
+                <audio id="audio" >
+                    <source src="./lessons/unit1/swamp.ogg">
+                </audio>
+                <div class="controls">
+                    <button id="play-pause" class="play">Play</button>
+                    <input type="range" id="seek-bar" value="0">
+                    <button id="mute">Mute</button>
+                    <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1">
+                </div>
+            </div>
 
 <!-- Table of Contents Sidebar -->
 			<nav id="navSidebar">
@@ -273,18 +304,17 @@
             {% block main %}
             {% endblock %}
 
-            <div class="audio-player" >
-                <audio id="audio" >
-                    <source src="./lessons/unit1/swamp.ogg">
-                </audio>
-                <div class="controls">
-                    <button id="play-pause" class="play">Play</button>
-                    <input type="range" id="seek-bar" value="0">
-                    <button id="mute">Mute</button>
-                    <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1">
+           
+            <div class="comment-section" fa>
+
+                <div class="comment-form">
+                {{ comment_form.comment }}
+                    {{ comment_form.submit }}
                 </div>
-            </div>
             
+                <!--Comment Results -->
+                {}
+            </div>
             <script>
                 const audio = document.getElementById('audio');
             const playPauseButton = document.getElementById('play-pause');
