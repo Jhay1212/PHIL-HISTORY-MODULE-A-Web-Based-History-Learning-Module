@@ -60,8 +60,7 @@ def lesson():
     comments = Comment.query.all() # where id of comments is equal to the lesson id so that comment for specific lesson will only show
     if forms.validate_on_submit():
         notes = MiniNotes(notes=forms.notes.data)
-        db.session.add(notes)
-        db.session.commit()
+        notes.save()
         return redirect(url_for('/.lesson'))
     print(forms.errors)
     return render_template('lessons/unit1/lesson1.html', forms=forms, comments=comments)

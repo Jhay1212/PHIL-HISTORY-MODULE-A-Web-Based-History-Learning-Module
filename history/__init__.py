@@ -48,11 +48,13 @@ def create_app():
     from history.auth.routes import acc
     from history.main.routes import main
     from history.chatbot.routes import cbot
+    from history.socmed.routes import socmed
     """" Registering blueprint of different modular part"""
 
     app.register_blueprint(acc)
     app.register_blueprint(main)
     app.register_blueprint(cbot)
+    app.register_blueprint(socmed)
 
 
 
@@ -74,3 +76,4 @@ def create_app():
 
     return app
 # from . import routers
+
