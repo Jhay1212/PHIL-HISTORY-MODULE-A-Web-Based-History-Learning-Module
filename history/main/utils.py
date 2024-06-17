@@ -1,4 +1,14 @@
-# import google.generativeai as genai
+import requests 
+
+link: str = 'google.com'
+
+def search_google(content):
+    """
+    This is is supposed to gather additional information search by the users but not in the database/additional info
+    """
+    req = requests.get(link + content)
+
+#  import google.generativeai as genai
 
 # genai.configure(api_key="AIzaSyBr9V_Mb4NovM4bIDftgVdD3qkz-6q1S0Q")
 
