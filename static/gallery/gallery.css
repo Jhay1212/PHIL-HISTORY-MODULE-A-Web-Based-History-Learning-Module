@@ -335,3 +335,6 @@ header h1 {
 }
 
 
+main.mcnt {
+    transform: translate(-10%);
+}

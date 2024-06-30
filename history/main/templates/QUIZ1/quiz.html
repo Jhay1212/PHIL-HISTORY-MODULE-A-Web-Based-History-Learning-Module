@@ -2,10 +2,19 @@
 {% block css%}
 <title>QUIZ TIME</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='quiz/quiz1-css.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='quiz/quiz.html')}}">
+
+<style>
+	main#mainContent {
+    transform: translate(-10%, -10%);
+    /* background: pink; */
+
+}
+</style>
 {% endblock %}
 
 {% block main %}
-<main id="mainContent">
+<main id="mainContent" class="quiz-container"> 
     <section class="content-section">
         <h2>Quiz Time</h2>
         <div class="rectangle-container">
@@ -120,7 +129,7 @@
 			</div>
 			
 			<div class="rectangle">
-			<img src="{{ url_for('static', filename='./PICS/WT.jpg')}}s" alt="Image">
+			<img src="{{ url_for('static', filename='./PICS/WT.jpg')}}" alt="Image">
 			<div class="text">Lesson 13</div>
 			<div class="dropdown">
         <a href="{{ url_for('/.pre_test', unit=1, lesson=1)}}">Pre-test</a>

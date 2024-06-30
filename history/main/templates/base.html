@@ -30,8 +30,8 @@
 
 
 				<button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
-				{{ forms.search }}
-				{{ forms.submit }}
+				{{ forms.search(class='chewy') }}
+				<!-- {{ forms.submit }} -->
 				<button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
 			</form>
 			
@@ -39,17 +39,33 @@
             </div>
             </header>
 
-<!-- Table of Contents Sidebar -->
+<!-- Table of Contents Sidebar -
 			<nav id="navSidebar">
+				<li><label class="label1"> TABLE OF CONTENTS</label></li><hr>
 			
-			<ul>
-			<li><label class="label1"> TABLE OF CONTENTS</label></li><hr>
+				<ul>
+					{% for unit in units%}
+
+				
+
+				<li>
+					<a href="#mainContent">{{ unit.unit_title }}</a>
+					<div class="topic-buttons">
+						{% for subtopic in unit.lesson_key %}
+						<button class="dropdown-btn">{{ subtopic}}</button>
+
+						{% endfor %}
+					  <button class="dropdown-btn">Subtopic 2</button>
+					  <button class="dropdown-btn">Subtopic 3</button>
+				  </div>
+				</li>
+							  {% endfor %}
 			
             <li>
+
     <a href="#mainContent">UNIT 1</a>
-    <!-- Toggle dropdown buttons -->
+   
     <div class="topic-buttons">
-        <a class="dropdown-btn" href="{{ url_for('/.lesson')}}">Lesson 1: Rizal's Law</a>
         <button class="dropdown-btn">Subtopic 2</button>
         <button class="dropdown-btn">Subtopic 3</button>
     </div>
@@ -184,7 +200,7 @@
 			</ul>
 			
 			</nav>
-	
+		-->
     
 <!-- User Navigation Sidebar -->
 			<aside id="sidebar">
@@ -204,7 +220,7 @@
 			</div>
 			
 			<ul>
-			<li><a href="../HOME1/kasaysayan1.php">HOME</a></li>
+			<li><a href="{{ url_for('/.home')}}">HOME</a></li>
 			<li><a href="{{ url_for('/.gallery')}}">GALLERY</a></li>
             <li><a href="{{ url_for('/.quiz')}}">TAKE A QUIZ</a></li>
             <li><a href="{{ url_for('/auth.logout')}}">LOGOUT</a></li>

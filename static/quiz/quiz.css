@@ -1,0 +1,15 @@
+main#mainContent {
+    transform: translate(-10%, -10%);
+    background: pink;
+
+}
+
+.quiz-container {
+    transform: translate(-10%, -10%);
+    background: pink;
+
+}
+
+body {
+    background: grey;
+}

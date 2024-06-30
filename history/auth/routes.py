@@ -1,10 +1,10 @@
 from flask.blueprints import Blueprint
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 from flask_sqlalchemy import session
 from flask_login import login_user, current_user
 from flask_mail import Message
 
-from history import bcrpyt, login_manager, db, mail_manager
+from history import bcrpyt, login_manager, db, mail_manager, url_back
 from history.auth.forms import RegisterForm, LoginForm, RequestResetForm, ResetPasswordForm
 from history.auth.models import User
 
@@ -15,17 +15,23 @@ def send_email(user):
      msg = Message('Request Password Reset', sender='noreply@demo.com',
                     recipients=[user.email])
      msg.body = f'To reset password. Visit the following link: \n{url_for("reset_token", token=token, external=True)}'
+
+
 @acc.route('/signup', methods=['POST', 'GET'])
 def register():
     forms = RegisterForm()
     if forms.validate_on_submit():
+        message = Message(subject="Account Created", recipients=[forms.email.data], sender='rjhay1070@gmail.com')
+        message.body = f'Account Created for {forms.username.data}'
+        mail_manager.send(message=message)
         password = bcrpyt.generate_password_hash(forms.password.data)
         user = User(id=1, username=forms.username.data, email=forms.email.data, password=password)
         db.session.add(user)
         db.session.commit()
-        return redirect('home')
+        return redirect(url_back())
     print(forms.errors)
-    return render_template('signup.html', forms=forms)
+    flash(message=forms.errors)
+    return render_template('signup.html', forms=forms, errors=forms.errors)
 
 
 @acc.route('/login', methods=['POST', 'GET'])
@@ -38,6 +44,8 @@ def login():
                 login_user(user, remember=True)
                 print('1')
                 return redirect('/')
+        else:
+             flash(f'Login Unsuccsesful. PLease Check username or password')
     return render_template('Login1.html', forms=forms)
 
 

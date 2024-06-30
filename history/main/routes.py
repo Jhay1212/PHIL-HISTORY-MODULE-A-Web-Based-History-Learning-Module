@@ -10,7 +10,7 @@ from flask import (render_template,
                     get_flashed_messages)
 from .forms import NotesForm, PreTestForm, SearchForm, CommentForm
 from history.auth.models import User
-from .models import MiniNotes, Comment, Hero, President, Lesson
+from .models import MiniNotes, Comment, Hero, President, Lesson, Unit, BookMark
 from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
 from flask_sqlalchemy.query import Query
@@ -27,7 +27,8 @@ def base():
     # g.searchform = SearchForm()
     return {
         'forms': form,
-        'comment_form': CommentForm()
+        'comment_form': CommentForm(),
+        'units': Unit.query.all()
         }
 
 # @main.before_app_request
@@ -39,6 +40,11 @@ def base():
 def home():
     return render_template('home/home.html')
 
+@main.route('/unit/<int:unit>/lessons')
+def lessons_list(unit):
+    unit =  Unit.query.get(int(unit))
+    return render_template('lessons/units.html', unit=unit)
+    
 @main.route('/search', methods=['GET', 'POST'])
 def search():
     forms = SearchForm()
@@ -54,8 +60,9 @@ def search():
         return render_template('search/search.html', forms=forms, result=result)
     return render_template('search/search.html', forms=forms)
 
-@main.route('/lesson', methods=['POST', 'GET'])
-def lesson():
+@main.route('/lesson/<int:pk>', methods=['POST', 'GET'])
+def lesson(pk):
+    lesson = Lesson.query.get(pk)
     forms = NotesForm()
     comments = Comment.query.all() # where id of comments is equal to the lesson id so that comment for specific lesson will only show
     if forms.validate_on_submit():
@@ -63,7 +70,7 @@ def lesson():
         notes.save()
         return redirect(url_for('/.lesson'))
     print(forms.errors)
-    return render_template('lessons/unit1/lesson1.html', forms=forms, comments=comments)
+    return render_template('lessons/unit1/lesson1.html', lessons=lesson, forms=forms, comments=comments)
 
 @main.route('/home')
 def homepage():
@@ -88,6 +95,7 @@ def gallery():
 
 @main.route('/event/<string:event>')
 def event_view(event):
+    """ this shows what happens through out the history"""
     return render_template('event/event.html')
 
 @main.route('/quiz')
@@ -117,7 +125,7 @@ def choronoh():
 #     if forms.validate_on_submit():
 #         mess = forms.text.data
 #         convo.send_message(mess)
-#         response = convo.last.text
+#         response = convo.last.textry
 #         print(response[3:])
 #         return render_template('chatbot/chatbot.html', response=response, forms=forms)
 #     response = convo.last.text
@@ -144,7 +152,7 @@ def heroes():
 
     """
     heroes_data  = Hero.query.all()
-    return render_template('hero/heroes.html', heroes_data)
+    return render_template('hero/heroes.html', heroes=heroes_data)
 
 
 @main.route('/hero/<string:name>')
@@ -158,9 +166,18 @@ def hero(name):
 
 
 @main.route('/user/bookmark')
-def bookmark():
+def bookmarks():
     return render_template('bookmark/bookmark.html')
     
+@main.route('/bookmark/lesson/<int:pk>')
+def bookmark_function(pk):
+    lesson = Lesson.query.get(pk)
+    bookmark = BookMark(user_id=current_user, lesson_id=lesson)
+    db.session.add(bookmark)
+    db.session.commit()
+    return redirect(url_for(bookmarks))
+
+
 @main.route('/president/<string:name>')
 def president(name):
     """

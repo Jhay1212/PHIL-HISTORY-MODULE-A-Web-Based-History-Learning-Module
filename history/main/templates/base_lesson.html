@@ -8,29 +8,6 @@
 	{{ ckeditor.load(standard)}}
 </head>
 <style>
-
-    .audio-player {
-        background: #ffffff;
-        /* position: relative;
-        top: 20%;
-        left: 30%; */
-        position: absolute;
-        top: 10vh;
-        left: 30%;
-        width: 50%;
-        margin: 0 auto;
-        border: 1px solid #ddd;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 10rem;
-    }
-    
-    .controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
     
     button {
         background-color: #007bff;
@@ -106,7 +83,7 @@
     
                     <button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
                     {{ forms.search }}
-                    {{ forms.submit }}
+                    <!-- {{ forms.submit }} -->
                     <button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
                 </form>
 			</div>
@@ -131,7 +108,25 @@
 			<ul>
 			<li><label class="label1"> TABLE OF CONTENTS</label></li><hr>
 			
+            <ul>
+                {% for unit in units%}
+
+            
+
             <li>
+                <a href="#mainContent">{{ unit.unit_title }}</a>
+                <div class="topic-buttons">
+                    {% for subtopic in unit.lesson_key %}
+                    <button class="dropdown-btn">{{ subtopic}}</button>
+
+                    {% endfor %}
+                  <button class="dropdown-btn">Subtopic 2</button>
+                  <button class="dropdown-btn">Subtopic 3</button>
+              </div>
+            </li>
+                          {% endfor %}
+
+
     <a href="#mainContent">UNIT 1</a>
     <!-- Toggle dropdown buttons -->
     <div class="topic-buttons">

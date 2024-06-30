@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager, current_user
@@ -39,12 +39,13 @@ def create_app():
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = environ.get("MAIL_USERNAME")
-    app.config['MAIL_PASSWORD'] = environ.get("MAIL_PASSWORD")
+    app.config['MAIL_USERNAME'] = 'rjhay1070@gmail.com'
+    app.config['MAIL_PASSWORD'] = 'kuns jrbh wojm aaxb'
     mail_manager.init_app(app)
 
     from history.main.models import BookMark, Lesson, MiniNotes, Hero, President, Unit
     from history.auth.models import User
+    from history.socmed.models import PostComment, PostModel
     from history.auth.routes import acc
     from history.main.routes import main
     from history.chatbot.routes import cbot
@@ -56,6 +57,25 @@ def create_app():
     app.register_blueprint(cbot)
     app.register_blueprint(socmed)
 
+    @app.after_request
+    def save_response(r):
+        if request.method == 'POST':
+            return r
+        if request.endpoint == 'static':
+            return r
+        
+        history = session.get('history', [])
+        if history:
+            if history[-1][0] == request.endpoint and history[-1][1] == request.view_args:
+                return r
+
+        history.append([
+            request.endpoint,
+            request.view_args,
+            r.status_code
+        ])
+        session['history'] = history[-5:]
+        return r 
 
 
     admin = Admin(app)
@@ -65,6 +85,8 @@ def create_app():
         
     admin.add_view(ModelView(MiniNotes, db.session))
     admin.add_view(ModelView(Unit, db.session))
+    admin.add_view(ModelView(PostModel, db.session))
+    admin.add_view(ModelView(PostComment, db.session))
     admin.add_view(ModelView(Hero, db.session))
     admin.add_view(ModelView(President, db.session))
     admin.add_view(ModelView(Lesson, db.session))
@@ -74,6 +96,21 @@ def create_app():
 
     # class 
 
+    # DB INITIALIZATION
+
+    
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+
     return app
 # from . import routers
 
+
+def url_back(fallback='/.home', *args, **kwargs):
+    for step in session.get('history', [][::-1]):
+        if step[0] == request.endpoint and step[1] == request.view_args:
+            continue
+        if 200 <= step[2] < 300:
+            return url_for(step[0], **step[1]) 
+    return url_back(fallback, *args, **kwargs)

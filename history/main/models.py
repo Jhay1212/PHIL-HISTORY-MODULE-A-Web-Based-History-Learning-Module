@@ -8,6 +8,7 @@ class Unit(TimeStampMixin, db.Model):
     id = Column(Integer, primary_key=True)
     lesson_key = db.relationship("Lesson", backref='unit', lazy=True)
     unit_title = Column(String(64), nullable=False)
+    description = Column(String(56), nullable=False, default='Description')
 
 class Lesson(TimeStampMixin, db.Model):
     id = Column(Integer, primary_key=True)
@@ -88,4 +89,4 @@ class President(db.Model):
 # class PostTestQuiz(db.Model):
 #     id = Column(Integer, primary_key=True)
 #     question_id = Column(Integer, ForeignKey('question.id'), nullable=False)
-#     # how to implement which answer is correct for the 
+#     # how to implement which answer is correct for the ``

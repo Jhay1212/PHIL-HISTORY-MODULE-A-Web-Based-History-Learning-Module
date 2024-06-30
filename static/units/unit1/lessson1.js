@@ -1,4 +1,2 @@
-// 'use strict';
-// const noteButton = document.querySelector('#noteOptionBtn');
-
-// alert(noteButton);
+const audio = document.querySelector('#audio-source');
+alert(audio)

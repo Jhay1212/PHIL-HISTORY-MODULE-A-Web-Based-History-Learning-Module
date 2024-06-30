@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='socmed/home.css')}}">
+</head>
+<body>
+    <main>
+
+    <div class="socmed">
+
+        <form action="" class="form-group" method="POST">
+            {{ forms.hidden_tag()}}
+            {{ forms.title }}
+            {{ forms.link }}
+
+            {{ forms.category }}
+            {{ forms.submit }}
+        <h2>Create New Topic</h2>
+        <button class="dropdown-btn">Dropdown</button>
+            <div class="category-btn">
+                <option value="Question"></option>
+                <option value="Trivia"></option>
+                <option value="Unreleated"></option>
+                <option value="Facts"></option>
+            
+        </div>
+
+        <input type="text" name="link" id="" placeholder="Enter a link">
+    </form>
+    {% for p in posts %}
+        <div class="post-container">
+            
+           
+
+            <div class="post-container">
+                <div class="post">
+                    {{ p }}
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+
+</body>
+</html>

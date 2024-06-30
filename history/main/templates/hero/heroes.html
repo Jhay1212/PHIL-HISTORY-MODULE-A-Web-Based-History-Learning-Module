@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block main %}
+{% for hero in heroes %}
+				<div class="content-item">
+					<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
+					<p id="TOPIC 1"><b>{{ hero }}</b><br>
+					Factors that Contributed in Rizal's Becoming a Great Man and a Hero </p>
+					</div>
+                    {% endfor %}
+{% endblock %}

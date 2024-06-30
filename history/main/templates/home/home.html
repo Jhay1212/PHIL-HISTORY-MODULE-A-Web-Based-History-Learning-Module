@@ -5,11 +5,19 @@
 {% block main%}
 
 
-
+	
 <!-- CONTENTS -->
 			<main id="mainContent">
 			<section class="content-section">
 			
+
+				{% for unit in units %}
+				<div class="content-item">
+					<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
+					<p id="TOPIC 1"><b>{{ unit.unit_title }}</b><br>
+					Factors that Contributed in Rizal's Becoming a Great Man and a Hero </p>
+					</div>
+				{% endfor %}
 			<div class="content-item">
 			<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
 			<p id="TOPIC 1"><b>UNIT 1:</b><br>

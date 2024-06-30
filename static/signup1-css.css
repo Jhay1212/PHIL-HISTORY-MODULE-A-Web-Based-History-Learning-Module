@@ -5,11 +5,11 @@
    body {
        background: #f2f2f2 url("./PICS/BGG.jpg") no-repeat fixed;
        background-size: cover;
-       display: flex;
-       justify-content: center;
-       align-items: center;
+     
        height: 100vh;
        margin:0;
+
+       
    }
    
    .signup-container {
@@ -29,9 +29,22 @@
    .form-group {
        margin-bottom: 20px;
    }
+
+    #m-container {
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   } 
    
    .form-group input[type="text"],
-   .form-group input[type="password"] {
+   .form-group input[type="password"],
+   .form-group input[type='email'] {
        color: white;
        width: 100%;
        padding: 10px;
@@ -100,4 +113,11 @@
        display: none; 
        color: red;
        text-shadow: 1px 1px black;
+   }
+   li.message {
+    background: red;
+    color: aqua;
+    margin: 0 20px;
+    padding: .6rem;
+    border-radius: 10px;
    }
