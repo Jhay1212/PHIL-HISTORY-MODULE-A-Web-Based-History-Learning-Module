@@ -10,6 +10,7 @@ from .models import PostComment, PostModel
 from .forms import PostForm, EditUserForm
 
 from random import shuffle
+from .utils import send_message
 
 
 socmed = Blueprint('social', __name__, template_folder='templates')
@@ -34,19 +35,20 @@ socmed = Blueprint('social', __name__, template_folder='templates')
 #     session['history'] = history[-5:]
 #     return r 
 
-
-
-
 @socmed.route('/media/feed', methods=['GET', 'POST'])
 def feed():
     forms = PostForm()
     if forms.validate_on_submit():
         post = PostModel(user_id=1, title=forms.title.data, category=forms.category.data)
-        post.save()
+        comment = PostComment(post_id=post.id, comment=send_message(post.title), post=post)
+        db.session.add(post)
+        db.session.commit()
         return redirect(url_for('social.feed'))
     posts = PostModel.query.all()
     if request.method == 'POST':
         pass
+
+    print([x for x in posts])
     return render_template('socmed/home.html', posts=posts, forms=forms)
 
 @socmed.route('/profile/user/<string:username>')
@@ -69,3 +71,11 @@ def edit_user():
         forms.username.data = current_user.username
         forms.email.data = current_user.email
         return render_template('edit_user.html', forms=forms, user=current_user)
+
+
+# @socmed.route('/add/post', methods=['GET', 'POST'])
+# def add_post():
+
+#     forms = PostForm()
+#     if forms.validate_on_submit():
+#         post = forms.

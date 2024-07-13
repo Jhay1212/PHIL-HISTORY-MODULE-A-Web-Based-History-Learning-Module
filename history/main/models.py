@@ -19,6 +19,8 @@ class Lesson(TimeStampMixin, db.Model):
     mini_notes = db.relationship('MiniNotes', backref='lesson', lazy=True)
     bookmark = db.relationship('BookMark', backref='title', lazy=True)
     
+    # def __init__(self) -> None:
+        # Lesson.unit_id = 1
     def __str__(self) -> str:
         return self.title
     

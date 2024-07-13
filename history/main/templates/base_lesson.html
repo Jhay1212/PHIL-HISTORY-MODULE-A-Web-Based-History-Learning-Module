@@ -70,8 +70,11 @@
             </div>
 			
             <h1>DISCOVERING PHILIPPINE HISTORY</h1>
-            <!-- <div class="notebtn"><button id="bookmark" margin-right='2rem'>Add to bookmark</button></div> -->
+            <!-- {% if current_user.is_authenticated %} -->
+            <div class="notebtn"><button id="bookmark" margin-right='2rem'>Add to bookmark</button></div>
+
             <div class="notebtn"><button id="noteOptionBtn">Note</button></div>
+            <!-- {% endif %} -->
             <!-- <div class="notebtn"><button id="noteOptionBtn">Bookmark</button></div> -->
 
 			
@@ -81,7 +84,7 @@
                     {{ forms.hidden_tag() }}
     
     
-                    <button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
+                    <!-- <button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button> -->
                     {{ forms.search }}
                     <!-- {{ forms.submit }} -->
                     <button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
@@ -112,7 +115,6 @@
                 {% for unit in units%}
 
             
-
             <li>
                 <a href="#mainContent">{{ unit.unit_title }}</a>
                 <div class="topic-buttons">

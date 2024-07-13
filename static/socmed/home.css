@@ -3,6 +3,10 @@
     margin: 0;
     padding: 0;
 }
+body {
+    height: 100%;
+    background: pink;
+}
 
 .socmed {
     background: gray;
@@ -10,6 +14,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-left: 5px solid red;
+    box-shadow: 0px 5px 0px 5px black;
     /* align-content: space-between; */
 }
 .post-container {
@@ -22,3 +28,17 @@
 /* .post-container .post {
     margin-bottom: 1rem;
 } */
+ main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    height: 100%;
+ }
+
+ main .left {
+    background: red;
+    /* align-self: center; */
+ }
+ main .right {
+    background: green;
+ }

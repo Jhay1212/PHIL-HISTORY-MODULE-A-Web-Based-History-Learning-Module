@@ -165,6 +165,8 @@ main {
 
 .info-btn {
     margin-left: 5px;
+    position: absolute;
+    top: -15px;
 }
 
 .info-btn img{

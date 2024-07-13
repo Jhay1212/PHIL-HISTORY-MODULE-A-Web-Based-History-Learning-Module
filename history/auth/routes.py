@@ -25,7 +25,7 @@ def register():
         message.body = f'Account Created for {forms.username.data}'
         mail_manager.send(message=message)
         password = bcrpyt.generate_password_hash(forms.password.data)
-        user = User(id=1, username=forms.username.data, email=forms.email.data, password=password)
+        user = User(username=forms.username.data, email=forms.email.data, password=password)
         db.session.add(user)
         db.session.commit()
         return redirect(url_back())

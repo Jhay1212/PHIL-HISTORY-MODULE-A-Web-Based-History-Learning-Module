@@ -10,7 +10,7 @@ from flask_pagedown import PageDown
 from flask_ckeditor import CKEditor
 
 from flask_admin import Admin
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 from flask_admin.contrib.sqla import ModelView
 from os import environ
 # App setup and configuration
@@ -31,7 +31,7 @@ def create_app():
     app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
     app.config['FLASK_ADMIN_FLUID_LAYOUT'] = True
     db.init_app(app)
-    migrate = Migrate(app, db)
+    # migrate = Migrate(app, db)
     app.app_context().push()
     pagedown.init_app(app)
     login_manager.init_app(app)
@@ -100,7 +100,7 @@ def create_app():
 
     
     with app.app_context():
-        db.drop_all()
+        # db.drop_all()
         db.create_all()
 
     return app
@@ -113,4 +113,6 @@ def url_back(fallback='/.home', *args, **kwargs):
             continue
         if 200 <= step[2] < 300:
             return url_for(step[0], **step[1]) 
+        
+        print(fallback)
     return url_back(fallback, *args, **kwargs)

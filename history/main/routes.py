@@ -15,6 +15,7 @@ from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
 from flask_sqlalchemy.query import Query
 from history import db
+from .utils import search_google
 
 
 # from .utils import convo
@@ -38,6 +39,7 @@ def base():
 
 @main.route('/', methods=['GET', 'POST'])
 def home():
+    search_google()
     return render_template('home/home.html')
 
 @main.route('/unit/<int:unit>/lessons')
@@ -62,8 +64,11 @@ def search():
 
 @main.route('/lesson/<int:pk>', methods=['POST', 'GET'])
 def lesson(pk):
+    """
+    A function to handle the display of a specific lesson with associated notes and comments.
+    """
     lesson = Lesson.query.get(pk)
-    forms = NotesForm()
+    forms = NotesForm();
     comments = Comment.query.all() # where id of comments is equal to the lesson id so that comment for specific lesson will only show
     if forms.validate_on_submit():
         notes = MiniNotes(notes=forms.notes.data)

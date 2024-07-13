@@ -2,7 +2,8 @@ from sqlalchemy import Column, String, Integer, DateTime, ForeignKey
 from flask_sqlalchemy.model import Model
 from history.mixins import TimeStampMixin
 from history import db
-
+from .utils import  chat_session, send_message
+from sqlalchemy import event
 
 class PostModel(TimeStampMixin, db.Model):
     __tablename__ = 'post' 
@@ -13,6 +14,17 @@ class PostModel(TimeStampMixin, db.Model):
     category = Column(String, nullable=False) # should have choices 
 
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        # try:
+
+        #      comment = PostComment(post_id=self.id, comment=send_message(self.title))
+        #      db.session.add(comment)
+        #      db.session.commit()
+        response = chat_session.send_message(self.title)
+        # PostComment.__table__.create(db.session.bind)
+        print(response.text)
 
     """
     Question, Trivia, Help me study, Philippines, Unrelated
@@ -35,3 +47,10 @@ class PostComment(TimeStampMixin, db.Model):
 
 # PostModel.__table__.create(db.session.bind)
 # # PostComment.__table__.create(db.session.bind)
+
+def add_child_comment(mapper, connection, target):
+    comment = PostComment(post_id=target.id, comment=send_message(target.title))
+    db.session.add(comment)
+    db.session.commit()
+
+# event.listen(PostModel, 'after_insert', add_child_comment)
