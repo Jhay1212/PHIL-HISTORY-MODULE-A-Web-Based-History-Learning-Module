@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='homej.css')}}">
+
+<style>
+	a, a:visited {
+		color: black;
+		text-decoration: none;
+	}
+</style>
 {% endblock %}
 {% block main%}
 
@@ -12,11 +19,14 @@
 			
 
 				{% for unit in units %}
+
+				<a href="{{ url_for('/.lessons_list', unit=unit.id)}}">
 				<div class="content-item">
 					<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
 					<p id="TOPIC 1"><b>{{ unit.unit_title }}</b><br>
-					Factors that Contributed in Rizal's Becoming a Great Man and a Hero </p>
+					{{ unit.description }} </p>
 					</div>
+				</a>
 				{% endfor %}
 			<div class="content-item">
 			<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">

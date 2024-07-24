@@ -1,6 +1,6 @@
-from flask import Flask, request, session, url_for
+from flask import Flask, request, session, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
-
+from itsdangerous import URLSafeSerializer
 from flask_login import LoginManager, current_user
 from flask_bcrypt import Bcrypt
 
@@ -12,8 +12,10 @@ from flask_ckeditor import CKEditor
 from flask_admin import Admin
 # from flask_migrate import Migrate
 from flask_admin.contrib.sqla import ModelView
-from os import environ
+import os 
 # App setup and configuration
+
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -24,10 +26,11 @@ mail_manager = Mail()
 ckeditor = CKEditor()
 
 def create_app():
+    print(BASEDIR)
 
-    app = Flask('__main__')
-    app.config['SECRET_KEY'] = environ.get("SECRET_KEY")
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+    app = Flask('__main__', template_folder=os.path.join(BASEDIR, 'templates'))
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' or os.path.join(BASEDIR, 'site.db')
     app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
     app.config['FLASK_ADMIN_FLUID_LAYOUT'] = True
     db.init_app(app)
@@ -39,9 +42,10 @@ def create_app():
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = 'rjhay1070@gmail.com'
-    app.config['MAIL_PASSWORD'] = 'kuns jrbh wojm aaxb'
+    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
     mail_manager.init_app(app)
+    serializer = URLSafeSerializer(app.config['SECRET_KEY'])
 
     from history.main.models import BookMark, Lesson, MiniNotes, Hero, President, Unit
     from history.auth.models import User
@@ -77,11 +81,17 @@ def create_app():
         session['history'] = history[-5:]
         return r 
 
-
+    print(app._static_folder)
     admin = Admin(app)
     class MiniNotesModelView(ModelView):
         def is_accesible(self):
             return current_user.is_authenticated
+    class LessonModelView(ModelView):
+        column_display_pk = True
+        column_hide_backrefs = False
+        column_display_all_relations = True
+        column_list = ('title', 'content', 'unit')
+        form_list = ('title', 'content', 'unit_id')
         
     admin.add_view(ModelView(MiniNotes, db.session))
     admin.add_view(ModelView(Unit, db.session))
@@ -89,7 +99,8 @@ def create_app():
     admin.add_view(ModelView(PostComment, db.session))
     admin.add_view(ModelView(Hero, db.session))
     admin.add_view(ModelView(President, db.session))
-    admin.add_view(ModelView(Lesson, db.session))
+    admin.add_view(LessonModelView(Lesson, db.session))
+    print('lesson model view added to admin')
     admin.add_view(ModelView(BookMark, db.session))
     admin.add_view(ModelView(User, db.session))
 
@@ -97,6 +108,10 @@ def create_app():
     # class 
 
     # DB INITIALIZATION
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('history/templates/errors/404.html')
 
     
     with app.app_context():

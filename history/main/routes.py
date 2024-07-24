@@ -5,16 +5,23 @@ from flask import (render_template,
                    url_for, 
                    request, 
                    jsonify, 
+                   send_file,
                    session,
                     g, 
                     get_flashed_messages)
-from .forms import NotesForm, PreTestForm, SearchForm, CommentForm
-from history.auth.models import User
-from .models import MiniNotes, Comment, Hero, President, Lesson, Unit, BookMark
 from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
 from flask_sqlalchemy.query import Query
+
+import os
+
+from .forms import NotesForm, PreTestForm, SearchForm, CommentForm
+from .models import MiniNotes, Comment, Hero, President, Lesson, Unit, BookMark
+from history.auth.models import User
 from history import db
+
+from history import BASEDIR
+
 from .utils import search_google
 
 
@@ -39,18 +46,19 @@ def base():
 
 @main.route('/', methods=['GET', 'POST'])
 def home():
-    search_google()
+    # search_google()
     return render_template('home/home.html')
 
 @main.route('/unit/<int:unit>/lessons')
 def lessons_list(unit):
-    unit =  Unit.query.get(int(unit))
-    return render_template('lessons/units.html', unit=unit)
+    unit =  Unit.query.get(unit)
+    return render_template('lessons/lessons.html', unit=unit)
     
 @main.route('/search', methods=['GET', 'POST'])
 def search():
     forms = SearchForm()
     if forms.validate_on_submit():
+        searc = search_google(forms.search.data)
         # forms = forms.data
         
         result = Lesson.query.filter(
@@ -58,17 +66,17 @@ def search():
                 Lesson.title.like(forms.search.data)              
                                          )).all()
         
-        print(Lesson.query.filter(Lesson.content.ilike(forms.search.data)), 'jhay', result)
+        print(Lesson.query.filter(Lesson.content.ilike(forms.search.data)), 'jhay', result, search=searc)
         return render_template('search/search.html', forms=forms, result=result)
     return render_template('search/search.html', forms=forms)
 
-@main.route('/lesson/<int:pk>', methods=['POST', 'GET'])
-def lesson(pk):
+@main.route('/unit/<int:unit>/lesson/<int:pk>', methods=['POST', 'GET'])
+def lesson(unit, pk):
     """
     A function to handle the display of a specific lesson with associated notes and comments.
     """
     lesson = Lesson.query.get(pk)
-    forms = NotesForm();
+    forms = NotesForm()
     comments = Comment.query.all() # where id of comments is equal to the lesson id so that comment for specific lesson will only show
     if forms.validate_on_submit():
         notes = MiniNotes(notes=forms.notes.data)
@@ -160,16 +168,26 @@ def heroes():
     return render_template('hero/heroes.html', heroes=heroes_data)
 
 
-@main.route('/hero/<string:name>')
-def hero(name):
+@main.route('/hero/<string:first>/<string:last>')
+def hero(first, last):
     """
     Single hero page
     """
-    hero = select(Hero).filter_by(name=name)
+    name = '{} {}'.format(first, last)
+    hero = Hero.query.filter_by(name=name).first()
+    print(name, hero)
     print(hero)
-    return render_template('hero/hero.html', hero='hero')
+    return render_template('hero/hero.html', hero=hero)
 
-
+# @main.route('unit/<int:unit>/')
+@main.route('/audio/unit/<int:unit>/lesson/<int:lesson>')
+def play_audio(unit, lesson):
+    return render_template('audio.html')
+    # path_to_audio = url_for('static', filename='1/1/1.ogg')
+    # return send_file(path_to_audio,
+    #                  mimetype='audio/wav',
+    #                  as_attachment=True, 
+    #                  download_name='Unit {} Lesson {}.wav'.format(unit, lesson))
 @main.route('/user/bookmark')
 def bookmarks():
     return render_template('bookmark/bookmark.html')

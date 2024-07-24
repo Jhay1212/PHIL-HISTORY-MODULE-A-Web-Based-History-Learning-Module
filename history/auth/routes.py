@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, flash
 from flask_sqlalchemy import session
 from flask_login import login_user, current_user
 from flask_mail import Message
+from threading import Thread
 
 from history import bcrpyt, login_manager, db, mail_manager, url_back
 from history.auth.forms import RegisterForm, LoginForm, RequestResetForm, ResetPasswordForm
@@ -10,12 +11,12 @@ from history.auth.models import User
 
 acc = Blueprint('/auth', __name__, template_folder='templates')
 
-def send_email(user):
-     token = user.get_reset_token()
-     msg = Message('Request Password Reset', sender='noreply@demo.com',
-                    recipients=[user.email])
-     msg.body = f'To reset password. Visit the following link: \n{url_for("reset_token", token=token, external=True)}'
+# def send_email(user):
+#      with acc.app
 
+def send_email(app, msg):
+     with app.app_context():
+          mail_manager.send(msg)
 
 @acc.route('/signup', methods=['POST', 'GET'])
 def register():
@@ -23,15 +24,21 @@ def register():
     if forms.validate_on_submit():
         message = Message(subject="Account Created", recipients=[forms.email.data], sender='rjhay1070@gmail.com')
         message.body = f'Account Created for {forms.username.data}'
-        mail_manager.send(message=message)
+
+        thread = Thread(target=send_email, args=[forms])
+        thread.start()
+        # mail_manager.send(message=message)
         password = bcrpyt.generate_password_hash(forms.password.data)
         user = User(username=forms.username.data, email=forms.email.data, password=password)
         db.session.add(user)
         db.session.commit()
         return redirect(url_back())
+    else:
+        return render_template('signup.html', forms=forms, errors=forms.errors)
+         
     print(forms.errors)
     flash(message=forms.errors)
-    return render_template('signup.html', forms=forms, errors=forms.errors)
+    return render_template('signup.html', forms=forms)
 
 
 @acc.route('/login', methods=['POST', 'GET'])

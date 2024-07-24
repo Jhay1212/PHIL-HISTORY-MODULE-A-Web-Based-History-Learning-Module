@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='homej.css')}}">
+{% endblock %}
+{% block main%}
+
+
+	
+<!-- CONTENTS -->
+			<main id="mainContent">
+			<section class="content-section">
+			
+
+				{% for uni in unit %}
+				<div class="content-item">
+					<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
+					<p id="TOPIC 1"><b>{{ unit.unit_title }}</b><br>
+					{{ unit.description }} </p>
+					</div>
+				{% endfor %}
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
+			<p id="TOPIC 1"><b>UNIT 1:</b><br>
+			Factors that Contributed in Rizal's Becoming a Great Man and a Hero </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/WT.jpg')}}" alt="Image 2">
+			<p id="TOPIC 2"><b>UNIT 2:</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/WT.jpg')}}" alt="Image 3">
+			<p id="TOPIC 3"><b>UNIT 3:</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/WT.jpg')}}" alt="Image 1">
+			<p id="TOPIC 4"><b>UNIT 4:</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/WT.jpg')}}" alt="Image 2">
+			<p id="TOPIC 5"><b>LESSON 5: BATTLE OF YULTONG</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 3">
+			<p id="TOPIC 6"><b>LESSON 6: CULLING GAMES</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/kyd-tnz.jpg')}}" alt="Image 1">
+			<p id="TOPIC 7"><b>LESSON 7: CULLING GAMES</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/kyd-tnz.jpg')}} "alt="Image 2">
+			<p id="TOPIC 8"><b>LESSON 8: CULLING GAMES</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 3">
+			<p id="TOPIC 9"><b>LESSON 9: CULLING GAMES</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/kyd-tnz.jpg')}}" alt="Image 1">
+			<p id="TOPIC 10"><b>LESSON 10: CULLING GAMES</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 2">
+			<p id="TOPIC 11"><b>LESSON 11: SHIBUYA INCIDENT</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 3">
+			<p id="TOPIC 12"><b>LESSON 12: SHIBUYA INCIDENT</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+
+			<div class="content-item">
+				<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 3">
+				<p id="TOPIC 12"><b>LESSON 13: SHIBUYA INCIDENT</b><br>
+				Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+				</div>
+			
+		
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 2">
+			<p id="TOPIC 14"><b>LESSON 14: SHIBUYA INCIDENT</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+			
+			<div class="content-item">
+			<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 3">
+			<p id="TOPIC 15"><b>LESSON 15: SHIBUYA INCIDENT</b><br>
+			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
+			</div>
+
+			</section>
+			</main>
+
+
+{% endblock %}

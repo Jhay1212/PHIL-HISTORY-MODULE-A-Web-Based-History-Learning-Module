@@ -5,14 +5,27 @@ from history import db
 from .utils import  chat_session, send_message
 from sqlalchemy import event
 
+
+
+post_category = db.Table(
+    'post_category',
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id')),
+    db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+)
+class Category(db.Model):
+    id = Column(Integer, primary_key=True)
+    # category = 
+
 class PostModel(TimeStampMixin, db.Model):
     __tablename__ = 'post' 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'))
     post_c = db.relationship('PostComment', backref='post', lazy=True)
     title =  Column(String(256), nullable=False)
-    category = Column(String, nullable=False) # should have choices 
+    category = db.relationship('Category', secondary=post_category, backref=db.backref('posts', lazy='dynamic'))
 
+    def __repr__(self) -> str:
+        return f'Post - {self.title}: Category: {self.category}'
 
     def save(self):
         db.session.add(self)
@@ -49,6 +62,7 @@ class PostComment(TimeStampMixin, db.Model):
 # # PostComment.__table__.create(db.session.bind)
 
 def add_child_comment(mapper, connection, target):
+    transaction = connection.begin()
     comment = PostComment(post_id=target.id, comment=send_message(target.title))
     db.session.add(comment)
     db.session.commit()

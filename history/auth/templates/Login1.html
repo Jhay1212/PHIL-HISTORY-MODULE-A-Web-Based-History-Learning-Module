@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='login1-css.css')}}">
     <title>PH KASAYSAYAN - Login</title>
+
+    <style>
+        .eye {
+            transform: translateY(5%);
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
@@ -24,7 +30,7 @@
         
     </form>
     <p><a href="{{url_for('/.home')}}">Continue as Guest</a></p>
-    <p>No Account? <a href="{{ url_for('/auth.login')}}">Signup here</a>.</p>
+    <p>No Account? <a href="{{ url_for('/auth.register')}}">Signup here</a>.</p>
 </div>
 
     <script src="{{ url_for('static', filename='auth/loginjs.js')}}"></script>

@@ -1,11 +1,133 @@
 {% extends 'base.html' %}
 
+
+{% block css %}
+<style>
+	:root {
+  --height: 200px;
+  --width: 100%;
+  --depth: 200px;
+  --color-shelf-back-panel: #a17941;
+  --color-shelf-bottom-panel: #795832;
+  --color-shelf-bottom-panel-front: #9b7d50;
+  --color-shelf-side-panel: #956e39;
+  --color-shelf-shadow: #653b17;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+.bookshelf {
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container-books {
+  width: var(--width);
+  height: var(--height);
+  perspective: 500px;
+  overflow: hidden;
+  background-color: var(--color-shelf-side-panel);
+  position: absolute;
+}
+
+.cuboid {
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+  transform-style: preserve-3d;
+}
+
+.cuboid__face {
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  box-shadow: 0 1px 3px 0 black, 0 1px 2px -1px black;
+}
+
+.cuboid__face--front {
+  background: transparent;
+}
+
+.cuboid__face--back {
+  --extra-height: 3rem;
+  transform: translateY(calc(var(--extra-height) * -1)) translateZ(calc(var(--depth) * -1)) rotateY(180deg);
+  height: calc(var(--height) + var(--extra-height));
+  background: var(--color-shelf-back-panel);
+}
+
+.cuboid__face--top {
+  transform: translateZ(calc(var(--depth) * -0.5)) translateY(calc(var(--height) * -0.5)) rotateX(90deg);
+  height: var(--depth);
+}
+
+.cuboid__face--bottom {
+  transform: translateZ(calc(var(--depth) * -0.5)) translateY(calc(var(--height) * 0.5)) rotateX(-90deg);
+  height: var(--depth);
+  background: var(--color-shelf-bottom-panel);
+}
+
+.books-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 3rem;
+  position: relative;
+  height: var(--height);
+  padding-bottom: 0.8rem;
+  box-sizing: border-box;
+  box-shadow: inset 0 10px 10px 0 var(--shadow-color, var(--color-shelf-shadow));
+}
+
+.book {
+  height: calc(var(--height) - 3rem);
+  width: 7rem;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 3px 0 black, 0 1px 2px -1px black;
+}
+
+.floor-thickness {
+  height: 1rem;
+  width: 100%;
+  background: var(--color-shelf-bottom-panel-front);
+}
+</style>
+
+{% endblock %}
+
 {% block main %}
-{% for hero in heroes %}
-				<div class="content-item">
-					<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
-					<p id="TOPIC 1"><b>{{ hero }}</b><br>
-					Factors that Contributed in Rizal's Becoming a Great Man and a Hero </p>
-					</div>
-                    {% endfor %}
+
+<div class="bookshelf">
+
+<section>
+	<div class="container-books">
+	  <div class="cuboid">
+		<div class="cuboid__face cuboid__face--bottom"></div>
+		<div class="cuboid__face cuboid__face--front"></div>
+		<div class="cuboid__face cuboid__face--back"></div>
+	  </div>
+	</div>
+	<div class="books-container">
+	  <div class="book">Book 1</div>
+	  <div class="book">Book 2</div>
+	  <div class="book">Book 3</div>
+	  <div class="book">Book 4</div>
+	</div>
+	<div class="floor-thickness"></div>
+  </section>
+
+</div>
+
 {% endblock %}

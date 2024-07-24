@@ -81,7 +81,7 @@
        position: absolute;
        right: 8px; /* Adjust right position */
        top: 52%;
-       transform: translateY(-50%);
+       transform: translateY(-120%);
        cursor: pointer;
    }
    

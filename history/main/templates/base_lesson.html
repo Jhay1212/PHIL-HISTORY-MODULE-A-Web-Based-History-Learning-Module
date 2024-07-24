@@ -298,6 +298,19 @@
 			</aside>
 
 <!-- CONTENTS -->
+ 
+<div class="audio-player" >
+	<audio id="audio" >
+        <source src="{{ url_for('static', filename='audio/oss.mp3') }}" type="audio/mpeg">
+
+	</audio>
+	<div class="controls">
+		<button id="play-pause" class="play">Play</button>
+		<input type="range" id="seek-bar" value="0">
+		<button id="mute">Mute</button>
+		<input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1">
+	</div>
+	</div>
             {% block main %}
             {% endblock %}
 

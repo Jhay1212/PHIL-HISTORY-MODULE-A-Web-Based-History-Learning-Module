@@ -50,8 +50,8 @@ body {
 	height:30px;
     position: absolute;
     right: 30px; /* Adjust right position */
-    top: 42%;
-    transform: translateY(-50%);
+    top: 30%;
+    transform: translateY(10%);
     cursor: pointer;
 }
 

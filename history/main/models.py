@@ -62,6 +62,8 @@ class Hero(db.Model):
     name = Column(String(256), nullable=False)
     # profile_pic = Column/(LargeBinary(), nullable=False, default='Pic')
     bio = Column(String(), nullable=False)
+    early_life = Column(String, nullable=False)
+    accomplishment = Column(String, nullable=False)
     contribution = Column(Text, nullable=False)
 
     def __str__(self) -> str:
@@ -71,8 +73,10 @@ class President(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(256), nullable=False)
     # profile_pic = Column/(LargeBinary(), nullable=False, default='Pic')
-    bio = Column(String(), nullable=False)
+    bio = Column(String, nullable=False)
+    early_life = Column(String, nullable=False)
     contribution = Column(Text, nullable=False)
+    during_regime = Column(Text, nullable=False)
 
 # class PreTestQuiz(db.Model):
 #     id = Column(Integer, primary_key=True)
