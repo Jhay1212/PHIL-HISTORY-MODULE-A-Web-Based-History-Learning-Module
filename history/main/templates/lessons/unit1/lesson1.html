@@ -80,10 +80,10 @@ Katulad ng RH Bill, hindi naging madali ang pagpasa ng batas na ito dahil sa mal
 <!-- Add this div at the bottom of the body, above the script tags -->
 <div id="noteContainer" style="display: none;">
 	<form action="" method="post">
-		{{ forms.hidden_tag()}}
-		{{ forms.title }}
-		{{ forms.notes }}
-		{{ forms.submit }}
+		{{ notes_forms.hidden_tag()}}
+		{{ notes_forms.title }}
+		{{ notes_forms.notes }}
+		{{ notes_forms.submit }}
 	</form>
     <button id="cancelNoteBtn">Cancel</button>
 </div>

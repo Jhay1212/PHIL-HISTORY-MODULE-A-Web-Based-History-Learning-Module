@@ -27,6 +27,41 @@ from .utils import search_google
 
 # from .utils import convo
 main = Blueprint('/', __name__, template_folder='templates', static_folder='static')
+print(dir(current_user))
+@main.before_app_request
+def check_admin_auth():
+    """
+    A decorator function that checks if the current user is an admin before allowing access to the admin page.
+
+    This function is decorated with `@main.before_app_request` which means it will be called before every request to the Flask app.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        None
+
+    Example Usage:
+        @main.before_app_request
+        def check_admin_auth():
+            if request.path.startswith('/admin'):
+                if current_user.username != 'admin':
+                    return redirect(url_for('auth.login'))
+
+    """
+    if request.path.startswith('/admin'):
+        if current_user.username != 'admin':
+            return redirect(url_for('auth.login'))
+
+
+
+@main.app_errorhandler(404)
+def page_not_found(e):
+    return render_template('errors/404.html', e=e), 404
+
 
 @main.context_processor
 def base():
@@ -66,8 +101,8 @@ def search():
                 Lesson.title.like(forms.search.data)              
                                          )).all()
         
-        print(Lesson.query.filter(Lesson.content.ilike(forms.search.data)), 'jhay', result, search=searc)
-        return render_template('search/search.html', forms=forms, result=result)
+        print(Lesson.query.filter(Lesson.content.ilike(forms.search.data)), 'jhay', result, searc)
+        return render_template('search/search.html', forms=forms, result=result, search_result=searc)
     return render_template('search/search.html', forms=forms)
 
 @main.route('/unit/<int:unit>/lesson/<int:pk>', methods=['POST', 'GET'])
@@ -81,9 +116,9 @@ def lesson(unit, pk):
     if forms.validate_on_submit():
         notes = MiniNotes(notes=forms.notes.data)
         notes.save()
-        return redirect(url_for('/.lesson'))
+        return redirect(url_for('/.lesson', unit=unit, pk=pk))
     print(forms.errors)
-    return render_template('lessons/unit1/lesson1.html', lessons=lesson, forms=forms, comments=comments)
+    return render_template('lessons/unit1/lesson1.html', lessons=lesson, notes_forms=forms, comments=comments)
 
 @main.route('/home')
 def homepage():
@@ -149,7 +184,7 @@ def choronoh():
 
 @main.route('/timeline')
 def timeline():
-    return render_template('timeline/timeline.html')
+    return render_template('timeline/test.html')
 
 def get_response_chatbot(txt):
     pass
@@ -165,7 +200,7 @@ def heroes():
 
     """
     heroes_data  = Hero.query.all()
-    return render_template('hero/heroes.html', heroes=heroes_data)
+    return render_template('hero/bookshelf.html', heroes=heroes_data)
 
 
 @main.route('/hero/<string:first>/<string:last>')

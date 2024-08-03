@@ -11,7 +11,7 @@ params = {
 }
 response = requests.get(url, params=params)
 print(response)
-def search_google():
+def search_google(data):
     
     """
     This is is supposed to gather additional information search by the users but not in the database/additional info
@@ -22,7 +22,7 @@ def search_google():
     search_engine_api = '73d6ddb13c5b5400e'or os.getenv('SEARCH_ENGINE')
     url = 'https://www.googleapis.com/customsearch/v1'
     params = {
-        'q': 'hello',
+        'q': str(data),
         'key': api_key,
         'cx': search_engine_api
     }

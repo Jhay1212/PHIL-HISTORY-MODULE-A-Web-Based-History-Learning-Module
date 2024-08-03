@@ -16,7 +16,7 @@ import os
 # App setup and configuration
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-
+UPLOAD_FOLDER = os.path.join(BASEDIR, 'uploads')
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrpyt = Bcrypt()
@@ -28,11 +28,13 @@ ckeditor = CKEditor()
 def create_app():
     print(BASEDIR)
 
-    app = Flask('__main__', template_folder=os.path.join(BASEDIR, 'templates'))
+    app = Flask('__main__')
     app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' or os.path.join(BASEDIR, 'site.db')
     app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
     app.config['FLASK_ADMIN_FLUID_LAYOUT'] = True
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    
     db.init_app(app)
     # migrate = Migrate(app, db)
     app.app_context().push()
@@ -63,6 +65,21 @@ def create_app():
 
     @app.after_request
     def save_response(r):
+        
+        """
+        Save the response of the request to the session history.
+
+        This function is a Flask after_request hook that saves the response of the request to the session history.
+        It checks if the request method is 'POST' or if the endpoint is 'static', in which case it returns the response as is.
+        Otherwise, it appends the endpoint, view arguments, and status code of the response to the session history.
+        The session history is limited to the last 5 entries.
+
+        Parameters:
+            r (Response): The response object of the request.
+
+        Returns:
+            Response: The response object of the request.
+        """
         if request.method == 'POST':
             return r
         if request.endpoint == 'static':
@@ -89,9 +106,9 @@ def create_app():
     class LessonModelView(ModelView):
         column_display_pk = True
         column_hide_backrefs = False
-        column_display_all_relations = True
+        # column_display_all_relations = True
         column_list = ('title', 'content', 'unit')
-        form_list = ('title', 'content', 'unit_id')
+        form_list = ('title', 'content', 'units')
         
     admin.add_view(ModelView(MiniNotes, db.session))
     admin.add_view(ModelView(Unit, db.session))
@@ -108,10 +125,6 @@ def create_app():
     # class 
 
     # DB INITIALIZATION
-
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('history/templates/errors/404.html')
 
     
     with app.app_context():

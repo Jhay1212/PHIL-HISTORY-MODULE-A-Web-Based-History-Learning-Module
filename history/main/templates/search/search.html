@@ -6,14 +6,29 @@
         position: absolute;
         top: 50%;
         left: 50%;
+        background:  rgb(185, 27, 114);
+    WIDTH: 400PX;
+    padding: 1rem;
+    TRANSFORM: translateX(-50%);
+    }
+    .result-container .result title h2 {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        text-decoration: underline;
     }
 </style>
 {% endblock %}
 {% block main%}
-<div class="result-container">
-    <h2>result</h2>
-    <p>{{ forms.search.data }}</p>
-    <h2>query result</h2>
-    <p>{{ result|safe }}</p>
-</div>
+{% for res in result %}
+    <div class="result-container">
+        <div class="result">
+            <h2>
+                {{ res.title }}
+            </h2>
+
+            <p>{{ res.content }}</p>
+
+    </div>
+{% endfor %}
+<p>{{ search_result|safe }}</p>
 {% endblock %}

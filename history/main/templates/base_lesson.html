@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='homej.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lesson/base.css')}}">
     <title>Philippine History Module</title>
 	{{ ckeditor.load(standard)}}
 </head>
@@ -42,7 +42,7 @@
         background: #007bff;
         border-radius: 50%;
         cursor: pointer;
-        transition: background 0.3s ease;
+        transition: background-image 0.3s ease;
     }
     
     input[type="range"]::-webkit-slider-thumb:hover {
@@ -70,30 +70,31 @@
             </div>
 			
             <h1>DISCOVERING PHILIPPINE HISTORY</h1>
-            <!-- {% if current_user.is_authenticated %} -->
-            <div class="notebtn"><button id="bookmark" margin-right='2rem'>Add to bookmark</button></div>
+            {% if current_user.is_authenticated %}
 
             <div class="notebtn"><button id="noteOptionBtn">Note</button></div>
-            <!-- {% endif %} -->
+            {% endif %}
             <!-- <div class="notebtn"><button id="noteOptionBtn">Bookmark</button></div> -->
 
 			
 <!-- Search -->
-            <div class="search-bar">
-                <form action="{{ url_for('/.search')}}" method="post">
-                    {{ forms.hidden_tag() }}
+<div class="search-bar">
+			
+    <form action="{{ url_for('/.search')}}" method="post">
+        {{ forms.hidden_tag() }}
+
+
+        <button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button>
+        {{ forms.search(class='chewy') }}
+        <!-- {{ forms.submit }} -->
+        <button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
+    </form>
     
-    
-                    <!-- <button class="search-img"><img src="{{ url_for('static', filename='PICS/search.png')}}" alt="Search"></button> -->
-                    {{ forms.search }}
-                    <!-- {{ forms.submit }} -->
-                    <button class="info-btn"><img src="{{ url_for('static', filename='PICS/info.png')}}" alt="Info"></button>
-                </form>
-			</div>
-            </div>
+    </div>
+    </div>
             </header>
 
-            <div class="audio-player" >
+            <!-- <div class="audio-player" >
                 <audio id="audio" >
                     <source src="./lessons/unit1/swamp.ogg">
                 </audio>
@@ -103,7 +104,7 @@
                     <button id="mute">Mute</button>
                     <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1">
                 </div>
-            </div>
+            </div> -->
 
 <!-- Table of Contents Sidebar -->
 			<nav id="navSidebar">

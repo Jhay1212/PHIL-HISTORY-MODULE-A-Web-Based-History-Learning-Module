@@ -1,0 +1,372 @@
+{% extends 'base.html'%}
+
+{% block css %}
+<style>
+    body {
+  margin: 0 auto;
+  width: 600px;
+}
+
+:root {
+    --spine-pyramid: linear-gradient(
+      315deg,
+      transparent 75%,
+      rgba(255, 255, 255, 0.1) 0
+      ),
+      linear-gradient(
+        45deg,
+         transparent 75%,
+          rgba(255, 255, 255, 0.1) 0
+      ),
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.2) 166px,
+        transparent 0
+      ),
+      linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.1) 75%,
+        transparent 0
+      );
+      background-size: 20px 20px;
+    --spine-stairs: repeating-linear-gradient(
+        63deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 1px,
+        transparent 3px,
+        transparent 0
+      ),
+      linear-gradient(
+        127deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 90px,
+        transparent 55%,
+        transparent 0
+      ),
+      linear-gradient(
+        transparent 51%,
+        rgba(0, 0, 0, 0.1) 170px
+      );
+      background-size: 70px 120px;
+    --spine-argyle: repeating-linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 1px,
+        transparent 1px,
+        transparent 60px
+      ),
+      repeating-linear-gradient(
+        60deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 1px,
+        transparent 1px,
+        transparent 60px
+      ),
+      linear-gradient(
+        60deg,
+        rgba(0, 0, 0, 0.1) 25%,
+        transparent 25%,
+        transparent 75%,
+        rgba(0, 0, 0, 0.1) 75%,
+        rgba(0, 0, 0, 0.1)
+      ),
+      linear-gradient(
+        120deg,
+        rgba(0, 0, 0, 0.1) 25%,
+        transparent 25%,
+        transparent 75%,
+        rgba(0, 0, 0, 0.1) 75%,
+        rgba(0, 0, 0, 0.1)
+      );
+    background-size: 70px 120px;
+    --spine-tartan: repeating-linear-gradient(
+        transparent,
+        transparent 50px,
+        rgba(0, 0, 0, 0.4) 50px,
+        rgba(0, 0, 0, 0.4) 53px,
+        transparent 53px,
+        transparent 63px,
+        rgba(0, 0, 0, 0.4) 63px,
+        rgba(0, 0, 0, 0.4) 66px,
+        transparent 66px,
+        transparent 116px,
+        rgba(0, 0, 0, 0.5) 116px,
+        rgba(0, 0, 0, 0.5) 166px,
+        rgba(255, 255, 255, 0.2) 166px,
+        rgba(255, 255, 255, 0.2) 169px,
+        rgba(0, 0, 0, 0.5) 169px,
+        rgba(0, 0, 0, 0.5) 179px,
+        rgba(255, 255, 255, 0.2) 179px,
+        rgba(255, 255, 255, 0.2) 182px,
+        rgba(0, 0, 0, 0.5) 182px,
+        rgba(0, 0, 0, 0.5) 232px,
+        transparent 232px
+      ),
+      repeating-linear-gradient(
+        270deg,
+        transparent,
+        transparent 50px,
+        rgba(0, 0, 0, 0.4) 50px,
+        rgba(0, 0, 0, 0.4) 53px,
+        transparent 53px,
+        transparent 63px,
+        rgba(0, 0, 0, 0.4) 63px,
+        rgba(0, 0, 0, 0.4) 66px,
+        transparent 66px,
+        transparent 116px,
+        rgba(0, 0, 0, 0.5) 116px,
+        rgba(0, 0, 0, 0.5) 166px,
+        rgba(255, 255, 255, 0.2) 166px,
+        rgba(255, 255, 255, 0.2) 169px,
+        rgba(0, 0, 0, 0.5) 169px,
+        rgba(0, 0, 0, 0.5) 179px,
+        rgba(255, 255, 255, 0.2) 179px,
+        rgba(255, 255, 255, 0.2) 182px,
+        rgba(0, 0, 0, 0.5) 182px,
+        rgba(0, 0, 0, 0.5) 232px,
+        transparent 232px
+      ),
+      repeating-linear-gradient(
+        125deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.2) 2px,
+        rgba(0, 0, 0, 0.2) 3px,
+        transparent 3px,
+        transparent 5px,
+        rgba(0, 0, 0, 0.2) 5px
+      );
+  }
+  
+  .bookshelf {
+    width: 100%;
+    height: 320px;
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #826c59;
+    background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+  }
+  
+  .book {
+    width: 50px;
+    height: 280px;
+    position: relative;
+    margin-left: 5px;
+    top: 30px;
+    transform-style: preserve-3d;
+    transform: translateZ(0) rotateY(0);
+    transition: transform 1s;
+  }
+  
+  .side {
+    position: absolute;
+    border: 2px solid black;
+    border-radius: 3px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    transform-origin: center left;
+  }
+  
+  .spine {
+    position: relative;
+    width: 50px;
+    height: 280px;
+    /* Patterns from: https://projects.verou.me/css3patterns/ */
+    background-image: var(--tartan);
+    transform: rotateY(0deg) translateZ(0px);
+  }
+  
+  .spine-title {
+    margin: 2px;
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    font-size: 15px;
+    color: gold;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+  }
+  
+  .spine-author {
+    position: absolute;
+    color: goldenrod;
+    bottom: 0px;
+    left: 0%; /* no idea why 20% centers it */
+    font-size: 10px;    
+  }
+  
+  .top {
+    width: 50px;
+    height: 190px;
+    top: -2px;  /* hmm, why -2 and not 0? */
+    background-image: linear-gradient(90deg, white 90%, gray 10%);
+    background-size: 5px 5px;
+    transform: rotateX(90deg) translateZ(95px) translateY(-95px);
+  }
+  
+  .cover {
+    width: 190px;
+    height: 280px;
+    top: 0px;
+    background-image: url("https://picsum.photos/190/280");
+    background-size: contain;
+    background-repeat: round;
+    left: 50px;
+    transform: rotateY(90deg) translateZ(0);
+    transition: transform 1s;
+  }
+  
+  .book:hover {
+    z-index: 1;
+    transform: rotateX(-25deg) rotateY(-40deg) rotateZ(-15deg) translateY(50px)
+      translateX(-30px);
+  }
+  
+
+</style>
+{% endblock %}
+{% block main %}
+    <div class="bookshelf">
+   
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> Dune</span>
+          <span class="spine-author"> Frank Herbert </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/81TmnPZWb0L._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+      
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> 1984</span>
+          <span class="spine-author"> George Orwell </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/71rpa1-kyvL._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+      
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> To Kill a Mockingbird</span>
+          <span class="spine-author"> Harper Lee </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/81aY1lxk+9L._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+      
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> The Lord of the Rings</span>
+          <span class="spine-author"> J.R.R. Tolkien </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/7125+5E40JL._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+      
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> Harry Potter and the Sorcerer's Stone </span>
+          <span class="spine-author"> J.K. Rowling </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/91wKDODkgWL._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+      
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> Catch-22 </span>
+          <span class="spine-author"> Joseph Heller </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/61gaZF+DIHL._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+      
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> The Great Gatsby </span>
+          <span class="spine-author"> F. Scott Fitzgerald </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/81QuEGw8VPL._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+
+      <div class="book">
+        <div class="side spine ">
+          <span class="spine-title"> Brave New World </span>
+          <span class="spine-author"> Aldous Huxley </span>
+        </div>
+        <div class="side top"></div>
+        <div class="side cover" 
+             style="background-image: url(https://m.media-amazon.com/images/I/81zE42gT3xL._SL200_.jpg);cursor:pointer;"> 
+        </div>
+      </div>
+      <script>
+
+      </script>
+ {% endblock %}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomChoice(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+let spines = Object.values(document.getElementsByClassName("spine"));
+let covers = Object.values(document.getElementsByClassName("cover"));
+let tops = Object.values(document.getElementsByClassName("top"));
+
+let availablePatterns = [
+  "--spine-pyramid",
+  "--spine-stairs",
+  "--spine-argyle",
+  "--spine-tartan"
+];
+
+let availableColors = [
+  "maroon",
+  "darkgreen",
+  "darkolivegreen",
+  "brown",
+  "saddlebrown",
+  "sienna",
+  "midnightblue",
+];
+
+// assign a random height, pattern and colour to each book
+spines.map(function (s, i) {
+  let randomHeight = getRandomInt(220, 290);
+  s.style.height = `${randomHeight}px`;
+  s.style.top = `${280 - randomHeight}px`;
+
+  let randomPattern = randomChoice(availablePatterns);
+  s.style.backgroundImage = `var(${randomPattern})`;
+
+  let randomColor = randomChoice(availableColors);
+  s.style.backgroundColor = randomColor;
+
+  covers[i].style.height = `${randomHeight}px`;
+  covers[i].style.top = `${280 - randomHeight}px`;
+
+  tops[i].style.top = `${280 - randomHeight}px`;
+});

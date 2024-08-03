@@ -6,19 +6,24 @@ from history.mixins import TimeStampMixin
 
 class Unit(TimeStampMixin, db.Model):
     id = Column(Integer, primary_key=True)
-    lesson_key = db.relationship("Lesson", backref='unit', lazy=True)
+    # lessons = db.relationship('Lesson', back_populates='unit')
+    lesson_key = db.relationship("Lesson", lazy=True, back_populates='unit')
     unit_title = Column(String(64), nullable=False)
     description = Column(String(56), nullable=False, default='Description')
 
 class Lesson(TimeStampMixin, db.Model):
     id = Column(Integer, primary_key=True)
     unit_id = Column(Integer, ForeignKey('unit.id'), nullable=False)
+    unit = db.relationship('Unit', back_populates='lesson_key')
     title = Column(String(120), nullable=False, default='Lesson Title')
     content = Column(Text(), nullable=False)
     comments = db.relationship('Comment', backref='lesson', lazy=True)
     mini_notes = db.relationship('MiniNotes', backref='lesson', lazy=True)
     bookmark = db.relationship('BookMark', backref='title', lazy=True)
     
+
+    # def __init__(self) -> None:
+    #     self.url =
     # def __init__(self) -> None:
         # Lesson.unit_id = 1
     def __str__(self) -> str:
@@ -66,6 +71,9 @@ class Hero(db.Model):
     accomplishment = Column(String, nullable=False)
     contribution = Column(Text, nullable=False)
 
+
+    def __init__(self):
+        self.url = self.name
     def __str__(self) -> str:
         return self.name
     

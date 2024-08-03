@@ -41,6 +41,9 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'], expired_sec)
         return s.dumps({'user_id': self.id}).decode()
 
+    def jhay(self):
+        return self
+
 
     @staticmethod
     def verify_reset_token(token):

@@ -14,6 +14,7 @@ acc = Blueprint('/auth', __name__, template_folder='templates')
 # def send_email(user):
 #      with acc.app
 
+
 def send_email(app, msg):
      with app.app_context():
           mail_manager.send(msg)
