@@ -1,3 +1,20 @@
+@keyframes pop {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
 * {
     font-family: "Times New Roman", Times, serif;
    }
@@ -8,19 +25,41 @@
      
        height: 100vh;
        margin:0;
-
        
    }
    
+   .sigup-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   }
    .signup-container {
        background-color: rgba(17, 17, 17, 0.5); /* Slightly transparent black color */
        border-radius: 10px;
        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
        padding: 40px;
        width: 300px;
-       text-align: center;
+       text-align: center; 
+       animation: pop 0.5s ease-in-out;
    }
+
    
+   p a {
+    background: orangered;
+    padding: 10px;
+    border-radius: 10px;
+    display: block;
+    font-weight: 600;
+   }
+   p a:hover {
+    background: #c98104;
+    transform: scale(1.2);
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+   }
    .signup-container h2 {
        margin-bottom: 20px;
        color: white;
@@ -53,6 +92,7 @@
        box-sizing: border-box;
        font-size: 16px;
        background-color: rgba(17, 17, 17, 0.6); /* Slightly transparent black color */
+       margin-top: 1rem;
    }
    
    .form-group input[type="submit"] {
@@ -121,3 +161,25 @@
     padding: .6rem;
     border-radius: 10px;
    }
+
+
+   /* Highlighting form when clicking on it  */
+   input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    border-color: #66afe9; /* Blue border color on focus */
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); /* Blue shadow on focus */
+    background-color: #f0f8ff; /* Light blue background on focus */
+}

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='lesson/base.css')}}">
     <title>Philippine History Module</title>
-	{{ ckeditor.load(standard)}}
 </head>
 <style>
     
@@ -31,7 +30,7 @@
         background: #ddd;
         border-radius: 5px;
         outline: none;
-        transition: background 0.3s ease;
+        transition: background-image 0.3s ease;
     }
     
     input[type="range"]::-webkit-slider-thumb {
@@ -60,6 +59,8 @@
 {% block css %}
 {% endblock %}
 <body>
+	{{ ckeditor.load(standard)}}
+
 <!-- Top Header -->
 			<header id="header">
 			<div class="container">

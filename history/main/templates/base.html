@@ -223,7 +223,11 @@
 			<li><a href="{{ url_for('/.home')}}">HOME</a></li>
 			<li><a href="{{ url_for('/.gallery')}}">GALLERY</a></li>
             <li><a href="{{ url_for('/.quiz')}}">TAKE A QUIZ</a></li>
-            <li><a href="{{ url_for('/auth.logout')}}">LOGOUT</a></li>
+			{% if current_user.is_authenticated %}
+            	<li><a href="{{ url_for('/auth.logout')}}">LOGOUT</a></li>
+			{% else %}
+				<li><a href="{{ url_for('/auth.login')}}">LOGIN</a></li>
+			{% endif %}
 			</ul>
 			
 			<button id="closeSidebar">Close</button>

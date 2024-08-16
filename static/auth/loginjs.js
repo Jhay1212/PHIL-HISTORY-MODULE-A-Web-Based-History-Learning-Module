@@ -4,10 +4,10 @@ function togglePasswordVisibility() {
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        eyeIcon.src = "./PICS/open.png"; // Change to open eye image
+        eyeIcon.src = "static/PICS/open.png"; // Change to open eye image
     } else {
         passwordInput.type = "password";
-        eyeIcon.src = "./PICS/close.png"; // Change to closed eye image
-    }
+        eyeIcon.src = "static/PICS/close.png"; // Change to closed eye image
+}
 }
 

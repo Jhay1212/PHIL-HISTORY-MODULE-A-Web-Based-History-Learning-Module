@@ -1,3 +1,19 @@
+@keyframes pop {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 * {
     font-family: "Times New Roman", Times, serif;
 }
@@ -20,6 +36,7 @@ body {
     width: 370px;
     text-align: center;
     position: relative; /* Add position relative to allow absolute positioning of eye icon */
+    animation: pop 1s ease-in-out;
 }
 
 .login-container h2 {

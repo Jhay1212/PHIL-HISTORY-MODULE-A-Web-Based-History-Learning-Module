@@ -1,7 +1,7 @@
 from flask.blueprints import Blueprint
 from flask import render_template, redirect, url_for, flash
 from flask_sqlalchemy import session
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 from flask_mail import Message
 from threading import Thread
 
@@ -83,4 +83,5 @@ def reset_password(token):
 
 @acc.route('/logout')
 def logout():
+    logout_user()
     return render_template('logout.html')

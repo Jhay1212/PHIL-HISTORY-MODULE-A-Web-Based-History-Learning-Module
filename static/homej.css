@@ -19,6 +19,16 @@ body {
     background-size: cover;
 }
 
+main .container-unit {
+    text-align: center;
+    margin: 1rem;
+    transform: translate(-80px);
+    font-size: 1.4rem;
+}
+main .container-unit h2 {
+    font-weight: 700;
+    letter-spacing: 4px;
+}
 .container {
     max-width: 1590px;
     margin: 0;

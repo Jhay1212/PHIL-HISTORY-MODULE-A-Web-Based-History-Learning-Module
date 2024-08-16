@@ -41,7 +41,7 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'], expired_sec)
         return s.dumps({'user_id': self.id}).decode()
 
-    def jhay(self):
+    def is_accesible(self):
         return self
 
 

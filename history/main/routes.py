@@ -54,7 +54,7 @@ def check_admin_auth():
     """
     if request.path.startswith('/admin'):
         if current_user.username != 'admin':
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('/.auth.login'))
 
 
 
@@ -223,9 +223,10 @@ def play_audio(unit, lesson):
     #                  mimetype='audio/wav',
     #                  as_attachment=True, 
     #                  download_name='Unit {} Lesson {}.wav'.format(unit, lesson))
-@main.route('/user/bookmark')
+@main.route('/users/bookmark')
 def bookmarks():
-    return render_template('bookmark/bookmark.html')
+    bookmarks = BookMark.query.filter_by(user_id=current_user.id).all()
+    return render_template('bookmark/bookmark.html', bookmarks=bookmarks)
     
 @main.route('/bookmark/lesson/<int:pk>')
 def bookmark_function(pk):
