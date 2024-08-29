@@ -7,7 +7,8 @@ from flask import (render_template,
                    jsonify, 
                    send_file,
                    session,
-                    g, 
+                    g,
+                    sessions,
                     get_flashed_messages)
 from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
@@ -67,6 +68,7 @@ def page_not_found(e):
 def base():
     # pass the form to all the base template
     form = SearchForm()
+    print(session)
     # g.searchform = SearchForm()
     return {
         'forms': form,
@@ -110,6 +112,10 @@ def lesson(unit, pk):
     """
     A function to handle the display of a specific lesson with associated notes and comments.
     """
+    session['last_lesson'] = pk
+    print(request.args)
+    path = 'audio/unit/%s/lesson/%d/oss.mp3' % (unit, pk)
+    session['last_unit'] = unit
     lesson = Lesson.query.get(pk)
     forms = NotesForm()
     comments = Comment.query.all() # where id of comments is equal to the lesson id so that comment for specific lesson will only show
@@ -118,7 +124,7 @@ def lesson(unit, pk):
         notes.save()
         return redirect(url_for('/.lesson', unit=unit, pk=pk))
     print(forms.errors)
-    return render_template('lessons/unit1/lesson1.html', lessons=lesson, notes_forms=forms, comments=comments)
+    return render_template('lessons/unit1/lesson1.html', lessons=lesson, notes_forms=forms, comments=comments, path=path)
 
 @main.route('/home')
 def homepage():
@@ -230,13 +236,26 @@ def bookmarks():
     
 @main.route('/bookmark/lesson/<int:pk>')
 def bookmark_function(pk):
+    last_lesson = session.get('last_lesson')
+    last_unit = session.get('last_unit')
+
+    
     lesson = Lesson.query.get(pk)
-    bookmark = BookMark(user_id=current_user, lesson_id=lesson)
+    bookmark = BookMark(user_id=1, lesson_id=lesson.id)
     db.session.add(bookmark)
     db.session.commit()
-    return redirect(url_for(bookmarks))
+    if last_lesson and last_unit:
+        return redirect(url_for('/.lesson', unit=last_unit, pk=last_lesson))
+    return redirect(url_for('/.bookmarks'))
 
 
+
+
+@main.route('/presidents')
+def presidents():
+    president = President.query.order_by(President.name).all()
+
+    return render_template('president/presidents_list.html', presidents=president)
 @main.route('/president/<string:name>')
 def president(name):
     """
@@ -249,8 +268,6 @@ def president(name):
 @main.route('/history/quest')
 def pquest():
     return render_template('game/quest.html')
-def chatbot():
-    msg = request.form['msg']
-    print(get_response_chatbot('ano ba ang ginagawa ko ngayon'))
-    return render_template('chat.html')
+
+
 

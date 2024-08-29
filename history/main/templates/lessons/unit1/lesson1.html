@@ -36,10 +36,11 @@
 
 
 
-<div class="audio-player" >
+ <!-- <div class="audio-player" >
 	<div class="audio-container">
+        {{ pk }}
         <audio id="audioPlayer" controls>
-            <source src="{{ url_for('static', filename='audio/oss.mp3') }}" type="audio/mpeg">
+            <source src="{{ url_for('static', filename='audio/first/{{ pk }}/{{ pk }}.ogg') }}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
         <div class="controls">
@@ -48,7 +49,7 @@
             <button onclick="stopAudio()">Stop</button>
         </div>
     </div>
-	</div>
+	</div>  -->
 
 <!-- CONTENTS -->	
 			<main id="mainContent">

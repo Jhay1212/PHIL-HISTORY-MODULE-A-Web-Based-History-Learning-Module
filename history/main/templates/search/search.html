@@ -2,33 +2,98 @@
 
 {% block css%}
 <style>
-    .result-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        background:  rgb(185, 27, 114);
-    WIDTH: 400PX;
-    padding: 1rem;
-    TRANSFORM: translateX(-50%);
+
+    #result {
+        padding: 1.5rem;
     }
-    .result-container .result title h2 {
-        margin-bottom: 0.5rem;
-        font-size: 1.5rem;
-        text-decoration: underline;
+
+    #result h2 {
+        padding: 1.5rem 1rem;
+        font-weight: 900;
+        letter-spacing: 3px;
+        color: #1a0dab;
     }
+    /* Container for each search result */
+.search-result-container {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    width: clamp(300px, 70%, 800px);
+}
+
+/* Hover effect to give a slight elevation */
+.search-result-container:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Title of the search result */
+.search-result-title {
+    font-size: 18px;
+    color: #1a0dab;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* URL display */
+.search-result-url {
+    font-size: 14px;
+    color: #006621;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Snippet or description of the result */
+.search-result-snippet {
+    font-size: 14px;
+    color: #545454;
+    line-height: 1.5;
+}
+
+/* Optional: style for a breadcrumb or metadata */
+.search-result-metadata {
+    font-size: 12px;
+    color: #6a6a6a;
+    margin-bottom: 8px;
+    display: block;
+}
+
+main#result {
+    margin-top: 2rem;
+}
+
 </style>
 {% endblock %}
 {% block main%}
-{% for res in result %}
-    <div class="result-container">
-        <div class="result">
-            <h2>
-                {{ res.title }}
-            </h2>
 
-            <p>{{ res.content }}</p>
 
+<main id="result">
+
+    <h2>Search Result for {{ search_result }} </h2>
+    
+    {% for res in result %}
+        <div class="search-result-container">
+            <a href="{{ url_for('/.lesson', unit=res.unit_id, pk=res.id )}}" class="search-result-title">{{ res.title }}</a>
+            <span class="search-result-url">{{ res.title }}</span>
+            <span class="search-result-snippet">
+            {{ res.content[:20]}}...
+        </span>
+        <span class="search-result-metadata">{{ res.created_at }}• 5 min read</span>
     </div>
-{% endfor %}
-<p>{{ search_result|safe }}</p>
-{% endblock %}
+    {% endfor %}
+<div class="search-result-container">
+    <a href="https://www.anotherexample.com" class="search-result-title">Another Search Result Title</a>
+    <span class="search-result-url">https://www.anotherexample.com</span>
+    <span class="search-result-snippet">
+        Another brief description goes here, offering insight into what the user can expect from the linked page.
+    </span>
+    <span class="search-result-metadata">Aug 23, 2024 • 3 min read</span>
+</div>
+
+</main>
+        {% endblock %}

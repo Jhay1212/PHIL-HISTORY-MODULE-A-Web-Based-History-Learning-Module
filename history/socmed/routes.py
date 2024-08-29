@@ -12,6 +12,7 @@ from .forms import PostForm, EditUserForm
 from random import shuffle
 from .utils import send_message
 
+import requests
 
 socmed = Blueprint('social', __name__, template_folder='templates')
 
@@ -35,6 +36,12 @@ socmed = Blueprint('social', __name__, template_folder='templates')
 #     session['history'] = history[-5:]
 #     return r 
 
+@socmed.route('/news', methods=['GET', 'POST'])
+def news():
+    url = 'https://newsapi.org/v2/top-headlines?country=ph&apiKey=cc24abd57cb544118410dddae76e97be'
+    response = requests.get(url)
+    print(response, type(response))
+    return render_template('news.html', news=response.json())
 @socmed.route('/media/feed', methods=['GET', 'POST'])
 def feed():
     forms = PostForm()

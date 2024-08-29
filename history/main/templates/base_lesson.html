@@ -280,7 +280,7 @@
 			</div>
 	
 			<div class="username">
-			<p>username</p>
+			<p>{{ current_user.username }}</p>
 			</div>
     
 			 <div class="user-actions">
@@ -300,10 +300,16 @@
 			</aside>
 
 <!-- CONTENTS -->
+
+
+
  
 <div class="audio-player" >
+
+    DEMO AND WORKING test -> audio/{{pk}}/{{ unit }}
+    {{ path }}
 	<audio id="audio" >
-        <source src="{{ url_for('static', filename='audio/oss.mp3') }}" type="audio/mpeg">
+        <source src="{{ url_for('static', filename=path) }}" type="audio/mpeg">
 
 	</audio>
 	<div class="controls">
