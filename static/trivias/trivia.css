@@ -1,0 +1,139 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.trivia-container{
+    text-align: center;
+    
+}
+.trivia-container h2#select-category{
+    margin: 1rem 0;
+    line-height: 2.0;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+.hide {
+    display: none;
+}
+.category-left {
+    position: absolute;
+    /* left: 50%; */
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%);
+
+    /* transform: translateX(50%); */
+}
+.logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.trivia-container #trivia-header  {
+    margin-bottom: 20px;
+}
+
+.categories {
+    margin-bottom: 20px;
+}
+
+.category {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.category[data-category="heroes"] {
+    background-color: #4CAF50;
+}
+
+.category[data-category="presidents"] {
+    background-color: #2196F3;
+}
+
+.category[data-category="cultures"] {
+    background-color: #f44336;
+}
+
+.category[data-category="art"] {
+    background-color: #ff9800;
+}
+
+.category:hover {
+    opacity: 0.8;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(10, 2fr);
+    gap: 10px;
+}
+
+.question-button {
+    background-color: #ddd;
+    border: none;
+    padding: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .5ms ease-in;
+}
+
+.question-button:hover {
+    transform: scale(1.2);
+    background-color: #ccc;
+}
+
+#questionModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#questionModalContent {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px; /* Max width for larger screens */
+    text-align: center;
+}
+
+#closeButton {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#closeButton:hover,
+#closeButton:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#feedback {
+    margin-top: 10px;
+}

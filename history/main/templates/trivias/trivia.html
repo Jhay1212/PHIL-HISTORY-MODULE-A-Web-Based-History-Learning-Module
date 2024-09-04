@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='trivias/trivia.css')}}">
+
+<style>
+    .trivia-container {
+        margin-top: clamp(2rem, .5rem, 1rem);
+    }
+    .t-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 1s ease-in;
+    }
+    .t-flex {
+        display: flex;
+        justify-content: space-evenly;
+        gap: 1rem;
+    }
+    
+</style>
+{% endblock %}
+{% block main %}
+
+
+
+
+<div class="trivia-container">
+    <div id="trivia-header">
+        <!-- <img src="/mnt/data/AA Logo.png" alt="Phil Hist Logo" class="logo"> -->
+        <h1>Philippines Trivia</h1>
+        <h2 id="select-category">Select a Category</h2>
+    </div>
+    <div class="categories">
+        <button class="category" data-category="heroes">Heroes</button>
+        <button class="category" data-category="presidents">Presidents</button>
+        <button class="category" data-category="cultures">Cultures</button>
+        <button class="category" data-category="art">Art & Entertainment</button>
+    </div>
+    <div class="game-board" id="gameBoard"></div>
+
+    <!-- Add the modal structure inside your HTML body -->
+    <div id="questionModal">
+        <div id="questionModalContent">
+            <span id="closeButton">&times;</span>
+            <p id="questionText"></p>
+            <input type="text" id="answerInput" placeholder="Your answer">
+            <button id="submitAnswer">Submit</button>
+            <p id="feedback"></p>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <div class="t-wrapper">
+
+    <div class="t-flex">
+        
+        {% for item in trivias %}
+        <div class="c-trivia"> 
+            <h2>{{ item |title}}</h2>
+        </div>
+        {% endfor %}
+    </div>
+</div> -->
+<!-- <div class="container-trivia">
+    {{ trivias|safe }}
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. A veniam itaque dolore, velit nobis dolores neque iure incidunt tempora consequuntur natus est recusandae laboriosam blanditiis dolorem illum ab. Officiis, qui.
+</div> -->
+
+<script src="{{ url_for('static', filename='trivias/trivia.js')}}"></script>
+{% endblock %}

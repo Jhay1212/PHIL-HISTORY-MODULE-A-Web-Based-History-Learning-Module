@@ -8,6 +8,7 @@ class Unit(TimeStampMixin, db.Model):
     id = Column(Integer, primary_key=True)
     # lessons = db.relationship('Lesson', back_populates='unit')
     lesson_key = db.relationship("Lesson", lazy=True, back_populates='unit')
+    pretest = db.relationship('Pretest', backref='unit_py', lazy=True)
     unit_title = Column(String(64), nullable=False)
     description = Column(String(56), nullable=False, default='Description')
 
@@ -91,6 +92,13 @@ class President(db.Model):
 #     question_id = Column(Integer, ForeignKey('question.id'), nullable=False)
 
 #     # question = Column(String(128), nullable=False)
+
+class Pretest(db.Model):
+    __tablename__ = 'Pretest'
+    id = db.Column(db.Integer, primary_key=True)
+    unit_id_pt = db.Column(Integer, ForeignKey('unit.id'), nullable=False)
+    question = db.Column(db.String(256), nullable=False, default='Question')
+    answer = db.Column(db.String(256), nullable=False, default='Answer')
 
 
 # class PreTestQuestion(db.Model):

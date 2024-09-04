@@ -5,7 +5,7 @@ from flask_login import UserMixin
 from history import login_manager
 from sqlalchemy import Integer, String, ForeignKey, DateTime, Column
 from datetime import datetime
-from itsdangerous import TimedSerializer as Serializer
+from itsdangerous import URLSafeSerializer as Serializer
 
 # from flask_security import RoleMixin
 
@@ -46,14 +46,17 @@ class User(UserMixin, db.Model):
 
 
     @staticmethod
-    def verify_reset_token(token):
+    def verify_reset_token(token, expiration_sec=36000):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            user_id = s.loads(token)['user_id']
+            email = s.loads(
+                token,
+                salt='e9ed7ff8923c479',
+                max_age=expiration_sec
+            )
         except:
             return None
-        
-        return User.query.get(user_id)
+        return email
     
     def __str__(self) -> str:
         return str(self.username).title()

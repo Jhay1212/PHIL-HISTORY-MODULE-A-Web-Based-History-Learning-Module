@@ -84,10 +84,10 @@
    .form-group input[type="text"],
    .form-group input[type="password"],
    .form-group input[type='email'] {
-       color: white;
+       color: orangered;
        width: 100%;
        padding: 10px;
-       border: 1px solid #ccc;
+       border: 1px solid #fefefe;
        border-radius: 5px;
        box-sizing: border-box;
        font-size: 16px;

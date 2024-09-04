@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, flash
 from flask_sqlalchemy import session
 from flask_login import login_user, current_user, logout_user
 from flask_mail import Message
+from itsdangerous import URLSafeSerializer
 from threading import Thread
 
 from history import bcrpyt, login_manager, db, mail_manager, url_back

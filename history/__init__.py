@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from itsdangerous import URLSafeSerializer
 from flask_login import LoginManager, current_user
 from flask_bcrypt import Bcrypt
-
+from flask_restful import Api, Resource, marshal, reqparse
 from flask_mail import Mail
 
 from flask_pagedown import PageDown 
@@ -17,11 +17,13 @@ import os
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 UPLOAD_FOLDER = os.path.join(BASEDIR, 'uploads')
+
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrpyt = Bcrypt()
 pagedown = PageDown()
 mail_manager = Mail()
+api = Api()
 
 ckeditor = CKEditor()
 
@@ -34,6 +36,7 @@ def create_app():
     app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
     app.config['FLASK_ADMIN_FLUID_LAYOUT'] = True
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    api.init_app(app)
     
     db.init_app(app)
     # migrate = Migrate(app, db)
@@ -47,9 +50,9 @@ def create_app():
     app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
     mail_manager.init_app(app)
-    serializer = URLSafeSerializer(app.config['SECRET_KEY'])
+    # serializer = URLSafeSerializer(app.config['SECRET_KEY'])
 
-    from history.main.models import BookMark, Lesson, MiniNotes, Hero, President, Unit
+    from history.main.models import BookMark, Lesson, MiniNotes, Hero, President, Unit, Pretest
     from history.auth.models import User
     from history.socmed.models import PostComment, PostModel
     from history.auth.routes import acc
@@ -98,7 +101,7 @@ def create_app():
         session['history'] = history[-5:]
         return r 
 
-    print(app._static_folder)
+    # print(app._static_folder)
     admin = Admin(app)
     class MiniNotesModelView(ModelView):
         def is_accesible(self):
@@ -109,7 +112,15 @@ def create_app():
         # column_display_all_relations = True
         column_list = ('title', 'content', 'unit')
         form_list = ('title', 'content', 'units')
-        
+
+    class QuizModelView(ModelView):
+        column_display_pk = True
+        column_list = ('unit_id_pt', 'question', 'answer')
+        form_list = ('unit_id_pt', 'question', 'answer')
+        column_hide_backrefs = False
+
+
+    admin.add_view(QuizModelView(Pretest, db.session))
     admin.add_view(ModelView(MiniNotes, db.session))
     admin.add_view(ModelView(Unit, db.session))
     admin.add_view(ModelView(PostModel, db.session))
@@ -122,6 +133,19 @@ def create_app():
     admin.add_view(ModelView(User, db.session))
 
 
+
+    class LessonAPI(Resource):
+        parser = reqparse.RequestParser()
+        parser.add_argument('unit', type=int, required=True)
+        parser.add_argument('lessson', type=int, required=True)
+
+        
+        def get(self, unit, pk):
+         
+         return Lesson.query.filter_by(unit_id=unit, id=pk).first().to_dict()
+
+
+    api.add_resource(LessonAPI, '/api/lesson/<int:unit>/<int:pk>')
     # class 
 
     # DB INITIALIZATION
@@ -144,3 +168,5 @@ def url_back(fallback='/.home', *args, **kwargs):
         
         print(fallback)
     return url_back(fallback, *args, **kwargs)
+
+

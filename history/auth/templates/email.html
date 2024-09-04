@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        .email-container {
+            background: dimgray;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+        }
+        .email-container h2 {
+            background: red;
+            color: #fefefe;
+            text-align: center;
+            padding: 1rem;
+            height: clamp(1rem, 10vw, 100px);
+            /* border-radius: 10%; */
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="email-container">
+
+        <h2>Account Created</h2>
+        <p>Your account has been created. You can now log in.</p>
+
+        <p>Thank you for using PH Kasaysayan</p>
+        <p><a href="{{ url_for('/.login')}}">Login</a></p>
+        <a href="{{ url_for('/.home')}}">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -14,7 +14,7 @@ from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
 from flask_sqlalchemy.query import Query
 
-import os
+import os, json
 
 from .forms import NotesForm, PreTestForm, SearchForm, CommentForm
 from .models import MiniNotes, Comment, Hero, President, Lesson, Unit, BookMark
@@ -96,7 +96,7 @@ def search():
     forms = SearchForm()
     if forms.validate_on_submit():
         searc = search_google(forms.search.data)
-        # forms = forms.data
+        # forms = forms.dataload
         
         result = Lesson.query.filter(
             or_(Lesson.content.like(forms.search.data), 
@@ -129,6 +129,14 @@ def lesson(unit, pk):
 @main.route('/home')
 def homepage():
     return redirect('/')
+
+
+@main.route('/trivia')
+def trivia():
+    with open('static/trivias.json') as f:
+        trivias = json.load(f)
+        print(trivias)
+    return render_template('trivias/trivia.html', trivias=trivias)
 
 @main.route('/base')
 def base():
