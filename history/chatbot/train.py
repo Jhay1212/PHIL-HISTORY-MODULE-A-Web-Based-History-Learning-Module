@@ -1,104 +1,79 @@
+
+
 import random
-from tensorflow.python.keras.optimizers import SGD
-from tensorflow.python. keras import Dense, Dropout
-from tensorflow.python.keras.models import load_model
-from tensorflow.python.keras.models import Sequential
-import numpy as np
-import pickle
 import json
+import pickle
+import numpy as np
+import tensorflow as tf
 import nltk
-from flask.blueprints import Blueprint
-from flask import render_template, request
-from nltk.stem import WordNetLemmatizer as lemmatizer
-# from tensorflow.python.l
-nltk.download('omw-1.4')
-nltk.download("punkt")
-nltk.download("wordnet")
+from nltk.stem import WordNetLemmatizer
+
+from flask import url_for
+import os
+nltk.download('punkt_tab')
+nltk.download('wordnet')
+
+
+script_dir = os.path.dirname(__file__)
+path = os.path.join( 'static', 'chatbot', 'intent.json')
+print(path)
+print(script_dir)
+
+lemmatizer = WordNetLemmatizer()
+# path = url_for('static', fi')
+intents = json.loads(open(path).read())
 
 words = []
 classes = []
 documents = []
-ignored_words = ['?', '!']
-data_file = open('intents.json').read()
-intents = json.load(data_file)
+ignoreLetters = ['?', '!', '.', ',']
 
-for intent in intents:
-    for pattern in intent['pattern']:
-        w = nltk.word_tokenize(pattern)
-        words.extend(w)
-        documents.append((words, intent['tag']))
-
+for intent in intents['intents']:
+    for pattern in intent['patterns']:
+        wordList = nltk.word_tokenize(pattern)
+        words.extend(wordList)
+        documents.append((wordList, intent['tag']))
         if intent['tag'] not in classes:
             classes.append(intent['tag'])
 
-words = [lemmatizer.lemmatize(w.lower() for w in words if w not in ignored_words)]
-words = sorted(list(set(words)))
-classes = sorted(list(set(classes)))
+words = [lemmatizer.lemmatize(word) for word in words if word not in ignoreLetters]
+words = sorted(set(words))
+
+classes = sorted(set(classes))
 
 pickle.dump(words, open('words.pkl', 'wb'))
 pickle.dump(classes, open('classes.pkl', 'wb'))
 
 training = []
-empty_output = [0] * len(classes)
+outputEmpty = [0] * len(classes)
 
-for doc in documents:
+for document in documents:
     bag = []
-    pattern = doc[0]
-    pattern_words = [lemmatizer.lemmatize(word.lower()) for word in pattern_words]
-    for w in words:
-        bag.append(1) if w in pattern_words else bag.append(0)
+    wordPatterns = document[0]
+    wordPatterns = [lemmatizer.lemmatize(word.lower()) for word in wordPatterns]
+    for word in words:
+        bag.append(1) if word in wordPatterns else bag.append(0)
 
-    output_row = list(empty_output)
-    output_row[classes.index(doc[1])] = 1
-    training.append([bag, output_row])
+    outputRow = list(outputEmpty)
+    outputRow[classes.index(document[1])] = 1
+    training.append(bag + outputRow)
 
 random.shuffle(training)
 training = np.array(training)
-train_x = list(training[:, 0])
-training_y = list(training[:, 1])
-print('done training')
 
-model = Sequential()
-model.add(Dense(128, input_shape=(len(train_x, ), ), activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(len(training_y), activation='softmax'))
-model.summary()
+trainX = training[:, :len(words)]
+trainY = training[:, len(words):]
 
-sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+model = tf.keras.Sequential()
+model.add(tf.keras.layers.Dense(128, input_shape=(len(trainX[0]),), activation = 'relu'))
+model.add(tf.keras.layers.Dropout(0.5))
+model.add(tf.keras.layers.Dense(64, activation = 'relu'))
+model.add(tf.keras.layers.Dropout(0.5))
+model.add(tf.keras.layers.Dense(len(trainY[0]), activation='softmax'))
+
+sgd = tf.keras.optimizers.SGD(learning_rate=0.01, momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
-from tensorflow.python.keras.callbacks import EarlyStopping, ModelCheckpoint
-early_stopping = EarlyStopping(monitor='loss', mode='min', patience=5, restore_best_weights=True)
-callbacks = [early_stopping]
-
-hist = model.fit(np.array(train_x), np.array(training_y), epochs=200, batch_size=5, verbose=1)
-model.save("chatbot_model.h5", hist)
-print('model created')
-
-from flask import Blueprint, render_template, redirect, url_for, request
-
-cbot = Blueprint('chatbot', __name__, template_folder='templates')
-
-@cbot.route('/chatbot')
-def main():
-    return render_template('main.html')
-
-# @cbot.route('/get', methods=['POST'])
-# def chatbot_response():
-#     msg = request.args.get('msg')
-#     if msg.startswith('my name is'):
-#         name = msg[11:]
-#         ints = model.predict()
-#         res1 = getResponse(ints, intents)
-#         res =res1.replace("{n}",name)
-#     elif msg.startswith('hi my name is'):
-#         name = msg[14:]
-#         ints = predict_class(msg, model)
-#         res1 = getResponse(ints, intents)
-#         res =res1.replace("{n}",name)
-#     else:
-#         ints = predict_class(msg, model)
-#         res = getResponse(ints, intents)
-#     return res
+model.fit(trainX, trainY, epochs=200, batch_size=5, verbose=1)
+model.save('chatbot_model.h5')
+print('Done skibidi 😊')

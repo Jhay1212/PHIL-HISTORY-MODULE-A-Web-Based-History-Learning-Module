@@ -84,6 +84,8 @@ def base():
 @main.route('/', methods=['GET', 'POST'])
 def home():
     # search_google()
+    units = Unit.query.all()
+    profile_path = url_for('static', filename='unit')
     return render_template('home/home.html')
 
 @main.route('/unit/<int:unit>/lessons')
@@ -133,10 +135,11 @@ def homepage():
 
 @main.route('/trivia')
 def trivia():
+    routes = url_for('static', filename='lookinggood.jpg')
     with open('static/trivias.json') as f:
         trivias = json.load(f)
         print(trivias)
-    return render_template('trivias/trivia.html', trivias=trivias)
+    return render_template('trivias/trivia.html', trivias=trivias, image=routes)
 
 @main.route('/base')
 def base():
@@ -198,7 +201,7 @@ def choronoh():
 
 @main.route('/timeline')
 def timeline():
-    return render_template('timeline/test.html')
+    return render_template('timeline/zoom.html')
 
 def get_response_chatbot(txt):
     pass

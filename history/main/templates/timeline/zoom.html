@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block css %}
+
+    <title>Interactive Timeline</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        #timeline {
+    width: 100%;
+    height: 500px;
+    border: 2px solid #333;
+    margin: 50px auto;
+    background: linear-gradient(135deg, #e2e2e2, #f9f9f9);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border-radius: 12px;
+}
+
+/* Style for the circles representing events */
+circle {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+circle:hover {
+    r: 15px;
+    fill: #ff5722;
+    stroke: #fff;
+    stroke-width: 3px;
+}
+
+/* Tooltip styling */
+.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 8px;
+    font: 14px 'Arial', sans-serif;
+    background: rgba(50, 50, 50, 0.8);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    pointer-events: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Animations for timeline circles and transitions */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+circle {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+    </style>
+    {% endblock %}
+
+    {% block main%}
+    <div id="timeline"></div>
+  <h2 class="text">da</h2>
+    <script src="timeline.js"></script>
+    <script>
+        // Create margin and dimensions
+const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+const textH = document.querySelector('.text');
+const width = document.getElementById("timeline").clientWidth - margin.left - margin.right;
+const height = 500 - margin.top - margin.bottom;
+
+// Create the SVG container
+const svg = d3.select("#timeline")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+// Example dataset for the timeline
+const data = [
+    { date: new Date(1990, 0, 1), event: "Event 1" },
+    { date: new Date(2000, 0, 1), event: "Event 2" },
+    { date: new Date(2010, 0, 1), event: "Event 3" },
+    { date: new Date(2020, 0, 1), event: "Event 4" }
+];
+
+// Create a time scale
+const xScale = d3.scaleTime()
+    .domain([new Date(1985, 0, 1), new Date(2025, 0, 1)])
+    .range([0, width]);
+
+// Create an axis based on the scale
+const xAxis = d3.axisBottom(xScale);
+
+// Append the axis with smooth transitions
+const gX = svg.append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(xAxis);
+
+// Zoom and pan functionality with smooth transitions
+const zoom = d3.zoom()
+    .scaleExtent([0.5, 5])  // Min and max zoom scale
+    .translateExtent([[-width, -Infinity], [2 * width, Infinity]])  // Allow panning within the timeline
+    .on("zoom", (event) => {
+        const transform = event.transform;
+        const newXScale = transform.rescaleX(xScale);
+      textH.textContent = 'njhay'
+      
+        gX.transition().duration(200).call(xAxis.scale(newXScale));  // Smooth transition for axis
+        svg.selectAll("circle")
+            .attr("cx", d => newXScale(d.date))
+            .attr("r", d => 10 / transform.k)  // Resize circles based on zoom level
+            .style("fill", "steelblue");
+    });
+
+// Apply zoom to the SVG container
+svg.call(zoom);
+
+// Add event markers (as circles) with animation and hover effect
+svg.selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xScale(d.date))
+    .attr("cy", height / 2)
+    .attr("r", 10)
+    .style("fill", "steelblue")
+    .style("opacity", 0)
+    .transition()
+    .duration(800)
+    .style("opacity", 1)
+    .delay((d, i) => i * 200);
+
+// Tooltip for displaying event details with smooth transitions
+const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+svg.selectAll("circle")
+    .on("mouseover", function (event, d) {
+        d3.select(this).style("fill", "#ff5722").attr("r", 15);
+        tooltip.transition().duration(200).style("opacity", 0.9);
+        tooltip.html(d.event + "<br/>" + d.date.toDateString())
+            .style("left", (event.pageX + 5) + "px")
+            .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function () {
+        d3.select(this).transition().duration(200)
+            .style("fill", "steelblue")
+            .attr("r", 10);
+        tooltip.transition().duration(500).style("opacity", 0);
+    });
+
+    </script>
+{% endblock %}

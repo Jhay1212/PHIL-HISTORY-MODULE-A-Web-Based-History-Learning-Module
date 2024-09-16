@@ -1,6 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f8ff;
+    background: " {{url_for('static', filename='lookinggood.jpg')}}";
     color: #333;
     margin: 0;
     padding: 0;

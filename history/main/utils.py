@@ -1,5 +1,7 @@
 import requests 
 import os
+import json
+import ast 
 link: str = 'google.com'
 api_key = os.getenv('GOOGLE_API')
 search_engine_api = os.getenv('SEARCH_ENGINE')
@@ -27,8 +29,9 @@ def search_google(data):
         'cx': search_engine_api
     }
     response = requests.get(url, params=params)
-    print(response.text)
+    print('type', ast.literal_eval(response.text))
     result = response.json()['items']
+    return response.text
     # print(result)
 
 

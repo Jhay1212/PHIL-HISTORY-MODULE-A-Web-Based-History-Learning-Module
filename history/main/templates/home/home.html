@@ -19,16 +19,17 @@
 			
 
 				{% for unit in units %}
-
+				
+				{% set path = 'units/unit/ ~ unit.id ~ /pp.jpg' %}
 				<a href="{{ url_for('/.lessons_list', unit=unit.id)}}">
 				<div class="content-item">
-					<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
+					<img src="{{ url_for('static', filename='units/unit' + unit.id|string + '/pp.jpg')}}" alt="Image 1">
 					<p id="TOPIC 1"><b>{{ unit.unit_title }}</b><br>
 					{{ unit.description }} </p>
 					</div>
 				</a>
 				{% endfor %}
-			<div class="content-item">
+		<!--	<div class="content-item">
 			<img src="{{ url_for('static', filename='PICS/unit1/01-rizal.jpg')}}" alt="Image 1">
 			<p id="TOPIC 1"><b>UNIT 1:</b><br>
 			Factors that Contributed in Rizal's Becoming a Great Man and a Hero </p>
@@ -118,7 +119,7 @@
 			<img src="{{ url_for('static', filename='PICS/ktz.jpg')}}" alt="Image 3">
 			<p id="TOPIC 15"><b>LESSON 15: SHIBUYA INCIDENT</b><br>
 			Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description </p>
-			</div>
+			</div> -->
 
 			</section>
 			</main>

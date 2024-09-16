@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    <div>
+        <form action="" method="post">
+            {{ forms.hidden_tag() }}
+            {{ forms.chat }}
+            {{ forms.submit }}
+        </form>
+        <input type="text" id="userInput" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <div id="chatArea"></div>
+
+    <script>
+        function sendMessage() {
+    var message = $("#userInput").val();
+    $.ajax({
+        url: '/chat0',
+        type: 'POST',
+        contentType: 'application/json',  // Ensure this is set correctly
+        data: JSON.stringify({ "message": message }),
+        success: function(response) {
+            $("#chatArea").append("<p><b>You:</b> " + message + "</p>");
+            $("#chatArea").append("<p><b>Bot:</b> " + response.response + "</p>");
+            $("#userInput").val('');
+        }
+    });
+}
+
+    </script>
+</body>
+</html>

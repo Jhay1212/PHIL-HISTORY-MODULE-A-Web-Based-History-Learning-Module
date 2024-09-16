@@ -74,7 +74,7 @@ main#result {
 
 <main id="result">
 
-    <h2>Search Result for {{ search_result }} </h2>
+    <h2>Search Result for {{ result}} </h2>
     
     {% for res in result %}
         <div class="search-result-container">
@@ -95,5 +95,25 @@ main#result {
     <span class="search-result-metadata">Aug 23, 2024 • 3 min read</span>
 </div>
 
+
+<h2>Result from other site </h2>
+
+{% for item in search_result %}
+
+<div class="search-result-container">
+    <a href="https://www.anotherexample.com" class="search-result-title">{{ item.url }}</a>
+    <span class="search-result-url">https://www.anotherexample.com</span>
+    <span class="search-result-snippet">
+        Another brief description goes here, offering insight into what the user can expect from the linked page.
+    </span>
+    <span class="search-result-metadata">Aug 23, 2024 • 3 min read</span>
+</div>
+{% endfor %}
+<!-- {
+{% for item in search_result %}
+
+
+{% endfor %} -->
+{{ search_result}}
 </main>
         {% endblock %}
