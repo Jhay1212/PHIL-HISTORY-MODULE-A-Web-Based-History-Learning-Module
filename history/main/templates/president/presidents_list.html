@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='president/president.css')}}">
 
 <style>
+
+    .info-btn {
+        transform: scale(2);
+    }
     main.president {
         position: absolute;
         top: 50%;
@@ -78,8 +82,8 @@ img {
 {% endblock %}
 {% block main %}
 
-<main class="president">
-
+<div class="presidents-list">
+    
     <div class="f-container">
 
         <div class="frame">
@@ -93,31 +97,7 @@ img {
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/71829/mona-lisa.jpg" alt="Mona Lisa" />
         </div>
     </div>
-
-
-    <!--
-    <section class="content-section">
-
-        <h2>PRESIDENTS</h2>
-        <hr>
-
-        <div class="rectangle-container">
-
-            <!-- 15 rectangle boxes       
-            <div class="rectangle">
-                <img src="{{ url_for('static', filename='presidents/jeff.jpg')}}" alt="Image">
-                <div class="text">JEFFERSON</div>
-            </div>
-
-            <div class="rectangle">
-                <img src="{{ url_for('static', filename='presidents/jeff.jpg')}}" alt="Image">
-                <div class="text">JEFFERSON</div>
-            </div>
-            M. Jeffrey B. Clinton, Jr.
-            </div>
-            </section>
-        -->
-</main>
+</div>
 
 {% endblock %}
 

@@ -9,6 +9,7 @@ from flask import (render_template,
                    session,
                     g,
                     sessions,
+                    flash,
                     get_flashed_messages)
 from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
@@ -84,8 +85,8 @@ def base():
 @main.route('/', methods=['GET', 'POST'])
 def home():
     # search_google()
-    units = Unit.query.all()
-    profile_path = url_for('static', filename='unit')
+    # units = Unit.query.all()
+    # profile_path = url_for('static', filename='unit')
     return render_template('home/home.html')
 
 @main.route('/unit/<int:unit>/lessons')
@@ -97,6 +98,9 @@ def lessons_list(unit):
 def search():
     forms = SearchForm()
     if forms.validate_on_submit():
+        if not forms.search.data:
+            flash('Enter a valid search term')
+            return redirect(url_for('/.home'))
         searc = search_google(forms.search.data)
         # forms = forms.dataload
         
@@ -132,7 +136,9 @@ def lesson(unit, pk):
 def homepage():
     return redirect('/')
 
-
+@main.route('/baybayin')
+def baybayin():
+    return render_template('baybayin/baybayin.html')
 @main.route('/trivia')
 def trivia():
     routes = url_for('static', filename='lookinggood.jpg')
@@ -280,5 +286,10 @@ def president(name):
 def pquest():
     return render_template('game/quest.html')
 
+
+@main.route('/timeline/quest')
+def timeline_quest():
+    return render_template('games/timelineQuest.html')
+    pass
 
 

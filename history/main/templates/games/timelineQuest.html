@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+
+{% block css %}
+<style>
+    body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+
+h1 {
+    font-size: 1.8rem;
+}
+
+#timeline-container {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem;
+    justify-content: center;
+    gap: 3rem;
+}
+
+#events {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.draggable {
+    padding: 1rem;
+    background-color: #003366;
+    color: white;
+    border-radius: 8px;
+    cursor: grab;
+    text-align: center;
+    width: 250px;
+}
+
+.dropzone {
+    width: 250px;
+    height: 50px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.dropzone.highlight {
+    border-color: #4caf50;
+}
+
+button {
+    padding: 0.8rem 2rem;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+
+#result {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+</style>
+{% endblock %}
+{% block main %}
+
+<main>
+    <div id="timeline-container">
+        <div id="dropzone">
+            <!-- Drop zones where players will arrange the events -->
+            <div class="dropzone" data-order="1"></div>
+            <div class="dropzone" data-order="2"></div>
+            <div class="dropzone" data-order="3"></div>
+            <div class="dropzone" data-order="4"></div>
+        </div>
+        <div id="events">
+            <!-- Draggable events -->
+            <div class="draggable" draggable="true" data-order="2">Proclamation of Martial Law (1972)</div>
+            <div class="draggable" draggable="true" data-order="4">EDSA People Power Revolution (1986)</div>
+            <div class="draggable" draggable="true" data-order="1">Declaration of Philippine Independence (1898)</div>
+            <div class="draggable" draggable="true" data-order="3">Philippine Commonwealth (1935)</div>
+        </div>
+    </div>
+    <button id="check-order">Check Order</button>
+    <p id="result"></p>
+</main>
+
+
+<script>
+    const draggables = document.querySelectorAll('.draggable');
+const dropzones = document.querySelectorAll('.dropzone');
+const checkOrderBtn = document.getElementById('check-order');
+const result = document.getElementById('result');
+
+// Drag and Drop Events
+draggables.forEach(draggable => {
+    draggable.addEventListener('dragstart', () => {
+        draggable.classList.add('dragging');
+    });
+
+    draggable.addEventListener('dragend', () => {
+        draggable.classList.remove('dragging');
+    });
+});
+
+dropzones.forEach(dropzone => {
+    dropzone.addEventListener('dragover', e => {
+        e.preventDefault();
+        const draggingItem = document.querySelector('.dragging');
+        dropzone.appendChild(draggingItem);
+    });
+});
+
+// Check the order
+checkOrderBtn.addEventListener('click', () => {
+    let correct = true;
+
+    dropzones.forEach((dropzone, index) => {
+        const draggable = dropzone.querySelector('.draggable');
+        if (draggable) {
+            const order = draggable.getAttribute('data-order');
+            if (parseInt(order) !== index + 1) {
+                correct = false;
+            }
+        } else {
+            correct = false;
+        }
+    });
+
+    if (correct) {
+        result.textContent = "Correct! You arranged the timeline perfectly!";
+        result.style.color = 'green';
+    } else {
+        result.textContent = "Oops! Try again, the order is not correct.";
+        result.style.color = 'red';
+    }
+});
+
+</script>
+
+
+{% endblock %}

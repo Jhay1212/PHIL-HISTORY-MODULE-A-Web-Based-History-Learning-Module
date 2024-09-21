@@ -9,12 +9,18 @@
         #timeline {
     width: 100%;
     height: 500px;
+    margin-top: 10rem;
     border: 2px solid #333;
     margin: 50px auto;
     background: linear-gradient(135deg, #e2e2e2, #f9f9f9);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
     border-radius: 12px;
+
+
+    position: absolute;
+    top: 40%;
+    /* transform: translate(10px, 10px); */
+    transform: translateY(-50%);
 }
 
 /* Style for the circles representing events */
@@ -79,15 +85,25 @@ const svg = d3.select("#timeline")
 
 // Example dataset for the timeline
 const data = [
-    { date: new Date(1990, 0, 1), event: "Event 1" },
-    { date: new Date(2000, 0, 1), event: "Event 2" },
-    { date: new Date(2010, 0, 1), event: "Event 3" },
-    { date: new Date(2020, 0, 1), event: "Event 4" }
+    { date: new Date(1380, 0, 1), event: "Muslim Arabs Arrived at Sulu Archipelago" },
+    { date: new Date(1521, 0, 1), event: "Ferdinand Magellan discovers the island and names them: Archipelago of San Lazaro" },
+    { date: new Date(1542, 0, 1), event: 'Spanish expedition commandeered by Ruy Lopez de Villalobos claims the islands for Spain; names them "Philippines" after Prince Philip, later King Philip II of Spain; the Philippines becomes part of Spanish Empire.' },
+
+    
+    { date: new Date(1872, 0, 1), event: "The GomBurZa martyr fathers were executed by the Spaniards"},
+    { date: new Date(1892, 0, 1), event: "Jose Rizal founded the civic organization La Liga Filipina"},
+    
+    { date: new Date(1700, 0, 1), event: "Pre Spanish Era" },
+    { date: new Date(2000, 0, 1), event: "Spanishs Era" },
+    { date: new Date(2010, 0, 1), event: "English Era" },
+    { date: new Date(2020, 0, 1), event: "Japanese Era" },
+    { date: new Date(2020, 0, 1), event: "Moderna Era" }
+
 ];
 
 // Create a time scale
 const xScale = d3.scaleTime()
-    .domain([new Date(1985, 0, 1), new Date(2025, 0, 1)])
+    .domain([new Date(1300, 0, 1), new Date(2025, 0, 1)])
     .range([0, width]);
 
 // Create an axis based on the scale
@@ -105,7 +121,7 @@ const zoom = d3.zoom()
     .on("zoom", (event) => {
         const transform = event.transform;
         const newXScale = transform.rescaleX(xScale);
-      textH.textContent = 'njhay'
+        textH.textContent = data
       
         gX.transition().duration(200).call(xAxis.scale(newXScale));  // Smooth transition for axis
         svg.selectAll("circle")
