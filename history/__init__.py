@@ -31,7 +31,8 @@ def create_app():
     print(BASEDIR)
 
     app = Flask('__main__')
-    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    # | os.environ.get("SECRET_KEY")
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' or os.path.join(BASEDIR, 'site.db')
     app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
     app.config['FLASK_ADMIN_FLUID_LAYOUT'] = True

@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base.html' %}
+
+{% block css %}
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English/Tagalog to Baybayin Converter</title>
 
@@ -12,16 +12,73 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='baybayin/baybayin.css')}}">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tagalog&display=swap');
+
+    body {
+        font-family: 'Noto Sans Tagalog', sans-serif !important;
+    }
+    .c-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1.5rem;
+        /* margin: 2rem; */
+    }
+    .c-wrapper > * {
+        margin: 1.5rem;
+    }
+    textarea {
+        font-family: 'Noto Sans Tagalog', sans-serif !important;
+    }
+
+
+    /* changes */
+
+    textarea {
+            width: 400px;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 18px;
+            font-family: 'Noto Sans', sans-serif;
+            color: #333;
+            background-color: #fff;
+            resize: none;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #0066ff;
+            outline: none;
+            box-shadow: 0px 6px 12px rgba(0, 102, 255, 0.2);
+        }
+
+        textarea::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
     </style>
+    {% endblock %}
     
-</head>
-<body>
+{% block main %}
+
+<div class="c-wrapper">
+
+    <H2>English/Tagalog to Baybayin Translator </H2>
+
+    <textarea id="input" placeholder="Type here..." rows="10" cols="30"></textarea>
+
+    </div>
+<!-- 
     <h1>Convert English/Tagalog to Baybayin</h1>
     <textarea id="inputText" placeholder="Type your text here..." rows="4" cols="50"></textarea><br>
     <button onclick="convertToBaybayin()">Convert</button>
     <h2>Result in Baybayin:</h2>
-    <p id="result" class="noto-sans-tagalot-regular"></p>
-
+    <p id="result" class="noto-sans-tagalog-regular"></p>
+    
+    </div>
     <script>
         // Baybayin syllabic map
         const baybayinMap = {
@@ -72,8 +129,36 @@
                 }
             });
 
-            document.getElementById("result").textContent = resultText;
+            document.getElementById("result").textContent = resultText; -->
+        <!-- }
+    </script> -->
+
+
+    
+    <script>
+        // Mapping of Latin alphabet to Baybayin equivalents
+        const baybayinMap = {
+            'a': 'ᜀ', 'e': 'ᜁ', 'i': 'ᜁ', 'o': 'ᜂ', 'u': 'ᜂ',
+            'b': 'ᜊ', 'k': 'ᜃ', 'd': 'ᜇ', 'g': 'ᜄ', 'h': 'ᜑ',
+            'l': 'ᜎ', 'm': 'ᜋ', 'n': 'ᜈ', 'p': 'ᜉ', 's': 'ᜐ',
+            't': 'ᜆ', 'w': 'ᜏ', 'y': 'ᜌ'
+        };
+        
+        // Function to replace Latin characters with Baybayin
+        function convertToBaybayin(text) {
+            console.log(text)
+            return text.split('').map(char => {
+                const lowerChar = char.toLowerCase();
+                return baybayinMap[lowerChar] || char; // Default to original if no Baybayin equivalent
+            }).join('');
         }
-    </script>
-</body>
-</html>
+        
+        // Event listener for textarea input
+        document.getElementById('input').addEventListener('input', function(event) {
+            const originalText = event.target.value;
+            // console.log(event.target.value)
+            const convertedText = convertToBaybayin(originalText);
+            event.target.value = convertedText; // Update textarea with Baybayin text
+        });
+        </script>
+{% endblock %}

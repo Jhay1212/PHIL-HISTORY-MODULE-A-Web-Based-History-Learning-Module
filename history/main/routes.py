@@ -151,11 +151,16 @@ def trivia():
 def base():
     return render_template('base.html')
 
+@main.route('/flags/history')
+def flags():
+    
+    return render_template('flags/flags2.html')
+
 @main.route('/view/notes/<int:pk>')
 def view(pk):
     user = User.query.get(pk)
     # user = db.session.execute(db.select(User).get(pk)).scalar_one()
-    notes = MiniNotes.query.all()
+    notes = MiniNotes.query.filter_by(user_id=user.id).all()
     print(notes)
     return render_template('notes/notes.html', notes=notes, user=user)
 

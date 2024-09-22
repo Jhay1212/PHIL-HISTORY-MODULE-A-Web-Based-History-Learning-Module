@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+    .c-container {
+        padding: 2rem;
+        margin-top: 5.5rem;
+    }
+    .slider-wrapper {
+        position: relative;
+        max-width: 48rem;
+        margin: 0 auto;
+    }
+    /* .flag {
+        transform: scale(2);
+    } */
+    .slider {
+        display: flex;
+        aspect-ratio: 16/9;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        box-shadow: 0 1.5rem 4rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+.slider img {
+    flex: 1 0 100%;
+    scroll-snap-align: start;
+    object-fit: cover;
+}
+.slider-nav {
+    display: flex;
+    column-gap: 1rem;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;;
+}
+.slider-nav a {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.75;
+    transition: opacity ease 250ms;
+}
+.slider-nav a:hover {
+    opacity: 1;
+}
+
+#description {
+    text-align: center;
+    margin: 1.4rem;
+    text-align: center;
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            /* opacity: 0; Initial state, hidden */
+            transition: opacity 0.5s ease-in-out; /* Fade transition */
+}
+
+/* General Styles */
+.text-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.text-box:hover {
+    transform: scale(1.02);
+}
+
+/* Title Styles */
+.text-box .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Description Styles */
+.text-box #description {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .text-box {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .text-box .title {
+        font-size: 22px;
+    }
+
+    .text-box #description {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .text-box {
+        padding: 10px;
+    }
+
+    .text-box .title {
+        font-size: 20px;
+    }
+
+    .text-box #description {
+        font-size: 14px;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block main%}
+
+<div class="c-container">
+    <div class="slider-wrapper">
+        <div class="slider">
+            {% for n in range(1, 12) %}
+
+            <img src="{{ url_for('static', filename='flags/images/flag' + n|string + '.jpg')}}" id="slide-{{n}}" class="flag">
+            {% endfor %}
+        </div>
+
+        <div class="slider-nav">
+            {% for n in range(1, 12) %}
+            <a href="#slide-{{n}}"></a>
+            {% endfor %}
+            </div>  
+    </div>
+</div>
+<div class="text-box">
+    <h2 class="title"></h2>
+    <h2 id="description"></h2>
+
+</div>
+
+
+
+<script>
+    // Description texts for each flag
+    const descriptions = [
+        {
+            title: 'The "FIRST" Katipunan flag',
+            desc: "The first Filipino flag can be traced from the time of the Andres Bonifacio's secret society named: Kataastaasang Kagalanggalang Katipunan ng mga Anak ng Bayan (Highest and Most Honorable Society of the Sons of the Nation) or the Katipunan or KKK for short. Benita Rodriquez and Bonifacio's wife, Gregoria de Jesus, made the first Filipino flag."
+        },
+        {
+            title:  `First Variant of Katipunan Flag`,
+            desc:  `The first Philippine flags was made of red cloth with white KKK initials sewn in white. The red color symbolized the blood of the members of the Katipunan in which inductee to the society signed in their names with their own blood.`
+        },
+        {
+            title: `Second Variant of Katipunan Flag`,
+            desc: `The Filipino flag had variations (from 1892 to 1896). Some members arranged the KKK in a triangle while some generals of the revolution designed their own flags.`
+
+        },
+        {
+            title: `skibidi`,
+            desc:  `hotdog`
+        }
+    ];
+
+    // Get the description element
+    const descriptionElement = document.getElementById('description');
+    const title = document.querySelector('.title');
+    descriptionElement.textContent = descriptions[0]
+    // Create an Intersection Observer to observe which image is currently visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const imgId = entry.target.id; // e.g., slide-1
+                const slideNumber = imgId.split('-')[1]; // Get the slide number (e.g., '1' from 'slide-1')
+                const index = parseInt(slideNumber) - 1; // Convert to index (0-based)
+                descriptionElement.textContent = descriptions[index].desc; // Update the description
+                title.textContent = descriptions[index].title;
+            }
+        });
+    }, {
+        root: document.querySelector('.slider'), // Observe within the slider
+        threshold: 0.75 // Consider image fully visible if 75% of it is in view
+    });
+
+    // Observe each image in the slider
+    document.querySelectorAll('.slider img').forEach(img => {
+        observer.observe(img);
+
+
+        const slides = document.querySelectorAll('.slide');
+const descriptionText = document.getElementById('description-text');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+
+let currentSlide = 0;
+
+function updateSlide() {
+    slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+            slide.classList.add('active');
+            descriptionText.innerText = slide.dataset.description;
+        } else {
+            slide.classList.remove('active');
+        }
+    });
+
+    document.querySelector('.slider').style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+nextBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateSlide();
+});
+
+prevBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateSlide();
+});
+
+// Initial update
+updateSlide();
+
+    });
+</script>
+{% endblock %}
