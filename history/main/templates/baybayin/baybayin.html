@@ -35,7 +35,7 @@
     /* changes */
 
     textarea {
-            width: 400px;
+            width: clamp(400px, 70%, 800px);
             height: 200px;
             padding: 15px;
             border: 2px solid #ccc;
@@ -47,6 +47,7 @@
             resize: none;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             transition: border-color 0.3s ease;
+            margin: 0 auto;
         }
 
         textarea:focus {
@@ -59,6 +60,20 @@
             color: #aaa;
             font-style: italic;
         }
+
+
+        .gradient-text {
+  font-size: 5rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #0038a8, #ff0000, #e2f818, #0452ef);
+  -webkit-background-clip: text;
+  text-align: center;
+  margin-bottom: 1rem;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+
     </style>
     {% endblock %}
     
@@ -66,7 +81,8 @@
 
 <div class="c-wrapper">
 
-    <H2>English/Tagalog to Baybayin Translator </H2>
+    <h1 class="gradient-text">Baybayin key translator</h1>
+
 
     <textarea id="input" placeholder="Type here..." rows="10" cols="30"></textarea>
 

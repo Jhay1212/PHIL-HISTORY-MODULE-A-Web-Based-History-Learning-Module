@@ -24,7 +24,7 @@ from history import db
 
 from history import BASEDIR
 
-from .utils import search_google
+from .utils import search_google, search_gemini
 
 
 # from .utils import convo
@@ -101,7 +101,7 @@ def search():
         if not forms.search.data:
             flash('Enter a valid search term')
             return redirect(url_for('/.home'))
-        searc = search_google(forms.search.data)
+        searc = search_gemini(forms.search.data)
         # forms = forms.dataload
         
         result = Lesson.query.filter(

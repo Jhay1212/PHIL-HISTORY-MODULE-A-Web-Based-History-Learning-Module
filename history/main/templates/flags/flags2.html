@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 {% block css %}
 <style>
+    @keyframes upSlide {
+        0%{
+            opacity: .5;
+            transform: translateY(100%);
+        }
+
+        100% {
+            transform: translateY(0%);
+            opacity: 1;
+        }
+    }
+    .slide-anim {
+        animation: upSlide .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
     .c-container {
         padding: 2rem;
         margin-top: 5.5rem;
@@ -58,181 +72,276 @@
             transition: opacity 0.5s ease-in-out; /* Fade transition */
 }
 
-/* General Styles */
 .text-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px auto;
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Hover Effect */
-.text-box:hover {
-    transform: scale(1.02);
-}
-
-/* Title Styles */
-.text-box .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
     text-align: center;
+    margin: 1.4rem  auto;
+    background: #f5f5f5;
+    border  : 1px solid beige;
+    width: 50%;
+    height: 400px;
 }
 
-/* Description Styles */
-.text-box #description {
-    font-size: 18px;
-    color: #555;
-    text-align: center;
+.gradient-text {
+  font-size: 64px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #0038a8, #ff0000, #e2f818, #0452ef);
+  -webkit-background-clip: text;
+  text-align: center;
+  margin-bottom: 1rem;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .text-box {
-        padding: 15px;
-        max-width: 90%;
-    }
 
-    .text-box .title {
-        font-size: 22px;
-    }
-
-    .text-box #description {
-        font-size: 16px;
-    }
+.animated-border {
+  padding: 20px;
+  border: 5px solid;
+  border-radius: 10px;
+  animation: borderAnimation 5s infinite;
 }
 
-@media screen and (max-width: 480px) {
-    .text-box {
-        padding: 10px;
-    }
-
-    .text-box .title {
-        font-size: 20px;
-    }
-
-    .text-box #description {
-        font-size: 14px;
-    }
+@keyframes borderAnimation {
+  0% {
+    border-color: rgb(255, 0, 0); /* Red */
+  }
+  33% {
+    border-color: rgb(0, 255, 0); /* Green */
+  }
+  66% {
+    border-color: rgb(0, 0, 255); /* Blue */
+  }
+  100% {
+    border-color: rgb(255, 0, 0); /* Red (loop back) */
+  }
 }
-
 </style>
 {% endblock %}
 
 {% block main%}
 
 <div class="c-container">
-    <div class="slider-wrapper">
-        <div class="slider">
-            {% for n in range(1, 12) %}
 
-            <img src="{{ url_for('static', filename='flags/images/flag' + n|string + '.jpg')}}" id="slide-{{n}}" class="flag">
+    <h1 class="gradient-text">History of Philippine Flag</h1>
+    <div class="slider-wrapper">
+        <div class="slider ">
+            {% for n in range(1, 13) %}
+
+            <img src="{{ url_for('static', filename='flags/images/hd/flag' + n|string + '.png')}}" id="slide-{{n}}" class="flag">
             {% endfor %}
         </div>
 
         <div class="slider-nav">
-            {% for n in range(1, 12) %}
-            <a href="#slide-{{n}}"></a>
+            {% for n in range(1, 13) %}
+            <a href="#slide-{{n}}" class='btn'></a>
             {% endfor %}
             </div>  
     </div>
 </div>
-<div class="text-box">
-    <h2 class="title"></h2>
-    <h2 id="description"></h2>
+
+<div class="text-box animated-border">
+    <h1 class="title"></h1>
+    <p  id="description"></p>
 
 </div>
 
 
-
 <script>
-    // Description texts for each flag
-    const descriptions = [
-        {
-            title: 'The "FIRST" Katipunan flag',
-            desc: "The first Filipino flag can be traced from the time of the Andres Bonifacio's secret society named: Kataastaasang Kagalanggalang Katipunan ng mga Anak ng Bayan (Highest and Most Honorable Society of the Sons of the Nation) or the Katipunan or KKK for short. Benita Rodriquez and Bonifacio's wife, Gregoria de Jesus, made the first Filipino flag."
-        },
-        {
-            title:  `First Variant of Katipunan Flag`,
-            desc:  `The first Philippine flags was made of red cloth with white KKK initials sewn in white. The red color symbolized the blood of the members of the Katipunan in which inductee to the society signed in their names with their own blood.`
-        },
-        {
-            title: `Second Variant of Katipunan Flag`,
-            desc: `The Filipino flag had variations (from 1892 to 1896). Some members arranged the KKK in a triangle while some generals of the revolution designed their own flags.`
 
-        },
-        {
-            title: `skibidi`,
-            desc:  `hotdog`
-        }
-    ];
-
-    // Get the description element
-    const descriptionElement = document.getElementById('description');
-    const title = document.querySelector('.title');
-    descriptionElement.textContent = descriptions[0]
-    // Create an Intersection Observer to observe which image is currently visible
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const imgId = entry.target.id; // e.g., slide-1
-                const slideNumber = imgId.split('-')[1]; // Get the slide number (e.g., '1' from 'slide-1')
-                const index = parseInt(slideNumber) - 1; // Convert to index (0-based)
-                descriptionElement.textContent = descriptions[index].desc; // Update the description
-                title.textContent = descriptions[index].title;
-            }
-        });
+// Description texts for each flag
+const descriptions = [
+    {
+        title: 'The "FIRST" Katipunan flag',
+        desc: "The first Filipino flag can be traced from the time of Andres Bonifacio's secret society named: Kataastaasang Kagalanggalang Katipunan ng mga Anak ng Bayan (Highest and Most Honorable Society of the Sons of the Nation) or the Katipunan or KKK for short. Benita Rodriquez and Bonifacio's wife, Gregoria de Jesus, made the first Filipino flag."
+    },
+    {
+        title: 'First Variant of Katipunan Flag',
+        desc: 'The first Philippine flags were made of red cloth with white KKK initials sewn in white. The red color symbolized the blood of the members of the Katipunan in which inductees to the society signed their names with their own blood.'
+    },
+    {
+        title: 'Second Variant of Katipunan Flag',
+        desc: 'The Filipino flag had variations (from 1892 to 1896). Some members arranged the KKK in a triangle while some generals of the revolution designed their own flags.'
+    },
+    {
+        title: `Personal Flag of Mariano Lanera`,
+        desc: `Of note is the black banner of General Mariano Llanera in Nueva Ecija with a letter K and a skull with two cross bones underneath.`
+    },
+    {
+        title: `Personal Flag of General Pio del Pilar`,
+        desc: `Another variation of the Filipino flag was that of General Pio del Pilar. It had an equilateral triangle with a K at each angle with a rising sun behind a mountain..`
+    },
+    {
+        title: `War Standard Flag by Andres Bonifacio`,
+        desc: `In this Philippine flag picture, the Sun with the KKK underneath was also a derivative of previous Filipino flags.`
+    },
+    {
+        title: `Purported flag of the Magdalo faction.`,
+        desc: ` In 1896, the Magdalo faction of the Katipunan in Cavite headed by General Emilio Aguinaldo had a red ensign with a sun and at the center of the sun is the letter K written in the ancient Filipino alphabet.`
     }, {
-        root: document.querySelector('.slider'), // Observe within the slider
-        threshold: 0.75 // Consider image fully visible if 75% of it is in view
+        title: `Purported flag of Republic of Biak-na-Bato. Sometimes described as the "first official revision".`,
+        desc: `Another variation is the Sun of Liberty of the Naic Assembly in 1897 and the flag used by the Republic of Biak-na Bato.`
+    },
+    {
+        title: `Personal flag of Gregorio del Pilar` ,
+        desc: `General Gregorio del Pilar also used another flag during the Battle of Pasong Balite and at the Battle of Tirad Pass. This Filipino flag is similar to the flag of Cuba, according to del Pilar.`
+    },
+    {
+        title: `Personal flag of General Emilio Aguinaldo`,
+        desc: `In 1898 Emilio Aguinaldo while in exile in Hong Kong had a banner sewn with the triangle of the Masonry with the mythical sun and face with 8 rays representing the 8 provinces that revolted against the Spanish rule (Manila, Cavite, Bulacan, Nueva Ecija, Pampanga, Bataan, Laguna, and Batangas) and 3 stars representing the main island groups: Luzon, Visayas and Mindanao.`
+    },
+    {
+        title: `Philippinese Flag Variation`,
+        desc: `Flag of the First Philippine Republic with an anthropomorphic sun. The flag itself is not part of the "Evolution of the Philippine Flag" but is often displayed alongside the other flags. Sometimes the more contemporary national flag without the anthropomorphic sun is used.`
+    },
+    {
+        title: `Philippinese Flag Variation`,
+        desc: `Flag of the First Philippine Republic with an anthropomorphic sun. The flag itself is not part of the "Evolution of the Philippine Flag" but is often displayed alongside the other flags. Sometimes the more contemporary national flag without the anthropomorphic sun is used.`
+    }
+
+    // Continue adding descriptions for all slides...
+];
+
+// Get the description element
+const descriptionElement = document.getElementById('description');
+const title = document.querySelector('.title');
+const buttons = document.querySelectorAll('.btn');
+
+buttons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        title.classList.toggle('slide-anim');
+        descriptionElement.classList.toggle('slide-anim');
+
+    })
+})
+
+// Create an Intersection Observer to observe which image is currently visible
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const imgId = entry.target.id; // e.g., slide-1
+            const slideNumber = imgId.split('-')[1]; // Get the slide number (e.g., '1' from 'slide-1')
+            const index = parseInt(slideNumber) - 1; // Convert to index (0-based)
+            descriptionElement.textContent = descriptions[index]?.desc || ""; // Update the description
+            title.textContent = descriptions[index]?.title || "";
+        }
     });
+}, {
+    root: document.querySelector('.slider'), // Observe within the slider
+    threshold: 0.75 // Consider image fully visible if 75% of it is in view
+});
 
-    // Observe each image in the slider
-    document.querySelectorAll('.slider img').forEach(img => {
-        observer.observe(img);
+// Observe each image in the slider
+document.querySelectorAll('.slider img').forEach(img => {
+    observer.observe(img);
+});
 
-
-        const slides = document.querySelectorAll('.slide');
-const descriptionText = document.getElementById('description-text');
+// Manual Slide Navigation
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slider img');
 const nextBtn = document.getElementById('nextBtn');
 const prevBtn = document.getElementById('prevBtn');
-
 let currentSlide = 0;
 
-function updateSlide() {
-    slides.forEach((slide, index) => {
-        if (index === currentSlide) {
-            slide.classList.add('active');
-            descriptionText.innerText = slide.dataset.description;
-        } else {
-            slide.classList.remove('active');
-        }
-    });
-
-    document.querySelector('.slider').style.transform = `translateX(-${currentSlide * 100}%)`;
+function updateSlideManually() {
+    const totalSlides = slides.length;
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    descriptionElement.textContent = descriptions[currentSlide]?.desc || ""; // Update description manually
 }
 
-nextBtn.addEventListener('click', () => {
+// Next button
+nextBtn?.addEventListener('click', () => {
     currentSlide = (currentSlide + 1) % slides.length;
-    updateSlide();
+    updateSlideManually();
 });
 
-prevBtn.addEventListener('click', () => {
+// Previous button
+prevBtn?.addEventListener('click', () => {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    updateSlide();
+    updateSlideManually();
 });
 
-// Initial update
-updateSlide();
+// Initial description load
+descriptionElement.textContent = descriptions[0]?.desc || "";
 
-    });
+
+
+
+
+//     // Description texts for each flag
+//     const descriptions = [
+//         {
+//             title: 'The "FIRST" Katipunan flag',
+//             desc: "The first Filipino flag can be traced from the time of the Andres Bonifacio's secret society named: Kataastaasang Kagalanggalang Katipunan ng mga Anak ng Bayan (Highest and Most Honorable Society of the Sons of the Nation) or the Katipunan or KKK for short. Benita Rodriquez and Bonifacio's wife, Gregoria de Jesus, made the first Filipino flag."
+//         },
+//         {
+//             title:  `First Variant of Katipunan Flag`,
+//             desc:  `The first Philippine flags was made of red cloth with white KKK initials sewn in white. The red color symbolized the blood of the members of the Katipunan in which inductee to the society signed in their names with their own blood.`
+//         },
+//         {
+//             title: `Second Variant of Katipunan Flag`,
+//             desc: `The Filipino flag had variations (from 1892 to 1896). Some members arranged the KKK in a triangle while some generals of the revolution designed their own flags.`
+
+//         },
+
+
+
+//     ];
+
+//     // Get the description element
+//     const descriptionElement = document.getElementById('description');
+//     descriptionElement.textContent = descriptions[0]
+//     // Create an Intersection Observer to observe which image is currently visible
+//     const observer = new IntersectionObserver((entries) => {
+//         entries.forEach(entry => {
+//             if (entry.isIntersecting) {
+//                 const imgId = entry.target.id; // e.g., slide-1
+//                 const slideNumber = imgId.split('-')[1]; // Get the slide number (e.g., '1' from 'slide-1')
+//                 const index = parseInt(slideNumber) - 1; // Convert to index (0-based)
+//                 descriptionElement.textContent = descriptions[index].desc; // Update the description
+//             }
+//         });
+//     }, {
+//         root: document.querySelector('.slider'), // Observe within the slider
+//         threshold: 0.75 // Consider image fully visible if 75% of it is in view
+//     });
+
+//     // Observe each image in the slider
+//     document.querySelectorAll('.slider img').forEach(img => {
+//         observer.observe(img);
+
+
+//         const slides = document.querySelectorAll('.slide');
+// const descriptionText = document.getElementById('description-text');
+// const nextBtn = document.getElementById('nextBtn');
+// const prevBtn = document.getElementById('prevBtn');
+
+// let currentSlide = 0;
+
+// function updateSlide() {
+//     slides.forEach((slide, index) => {
+//         if (index === currentSlide) {
+//             slide.classList.add('active');
+//             descriptionText.innerText = descriptions[index].desc;
+//         } else {
+//             slide.classList.remove('active');
+//         }
+//     });
+
+//     document.querySelector('.slider').style.transform = `translateX(-${currentSlide * 100}%)`;
+// }
+
+// nextBtn.addEventListener('click', () => {
+//     currentSlide = (currentSlide + 1) % slides.length;
+//     updateSlide();
+// });
+
+// prevBtn.addEventListener('click', () => {
+//     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+//     updateSlide();
+// });
+
+// // Initial update
+// updateSlide();
+
+//     });
 </script>
 {% endblock %}

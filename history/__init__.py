@@ -10,7 +10,6 @@ from flask_pagedown import PageDown
 from flask_ckeditor import CKEditor
 
 from flask_admin import Admin
-# from flask_migrate import Migrate
 from flask_admin.contrib.sqla import ModelView
 import os 
 # App setup and configuration
@@ -33,7 +32,7 @@ def create_app():
     app = Flask('__main__')
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     # | os.environ.get("SECRET_KEY")
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' or os.path.join(BASEDIR, 'site.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', f"sqlite:///{os.path.join(BASEDIR, 'site.db')}")
     app.config['FLASK_ADMIN_SWATCH'] = 'flatly'
     app.config['FLASK_ADMIN_FLUID_LAYOUT'] = True
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -105,7 +104,7 @@ def create_app():
     # print(app._static_folder)
     admin = Admin(app)
     class MiniNotesModelView(ModelView):
-        def is_accesible(self):
+        def is_accessible(self):
             return current_user.is_authenticated
     class LessonModelView(ModelView):
         column_display_pk = True
@@ -167,7 +166,7 @@ def url_back(fallback='/.home', *args, **kwargs):
         if 200 <= step[2] < 300:
             return url_for(step[0], **step[1]) 
         
-        print(fallback)
+        # print(fallback)
     return url_back(fallback, *args, **kwargs)
 
 

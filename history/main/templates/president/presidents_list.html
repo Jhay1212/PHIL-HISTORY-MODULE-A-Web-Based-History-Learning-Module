@@ -78,15 +78,173 @@ img {
     top:-2.5vmin;
   }
 
+
+
+
+  @import url("https://fonts.googleapis.com/css?family=Inter");
+
+
+.card-container {
+  /* background-color: SandyBrown; */
+  position: relative;
+  height: 100%;
+  width: 100%;
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; */
+  /* flex-direction: column; */
+}
+
+.card {
+  --push: 8px;
+  min-width: 320px;
+  max-width: 320px;
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: box-shadow 0.15s ease-in-out, transform 0.15s ease-in-out;
+
+  box-shadow: var(--push) var(--push) 0 0 black;
+
+  will-change: box-shadow, transform;
+
+  &:active {
+    box-shadow: 0 0 0 0 black;
+    transform: translate(calc(-50% + var(--push)), calc(-50% + var(--push)));
+  }
+
+  &:not(:active):hover {
+    --push: 4px;
+    box-shadow: var(--push) var(--push) 0 0 black;
+    transform: translate(calc(-50% + var(--push)), calc(-50% + var(--push)));
+  }
+}
+
+.image-container {
+  background-color: SandyBrown;
+  width: 100%;
+  height: 160px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.image {
+  background-image: url("https://cdn.dribbble.com/users/1186668/screenshots/17303363/media/bc6aa9915a58811524bbbfd89cbb2d71.jpg");
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.tag {
+  background-color: SandyBrown;
+  align-self: flex-start;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.25px;
+}
+
+h1 {
+  margin: 8px 0;
+  font-size: 20px;
+}
+
+.publication-date {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.5;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.avatar {
+  background-color: black;
+  border-radius: 50%;
+  height: 28px;
+  width: 28px;
+  font-size: 8px;
+  color: sandybrown;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+footer {
+  padding: 16px;
+  margin-left: auto;
+  margin-top: auto;
+
+  a {
+    font-weight: bold;
+    color: black;
+  }
+}
+
 </style>
 {% endblock %}
 {% block main %}
 
-<div class="presidents-list">
+<!-- <div class="presidents-list"> -->
     
+  <div class="card-container">
+
+    {% for i in range(3) %}
+  <div class="card">
+    <div class="image-container">
+      <img class="image"></img>
+    </div>
+    <div class="tag">
+      <span>Ferdinand Marcos Jr.</span>
+    </div>
+    <div class="publication-date">
+      <span>2022-2026</span>
+    </div>
+    <h1>Salmon (/ˈsæmən/; pl.: salmon)</h1>
+    <p>Salmon is the common name for several commercially important species of euryhaline ray-finned fish from the genera Salmo and Oncorhynchus of the family Salmonidae, native to tributaries of the North Atlantic and North Pacific basins.</p>
+    <div class="user-info">
+      <div class="avatar">JD</div>
+      <span class="name">Jon Doe</span>
+    </div>
+  </div>
+  <footer>Image from: <a href="https://dribbble.com/shots/17303363-Sockeye-Salmon" target="_blank">Dribble</a></footer>
+  {% endfor %}
+</div>
+</div>
+
+
     <div class="f-container">
 
-        <div class="frame">
+        <!-- <div class="frame">
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/71829/mona-lisa.jpg" alt="Mona Lisa" />
         </div>
 
@@ -95,8 +253,8 @@ img {
         </div>
         <div class="frame">
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/71829/mona-lisa.jpg" alt="Mona Lisa" />
-        </div>
-    </div>
+        </div> 
+    </div>-->
 </div>
 
 {% endblock %}
