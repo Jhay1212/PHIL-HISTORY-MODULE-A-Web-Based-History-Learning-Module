@@ -1,0 +1,87 @@
+[
+    {
+        "name": "Emilio Aguinaldo",
+        "title": "First President of the Philippines",
+        "term": "1899-1901"
+    },
+    {
+        "name": "Manuel L. Quezon",
+        "title": "Second President of the Philippines",
+        "term": "1935-1944"
+    },
+    {
+        "name": "José P. Laurel",
+        "title": "Third President of the Philippines",
+        "term": "1943-1945"
+    },
+    {
+        "name": "Sergio Osmeña",
+        "title": "Fourth President of the Philippines",
+        "term": "1944-1946"
+    },
+    {
+        "name": "Manuel Roxas",
+        "title": "Fifth President of the Philippines",
+        "term": "1946-1948"
+    },
+    {
+        "name": "Elpidio Quirino",
+        "title": "Sixth President of the Philippines",
+        "term": "1948-1953"
+    },
+    {
+        "name": "Ramon Magsaysay",
+        "title": "Seventh President of the Philippines",
+        "term": "1953-1957"
+    },
+    {
+        "name": "Carlos P. Garcia",
+        "title": "Eighth President of the Philippines",
+        "term": "1957-1961"
+    },
+    {
+        "name": "Diosdado Macapagal",
+        "title": "Ninth President of the Philippines",
+        "term": "1961-1965"
+    },
+    {
+        "name": "Ferdinand Marcos",
+        "title": "Tenth President of the Philippines",
+        "term": "1965-1986"
+    },
+    {
+        "name": "Corazon Aquino",
+        "title": "Eleventh President of the Philippines",
+        "term": "1986-1992"
+    },
+    {
+        "name": "Fidel V. Ramos",
+        "title": "Twelfth President of the Philippines",
+        "term": "1992-1998"
+    },
+    {
+        "name": "Joseph Estrada",
+        "title": "Thirteenth President of the Philippines",
+        "term": "1998-2001"
+    },
+    {
+        "name": "Gloria Macapagal-Arroyo",
+        "title": "Fourteenth President of the Philippines",
+        "term": "2001-2010"
+    },
+    {
+        "name": "Benigno Aquino III",
+        "title": "Fifteenth President of the Philippines",
+        "term": "2010-2016"
+    },
+    {
+        "name": "Rodrigo Duterte",
+        "title": "Sixteenth President of the Philippines",
+        "term": "2016-2022"
+    },
+    {
+        "name": "Ferdinand Marcos Jr.",
+        "title": "Seventeenth President of the Philippines",
+        "term": "2022-present"
+    }
+]

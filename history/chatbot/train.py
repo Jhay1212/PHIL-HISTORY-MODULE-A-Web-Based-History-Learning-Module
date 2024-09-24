@@ -15,13 +15,12 @@ nltk.download('wordnet')
 
 
 script_dir = os.path.dirname(__file__)
-path = os.path.join( 'static', 'chatbot', 'intent.json')
-print(path)
-print(script_dir)
+path = os.path.join( 'history', 'static',  'intent.json')
 
 lemmatizer = WordNetLemmatizer()
 # path = url_for('static', fi')
-intents = json.loads(open(path).read())
+
+intents = json.loads(open(r'C:\Users\Jhay\projects\thesis\static\intent.json').read())
 
 words = []
 classes = []
@@ -41,8 +40,8 @@ words = sorted(set(words))
 
 classes = sorted(set(classes))
 
-pickle.dump(words, open('words.pkl', 'wb'))
-pickle.dump(classes, open('classes.pkl', 'wb'))
+pickle.dump(words, open(r'C:\Users\Jhay\projects\thesis\static\words.pkl', 'wb'))
+pickle.dump(classes, open(r'C:\Users\Jhay\projects\thesis\static\classes.pkl', 'wb'))
 
 training = []
 outputEmpty = [0] * len(classes)
@@ -71,9 +70,9 @@ model.add(tf.keras.layers.Dense(64, activation = 'relu'))
 model.add(tf.keras.layers.Dropout(0.5))
 model.add(tf.keras.layers.Dense(len(trainY[0]), activation='softmax'))
 
-sgd = tf.keras.optimizers.SGD(learning_rate=0.01, momentum=0.9, nesterov=True)
+sgd = tf.keras.optimizers.SGD(learning_rate=0.01, weight_decay=1e-6,  momentum=0.9, nesterov=True)
 model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
 model.fit(trainX, trainY, epochs=200, batch_size=5, verbose=1)
-model.save('chatbot_model.h5')
+model.save('chatbot_model.keras')
 print('Done skibidi 😊')

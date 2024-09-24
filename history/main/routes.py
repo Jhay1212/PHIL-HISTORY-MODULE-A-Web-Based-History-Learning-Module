@@ -10,7 +10,8 @@ from flask import (render_template,
                     g,
                     sessions,
                     flash,
-                    get_flashed_messages)
+                    get_flashed_messages,
+                    send_from_directory)
 from sqlalchemy import select, or_
 from flask_sqlalchemy.session import Session
 from flask_sqlalchemy.query import Query
@@ -276,8 +277,12 @@ def bookmark_function(pk):
 @main.route('/presidents')
 def presidents():
     president = President.query.order_by(President.name).all()
+    with open('static/president/president.json') as f:
+        presidents = json.load(f)
+    
+    print(presidents)
 
-    return render_template('president/presidents_list.html', presidents=president)
+    return render_template('president/presidents_list.html', presidents=president, p=presidents)
 @main.route('/president/<string:name>')
 def president(name):
     """
