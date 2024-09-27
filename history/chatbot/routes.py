@@ -5,6 +5,9 @@ from .forms import Chatbot
 from .utils import predict_class, get_response
 
 
+import os 
+
+print('chatbot', os.getcwd())
 # from . import train
 cbot = Blueprint('chatbot', __name__, template_folder='templates')
 

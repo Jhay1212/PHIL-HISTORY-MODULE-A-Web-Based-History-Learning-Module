@@ -2,10 +2,10 @@
 
 {% block css %}
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English/Tagalog to Baybayin Converter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English/Tagalog to Baybayin Converter</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tagalog&display=swap" rel="stylesheet">
 
@@ -13,168 +13,267 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tagalog&display=swap');
 
+
+    *{
+      font-family: 'Noto Sans Tagalog', sans-serif !important;
+    }
     body {
         font-family: 'Noto Sans Tagalog', sans-serif !important;
     }
+
     .c-wrapper {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         padding: 1.5rem;
-        /* margin: 2rem; */
+        margin: 2rem;
     }
+
     .c-wrapper > * {
         margin: 1.5rem;
     }
+
     textarea {
         font-family: 'Noto Sans Tagalog', sans-serif !important;
+        width: clamp(300px, 70%, 800px);
+        height: 12rem;
+        padding: 15px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        font-size: 18px;
+        color: #333;
+        background-color: #fff;
+        resize: none;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+        margin: 0 auto;
     }
 
+    textarea:focus {
+        border-color: #0066ff;
+        outline: none;
+        box-shadow: 0px 6px 12px rgba(0, 102, 255, 0.2);
+    }
 
-    /* changes */
+    textarea::placeholder {
+        color: #aaa;
+        font-style: italic;
+    }
 
-    textarea {
-            width: clamp(400px, 70%, 800px);
-            height: 200px;
-            padding: 15px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            font-size: 18px;
-            font-family: 'Noto Sans', sans-serif;
-            color: #333;
-            background-color: #fff;
-            resize: none;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            transition: border-color 0.3s ease;
-            margin: 0 auto;
+    .gradient-text {
+        font-size: 4rem;
+        font-weight: bold;
+        background: linear-gradient(90deg, #0038a8, #ff0000, #e2f818, #0452ef);
+        -webkit-background-clip: text;
+        text-align: center;
+        margin-bottom: 1rem;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .original {
+        font-family: 'Noto Sans Tagalog', sans-serif;
+        margin-top: 2rem;
+    }
+
+    .original-text-container {
+        width: clamp(300px, 70%, 800px);
+        border-radius: 5px;
+        height: 12rem;
+        /* padding: ; */
+        padding-left: 5px;
+        border: 2px solid #6e626254;
+        background: rgb(247 247 247);
+        /* text-align: center; */
+    }
+
+    .h-wrapper {
+        margin: 2rem 0;
+        text-align: center;
+    }
+
+    .baybayin-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        width: 90%;
+        max-width: 400px;
+        margin: 1rem auto;
+    }
+
+    button {
+        padding: 10px;
+        font-family: 'Noto Sans Tagalog', sans-serif;
+        font-size: 1.2rem;
+        text-align: center;
+        background-color: #ffdd57;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #ffa500;
+    }
+
+    .tagalog {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .baybayin {
+        font-size: 1.4rem;
+        font-family: 'Noto Sans Tagalog', sans-serif;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media screen and (min-width: 768px) {
+
+      .h-wrapper {
+        margin-top: 8rem;
+      }
+        .c-wrapper {
+            flex-direction: row;
+            justify-content: space-evenly;
         }
-
-        textarea:focus {
-            border-color: #0066ff;
-            outline: none;
-            box-shadow: 0px 6px 12px rgba(0, 102, 255, 0.2);
-        }
-
-        textarea::placeholder {
-            color: #aaa;
-            font-style: italic;
-        }
-
 
         .gradient-text {
-  font-size: 5rem;
-  font-weight: bold;
-  background: linear-gradient(90deg, #0038a8, #ff0000, #e2f818, #0452ef);
-  -webkit-background-clip: text;
-  text-align: center;
-  margin-bottom: 1rem;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+            font-size: 5rem;
+        }
 
+        .baybayin-grid {
+            grid-template-columns: repeat(6, 1fr);
+            max-width: 600px;
+        }
 
-    </style>
-    {% endblock %}
-    
+        .original-text-container {
+            width: 60%;
+            background: white;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .gradient-text {
+            font-size: 6rem;
+        }
+
+        textarea {
+            width: 60%;
+            font-size: 20px;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block main %}
+<div class="h-wrapper">
+    <h1 class="gradient-text">Baybayin Key Translator</h1>
+</div>
 
 <div class="c-wrapper">
-
-    <h1 class="gradient-text">Baybayin key translator</h1>
-
-
     <textarea id="input" placeholder="Type here..." rows="10" cols="30"></textarea>
-
+    <div class="original-text-container">
+        <p class="original">Output</p>
     </div>
-<!-- 
-    <h1>Convert English/Tagalog to Baybayin</h1>
-    <textarea id="inputText" placeholder="Type your text here..." rows="4" cols="50"></textarea><br>
-    <button onclick="convertToBaybayin()">Convert</button>
-    <h2>Result in Baybayin:</h2>
-    <p id="result" class="noto-sans-tagalog-regular"></p>
+</div>
+
+<div class="baybayin-grid">
+    <button>
+        <div class="tagalog">A</div>
+        <div class="baybayin">ᜀ</div>
+    </button>
+    <button>
+        <div class="tagalog">E/I</div>
+        <div class="baybayin">ᜁ</div>
+    </button>
+    <button>
+        <div class="tagalog">O/U</div>
+        <div class="baybayin">ᜂ</div>
+    </button>
+    <button>
+        <div class="tagalog">Ka</div>
+        <div class="baybayin">ᜃ</div>
+    </button>
+    <button>
+        <div class="tagalog">Ga</div>
+        <div class="baybayin">ᜄ</div>
+    </button>
+    <button>
+        <div class="tagalog">Nga</div>
+        <div class="baybayin">ᜅ</div>
+    </button>
+    <button>
+        <div class="tagalog">Ta</div>
+        <div class="baybayin">ᜆ</div>
+    </button>
+    <button>
+        <div class="tagalog">Da</div>
+        <div class="baybayin">ᜇ</div>
+    </button>
+    <button>
+        <div class="tagalog">Na</div>
+        <div class="baybayin">ᜈ</div>
+    </button>
+    <button>
+        <div class="tagalog">Pa</div>
+        <div class="baybayin">ᜉ</div>
+    </button>
+    <button>
+        <div class="tagalog">Ba</div>
+        <div class="baybayin">ᜊ</div>
+    </button>
+    <button>
+        <div class="tagalog">Ma</div>
+        <div class="baybayin">ᜋ</div>
+    </button>
+    <button>
+        <div class="tagalog">Ya</div>
+        <div class="baybayin">ᜌ</div>
+    </button>
+    <button>
+        <div class="tagalog">La</div>
+        <div class="baybayin">ᜎ</div>
+    </button>
+    <button>
+        <div class="tagalog">Wa</div>
+        <div class="baybayin">ᜏ</div>
+    </button>
+    <button>
+        <div class="tagalog">Sa</div>
+        <div class="baybayin">ᜐ</div>
+    </button>
+    <button>
+        <div class="tagalog">Ha</div>
+        <div class="baybayin">ᜑ</div>
+    </button>
+</div>
+
+<script>
+    const baybayinMap = {
+        'a': 'ᜀ', 'e': 'ᜁ', 'i': 'ᜁ', 'o': 'ᜂ', 'u': 'ᜂ',
+        'b': 'ᜊ', 'k': 'ᜃ', 'd': 'ᜇ', 'g': 'ᜄ', 'h': 'ᜑ',
+        'l': 'ᜎ', 'm': 'ᜋ', 'n': 'ᜈ', 'p': 'ᜉ', 's': 'ᜐ',
+        't': 'ᜆ', 'w': 'ᜏ', 'y': 'ᜌ', 'f': 'ᜉ', 'z': 'ᜐ', 'v': 'ᜊ'
+    };
+    const orig = document.querySelector('.original');
+    let untranslated = ''
     
-    </div>
-    <script>
-        // Baybayin syllabic map
-        const baybayinMap = {
-            
-            "ka": "ᜃ", "ke": "ᜃᜒ", "ki": "ᜃᜒ", "ko": "ᜃᜓ", "ku": "ᜃᜓ",
-            "ga": "ᜄ", "ge": "ᜄᜒ", "gi": "ᜄᜒ", "go": "ᜄᜓ", "gu": "ᜄᜓ",
-            "ha": "ᜑ", "he": "ᜑᜒ", "hi": "ᜑᜒ", "ho": "ᜑᜓ", "hu": "ᜑᜓ",
-            "la": "ᜎ", "le": "ᜎᜒ", "li": "ᜎᜒ", "lo": "ᜎᜓ", "lu": "ᜎᜓ",
-            "ma": "ᜋ", "me": "ᜋᜒ", "mi": "ᜋᜒ", "mo": "ᜋᜓ", "mu": "ᜋᜓ",
-            "na": "ᜈ", "ne": "ᜈᜒ", "ni": "ᜈᜒ", "no": "ᜈᜓ", "nu": "ᜈᜓ",
-            "pa": "ᜉ", "pe": "ᜉᜒ", "pi": "ᜉᜒ", "po": "ᜉᜓ", "pu": "ᜉᜓ",
-            "sa": "ᜐ", "se": "ᜐᜒ", "si": "ᜐᜒ", "so": "ᜐᜓ", "su": "ᜐᜓ",
-            "ta": "ᜆ", "te": "ᜆᜒ", "ti": "ᜆᜒ", "to": "ᜆᜓ", "tu": "ᜆᜓ",
-            "wa": "ᜏ", "we": "ᜏᜒ", "wi": "ᜏᜒ", "wo": "ᜏᜓ", "wu": "ᜏᜓ",
-            "ya": "ᜌ", "ye": "ᜌᜒ", "yi": "ᜌᜒ", "yo": "ᜌᜓ", "yu": "ᜌᜓ",
-            "a": "ᜀ", "e": "ᜁ", "i": "ᜁ", "o": "ᜂ", "u": "ᜂ"
-        };
+    function convertToBaybayin(text) {
+        untranslated += text;
+        return text.split('').map(char => {
+            const lowerChar = char.toLowerCase();
+            return baybayinMap[lowerChar] || char; 
+        }).join('');
+    }
 
-        // Function to split input into syllables
-        function splitIntoSyllables(text) {
-            const syllables = [];
-            const vowels = ["a", "e", "i", "o", "u"];
-            let current = "";
+    document.getElementById('input').addEventListener('input', function(event) {
+        const originalText = event.target.value;
+        orig.textContent = untranslated;
+        const convertedText = convertToBaybayin(originalText);
+        event.target.value = convertedText;
+    });
+</script>
 
-            for (let i = 0; i < text.length; i++) {
-                current += text[i];
-                if (vowels.includes(text[i]) || i == text.length - 1) {
-                    syllables.push(current);
-                    current = "";
-                }
-            }
-            return syllables;
-        }
-
-        // Function to convert English/Tagalog input to Baybayin
-        function convertToBaybayin() {
-            const inputText = document.getElementById("inputText").value.toLowerCase();
-            let resultText = "";
-
-            const syllables = splitIntoSyllables(inputText);
-
-            syllables.forEach(syllable => {
-                if (baybayinMap[syllable]) {
-                    resultText += baybayinMap[syllable];
-                } else {
-                    // Handle missing or unmapped syllables
-                    resultText += syllable;
-                }
-            });
-
-            document.getElementById("result").textContent = resultText; -->
-        <!-- }
-    </script> -->
-
-
-    
-    <script>
-        // Mapping of Latin alphabet to Baybayin equivalents
-        const baybayinMap = {
-            'a': 'ᜀ', 'e': 'ᜁ', 'i': 'ᜁ', 'o': 'ᜂ', 'u': 'ᜂ',
-            'b': 'ᜊ', 'k': 'ᜃ', 'd': 'ᜇ', 'g': 'ᜄ', 'h': 'ᜑ',
-            'l': 'ᜎ', 'm': 'ᜋ', 'n': 'ᜈ', 'p': 'ᜉ', 's': 'ᜐ',
-            't': 'ᜆ', 'w': 'ᜏ', 'y': 'ᜌ'
-        };
-        
-        // Function to replace Latin characters with Baybayin
-        function convertToBaybayin(text) {
-            console.log(text)
-            return text.split('').map(char => {
-                const lowerChar = char.toLowerCase();
-                return baybayinMap[lowerChar] || char; // Default to original if no Baybayin equivalent
-            }).join('');
-        }
-        
-        // Event listener for textarea input
-        document.getElementById('input').addEventListener('input', function(event) {
-            const originalText = event.target.value;
-            // console.log(event.target.value)
-            const convertedText = convertToBaybayin(originalText);
-            event.target.value = convertedText; // Update textarea with Baybayin text
-        });
-        </script>
 {% endblock %}

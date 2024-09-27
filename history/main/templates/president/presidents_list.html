@@ -108,6 +108,48 @@ img {
   margin-top: 35px;
   text-align: center;
 }
+
+
+/* list modal */
+
+.mprof1 { width: 600px; margin: auto; padding: 10px; position: relative;
+transition: opacity .5s ease-in-out;
+opacity: 0;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-45%, -50%);
+z-index: 2;
+background: white;
+}
+
+
+.mproftop, .mprofend { background: #d0133d; padding: 10px; position: relative; }
+.mproftop h1 { margin: 10px 20px; color: #fff; font-family: andale mono; text-transform: uppercase; font-size: 30px; letter-spacing: -2px; }
+.mproftop h2, .mprofend h1 { position: absolute; right: 40px;  top: 15px; font-family: andale mono; font-size: 12px; text-transform: uppercase; letter-spacing: -1px; }
+.mproftop h2 a, .mprofend h1 a { border-top: 1px solid #eee; text-align: right; padding: 1px 2px 0px 0px; width: 120px; overflow: hidden; display: inline-block; text-decoration: none; color: #eee; transition: all, 1s; }
+.mproftop a:hover, .mprofend h1 a:hover { border-top: 1px solid #8a1837; }
+
+.mproftop h3 { background-color: #fff; margin: 0px; font-family: andale mono; text-transform: uppercase; font-size: 10px; padding: 5px 10px; }
+.mproftop h3 b { color: #8a1837; }
+.mproftop h3 span { display: inline-block; width: 250px; }
+
+.mprof1 {
+  opacity: 0;
+}
+.mprofmid { margin: 10px 0px; border: 1px solid #ddd; padding: 10px; position: relative; height: 405px; }
+.profav img { border: 2px solid #ddd;  }
+.profav { position: absolute; width: 200px; }
+.prof1 { position: absolute; right: 10px; top: 10px; width: 315px; }
+.prof1 h1 { border-top: 1px solid #00133d; font-family: andale mono; color: #00133d; text-transform: uppercase; font-size: 11px; letter-spacing: -1px; padding: 3px 0px; margin: 0px; }
+.profbox { background-color: #efefef; padding: 10px; text-align: justify; margin: 1px 0px 10px; overflow: auto; font-family: helvetica; font-size: 11px; line-height: 17px; height: 250px;  }
+.profbox1 { background-color: #efefef; padding: 10px; text-align: justify; margin: 1px 0px 10px; overflow: auto; font-family: helvetica; font-size: 11px; line-height: 17px; height: 64px; }
+
+.mprofend { min-height: 50px; }
+.mprofend h1 { position: absolute; top: 15px; right: 10px; margin: 0px;  }
+.mprofend h1 a { width: 138px; text-align: left; }
+.prof2 { margin-top: 35px; margin-bottom: 5px; }
+.prof2 span { display: inline-block; width: 278px; font-family: 'andale mono'; color: #eee; font-size: 10px; text-transform: uppercase; background: #d91c49; padding: 5px; margin-bottom: 2px; }
 </style>
 {% endblock %}
 
@@ -130,6 +172,46 @@ img {
     </li>
     {% endfor %}
   </div>
+
+
+  <div class="mprof1">
+    <div class="mproftop">
+      <h1>character name</h1>
+      <h2><a href="/index">ooc account</a>
+        <a href="/index">personal message</a></h2><h3>
+      <span><b>occupation:</b> ooc</span>
+      <span><b>residence:</b> ooc</span></h3>
+    </div>
+    
+    <div class="mprofmid">
+      <div class="profav">
+        <img src="http://placehold.it/250x400">
+      </div>
+      <div class="prof1">
+        <h1>history</h1>
+        <div class="profbox">
+          here
+        </div>
+        <h1>canon point</h1>
+        <div class="profbox1">
+          here
+        </div>
+      </div>
+    </div>
+    
+    <div class="mprofend"><h1>
+      <a href="/index">application</a>
+      <a href="/index">shipper</a>
+      <a href="/index">latest posts</a>
+      <a href="/index">icon credit</a></h1><div class="prof2">
+      <span><b>age:</b> here</span>
+      <span><b>fandom:</b> here</span>
+      <span><b>species:</b> here</span>
+      <span><b>posts:</b> here</span>
+      <span><b>joined:</b> here</span>
+      <span><b>last seen:</b> here</span></div>
+    </div>
+  </div>
   <!-- <li class="cards_item">
     <div class="card">
       <div class="card_image"><img src="https://picsum.photos/500/300/?image=5"></div>
@@ -140,4 +222,13 @@ img {
       </div>
     </div>
   </li> -->
+
+
+  <script>
+    const mprof = document.querySelector('.mprof1');
+document.addEventListener('click', function() {
+  // document.body.style.filter = 'blur(20px)';
+  mprof.style.opacity = 1;s
+})
+  </script>
 {% endblock %}

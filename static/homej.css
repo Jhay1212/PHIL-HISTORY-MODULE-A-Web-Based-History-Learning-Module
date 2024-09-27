@@ -361,3 +361,15 @@ main {
     background-color: #555;
 }
 
+
+
+gradient-text {
+    font-size: 4rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #0038a8, #ff0000, #e2f818, #0452ef);
+    -webkit-background-clip: text;
+    text-align: center;
+    margin-bottom: 1rem;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

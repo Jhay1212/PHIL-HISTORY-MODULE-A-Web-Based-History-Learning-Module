@@ -2,171 +2,181 @@
 
 {% block css %}
 
-    <title>Interactive Timeline</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
+<title>Interactive Timeline</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<style>
+    #timeline {
+        width: 80vw;
+        max-width: 100%;
+        height: 50vh;
+        margin-top: 5vh;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 2px solid #333;
+        background: linear-gradient(135deg, #e2e2e2, #f9f9f9);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Style for the circles representing events */
+    circle {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    circle:hover {
+        r: 15px;
+        fill: #ff5722;
+        stroke: #fff;
+        stroke-width: 3px;
+    }
+
+    /* Tooltip styling */
+    .tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font: 14px 'Arial', sans-serif;
+        background: rgba(50, 50, 50, 0.8);
+        color: #fff;
+        border: 0;
+        border-radius: 8px;
+        pointer-events: none;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 768px) {
         #timeline {
-    width: 100%;
-    height: 500px;
-    margin-top: 10rem;
-    border: 2px solid #333;
-    margin: 50px auto;
-    background: linear-gradient(135deg, #e2e2e2, #f9f9f9);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+            width: 90vw;
+            height: 40vh;
+            top: 45%;
+        }
 
+        circle {
+            r: 10px;
+        }
 
-    position: absolute;
-    top: 40%;
-    /* transform: translate(10px, 10px); */
-    transform: translateY(-50%);
-}
+        .tooltip {
+            font-size: 12px;
+        }
+    }
 
-/* Style for the circles representing events */
-circle {
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
+    @media (max-width: 480px) {
+        #timeline {
+            width: 95vw;
+            height: 30vh;
+            top: 40%;
+        }
 
-circle:hover {
-    r: 15px;
-    fill: #ff5722;
-    stroke: #fff;
-    stroke-width: 3px;
-}
+        circle {
+            r: 8px;
+        }
 
-/* Tooltip styling */
-.tooltip {
-    position: absolute;
-    text-align: center;
-    padding: 8px;
-    font: 14px 'Arial', sans-serif;
-    background: rgba(50, 50, 50, 0.8);
-    color: #fff;
-    border: 0;
-    border-radius: 8px;
-    pointer-events: none;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.2s ease-in-out;
-}
+        .tooltip {
+            font-size: 10px;
+        }
+    }
+    .text {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #333;
+    }
 
-/* Animations for timeline circles and transitions */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: scale(0); }
-    100% { opacity: 1; transform: scale(1); }
-}
-circle {
-    opacity: 0;
-    animation: fadeIn 0.8s ease forwards;
-}
+</style>
 
-    </style>
-    {% endblock %}
+{% endblock %}
 
-    {% block main%}
-    <div id="timeline"></div>
-  <h2 class="text">da</h2>
-    <script src="timeline.js"></script>
-    <script>
-        // Create margin and dimensions
-const margin = { top: 20, right: 30, bottom: 30, left: 40 };
-const textH = document.querySelector('.text');
-const width = document.getElementById("timeline").clientWidth - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+{% block main %}
+<div id="timeline"></div>
+<h2 class="text gradient-text">Philippine History Timeline</h2>
 
-// Create the SVG container
-const svg = d3.select("#timeline")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+<script src="timeline.js"></script>
+<script>
+    // Create margin and dimensions
+    const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+    const textH = document.querySelector('.text');
 
-// Example dataset for the timeline
-const data = [
-    { date: new Date(1380, 0, 1), event: "Muslim Arabs Arrived at Sulu Archipelago" },
-    { date: new Date(1521, 0, 1), event: "Ferdinand Magellan discovers the island and names them: Archipelago of San Lazaro" },
-    { date: new Date(1542, 0, 1), event: 'Spanish expedition commandeered by Ruy Lopez de Villalobos claims the islands for Spain; names them "Philippines" after Prince Philip, later King Philip II of Spain; the Philippines becomes part of Spanish Empire.' },
+    function resize() {
+        const width = document.getElementById("timeline").clientWidth - margin.left - margin.right;
+        const height = document.getElementById("timeline").clientHeight - margin.top - margin.bottom;
 
-    
-    { date: new Date(1872, 0, 1), event: "The GomBurZa martyr fathers were executed by the Spaniards"},
-    { date: new Date(1892, 0, 1), event: "Jose Rizal founded the civic organization La Liga Filipina"},
-    
-    { date: new Date(1700, 0, 1), event: "Pre Spanish Era" },
-    { date: new Date(2000, 0, 1), event: "Spanishs Era" },
-    { date: new Date(2010, 0, 1), event: "English Era" },
-    { date: new Date(2020, 0, 1), event: "Japanese Era" },
-    { date: new Date(2020, 0, 1), event: "Moderna Era" }
+        // Clear previous SVG
+        d3.select("#timeline").selectAll("*").remove();
 
-];
+        // Create the SVG container
+        const svg = d3.select("#timeline")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Create a time scale
-const xScale = d3.scaleTime()
-    .domain([new Date(1300, 0, 1), new Date(2025, 0, 1)])
-    .range([0, width]);
+        // Example dataset for the timeline
+        const data = [
+            { date: new Date(1380, 0, 1), event: "Muslim Arabs Arrived at Sulu Archipelago", image: 'static/event1.jpg' },
+            { date: new Date(1521, 0, 1), event: "Ferdinand Magellan discovers the island and names them: Archipelago of San Lazaro", image: 'static/event2.jpg' },
+            { date: new Date(1542, 0, 1), event: 'Spanish expedition claims the islands for Spain; names them "Philippines" after Prince Philip.' },
+            { date: new Date(1872, 0, 1), event: "The GomBurZa martyr fathers were executed by the Spaniards" },
+            { date: new Date(1892, 0, 1), event: "Jose Rizal founded La Liga Filipina" },
+        ];
 
-// Create an axis based on the scale
-const xAxis = d3.axisBottom(xScale);
+        // Create a time scale
+        const xScale = d3.scaleTime()
+            .domain([new Date(1300, 0, 1), new Date(2025, 0, 1)])
+            .range([0, width]);
 
-// Append the axis with smooth transitions
-const gX = svg.append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(xAxis);
+        // Create an axis based on the scale
+        const xAxis = d3.axisBottom(xScale);
 
-// Zoom and pan functionality with smooth transitions
-const zoom = d3.zoom()
-    .scaleExtent([0.5, 5])  // Min and max zoom scale
-    .translateExtent([[-width, -Infinity], [2 * width, Infinity]])  // Allow panning within the timeline
-    .on("zoom", (event) => {
-        const transform = event.transform;
-        const newXScale = transform.rescaleX(xScale);
-        textH.textContent = data
-      
-        gX.transition().duration(200).call(xAxis.scale(newXScale));  // Smooth transition for axis
+        // Append the axis
+        const gX = svg.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .call(xAxis);
+
+        // Add event markers (as circles)
         svg.selectAll("circle")
-            .attr("cx", d => newXScale(d.date))
-            .attr("r", d => 10 / transform.k)  // Resize circles based on zoom level
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xScale(d.date))
+            .attr("cy", height / 2)
+            .attr("r", 20)
             .style("fill", "steelblue");
-    });
 
-// Apply zoom to the SVG container
-svg.call(zoom);
+        // Tooltip for displaying event details
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
-// Add event markers (as circles) with animation and hover effect
-svg.selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", d => xScale(d.date))
-    .attr("cy", height / 2)
-    .attr("r", 10)
-    .style("fill", "steelblue")
-    .style("opacity", 0)
-    .transition()
-    .duration(800)
-    .style("opacity", 1)
-    .delay((d, i) => i * 200);
+        svg.selectAll("circle")
+            .on("mouseover", function (event, d) {
+                d3.select(this).style("fill", "green").attr("r", 50);
+                tooltip.transition().duration(200).style("opacity", 0.9);
+                tooltip.html(d.event + "<br/>" + d.date.toDateString())
+                    .style("left", (event.pageX + 5) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function () {
+                d3.select(this).transition().duration(200)
+                    .style("fill", "steelblue")
+                    .attr("r", 20);
+                tooltip.transition().duration(500).style("opacity", 0);
+            });
+    }
 
-// Tooltip for displaying event details with smooth transitions
-const tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
-svg.selectAll("circle")
-    .on("mouseover", function (event, d) {
-        d3.select(this).style("fill", "#ff5722").attr("r", 15);
-        tooltip.transition().duration(200).style("opacity", 0.9);
-        tooltip.html(d.event + "<br/>" + d.date.toDateString())
-            .style("left", (event.pageX + 5) + "px")
-            .style("top", (event.pageY - 28) + "px");
-    })
-    .on("mouseout", function () {
-        d3.select(this).transition().duration(200)
-            .style("fill", "steelblue")
-            .attr("r", 10);
-        tooltip.transition().duration(500).style("opacity", 0);
-    });
-
-    </script>
+    // Call the resize function
+    resize();
+    
+    // Listen for window resize events and adjust the timeline
+    window.addEventListener('resize', resize);
+</script>
 {% endblock %}
